@@ -25,9 +25,11 @@ import sys
 
 try:
     # Python 2
+    # noinspection PyUnresolvedReferences
     from urllib2 import urlopen
 except ImportError:
     # Python 3
+    # noinspection PyUnresolvedReferences
     from urllib.request import urlopen
 
 import config
@@ -46,7 +48,7 @@ def _mount_usr_local():
         subprocess.check_call(['hdiutil', 'create', '-size', '2g', '-type', 'SPARSE',
                                '-fs', 'HFS+', '-volname', basename, filename])
 
-    hdi_info = subprocess.check_output(['hdiutil', 'info',])
+    hdi_info = subprocess.check_output(['hdiutil', 'info'])
 
     if -1 == hdi_info.find(filename):
         subprocess.check_call(['sudo', '-k', 'hdiutil', 'attach', '-mountpoint', '/usr/local', filename])
@@ -141,6 +143,8 @@ def _main():
     if len(sys.argv) < 2:
         print('Usage: bym.py [target ...]')
         sys.exit(1)
+
+    hacking.main()
 
     to_build = []
 
