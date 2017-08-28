@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-#    Build Me: Yet another build environment for macOS
+#    Build Your Mac: Hackable build environment for macOS
 #    Copyright (C) 2017 Alexey Lysiuk
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -31,11 +31,7 @@ except ImportError:
     from urllib.request import urlopen
 
 import config
-
-try:
-    import customize
-except ImportError:
-    pass
+import hacking
 
 
 def _dict_value(dictionary, key, default):
@@ -143,7 +139,7 @@ def _build(name):
 
 def _main():
     if len(sys.argv) < 2:
-        print('Usage: buildme.py [target ...]')
+        print('Usage: bym.py [target ...]')
         sys.exit(1)
 
     to_build = []
