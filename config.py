@@ -16,30 +16,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-_DEFAULT_COMPILER_FLAGS = '-I/usr/local/include'
-_DEFAULT_LINKER_FLAGS = '-L/usr/local/lib'
+import os
+
+_SELF_PATH = os.path.dirname(os.path.abspath(__file__))
+
+BUILD_PATH = _SELF_PATH + os.sep + 'build'
+INSTALL_PATH = _SELF_PATH + os.sep + 'install'
 
 ENVIRON = {
-    'CPPFLAGS': _DEFAULT_COMPILER_FLAGS,
-    'CFLAGS': _DEFAULT_COMPILER_FLAGS,
-    'CXXFLAGS': _DEFAULT_COMPILER_FLAGS,
-    'OBJCFLAGS': _DEFAULT_COMPILER_FLAGS,
-    'OBJCXXFLAGS': _DEFAULT_COMPILER_FLAGS,
-    'LDFLAGS': _DEFAULT_LINKER_FLAGS
+    'CPPFLAGS': '',
+    'CFLAGS': '',
+    'CXXFLAGS': '',
+    'OBJCFLAGS': '',
+    'OBJCXXFLAGS': '',
+    'LDFLAGS': '',
+    'PATH': '',
 }
-
-
-def _cmake():
-    import subprocess
-
-    try:
-        subprocess.call('cmake')
-        return 'cmake'
-    except OSError:
-        pass
-
-    return '/Applications/CMake.app/Contents/bin/cmake'
-
 
 # TODO: name aliases: 'libogg' -> 'ogg'
 # TODO: ./configure --disable-dependency-tracking
@@ -99,7 +91,7 @@ TARGETS = {
         'dep': ('pkg-config', 'glib', 'sndfile'),
         'cmd': (
             (
-                _cmake(), '-DCMAKE_BUILD_TYPE=Release', '-DBUILD_SHARED_LIBS=NO', '-DLIB_SUFFIX=',
+                'cmake', '-DCMAKE_BUILD_TYPE=Release', '-DBUILD_SHARED_LIBS=NO', '-DLIB_SUFFIX=',
                 '-Denable-framework=NO', '-Denable-readline=NO', '.'
             ),
             ('make', 'install')
@@ -160,7 +152,7 @@ TARGETS = {
         'url': 'http://kcat.strangesoft.net/openal-releases/openal-soft-1.18.1.tar.bz2',
         'chk': '2d51a6529526ef22484f51567e31a5c346a599767991a3dc9d4dcd9d9cec71dd',
         'cmd': (
-            (_cmake(), '-DLIBTYPE=STATIC', '-DCMAKE_BUILD_TYPE=Release', '-DALSOFT_EMBED_HRTF_DATA=YES', '.'),
+            ('cmake', '-DLIBTYPE=STATIC', '-DCMAKE_BUILD_TYPE=Release', '-DALSOFT_EMBED_HRTF_DATA=YES', '.'),
             ('make', 'install')
         )
     },

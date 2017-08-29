@@ -40,40 +40,30 @@ def _dict_value(dictionary, key, default):
     return key in dictionary and dictionary[key] or default
 
 
-def _mount_usr_local():
-    basename = 'usr.local'
-    filename = basename + '.sparseimage'
-
-    if not os.path.exists(filename):
-        subprocess.check_call(['hdiutil', 'create', '-size', '2g', '-type', 'SPARSE',
-                               '-fs', 'HFS+', '-volname', basename, filename])
-
-    hdi_info = subprocess.check_output(['hdiutil', 'info'])
-
-    if -1 == hdi_info.find(filename):
-        subprocess.check_call(['sudo', '-k', 'hdiutil', 'attach', '-mountpoint', '/usr/local', filename])
-
-
 def _download(url, filename):
     response = urlopen(url)
     checksum = hashlib.sha256()
     step = 4096
     total = 0
 
-    with open(filename, 'wb') as f:
-        while True:
-            data = response.read(step)
-            total += step
+    try:
+        with open(filename, 'wb') as f:
+            while True:
+                data = response.read(step)
+                total += step
 
-            if not data:
-                sys.stdout.write('\n')
-                return checksum.hexdigest()
+                if not data:
+                    sys.stdout.write('\n')
+                    return checksum.hexdigest()
 
-            f.write(data)
-            checksum.update(data)
+                f.write(data)
+                checksum.update(data)
 
-            sys.stdout.write('\rDownloading %s: %i bytes' % (filename, total))
-            sys.stdout.flush()
+                sys.stdout.write('\rDownloading %s: %i bytes' % (filename, total))
+                sys.stdout.flush()
+    except IOError:
+        os.unlink(filename)
+        raise
 
 
 def _extract(filename):
@@ -113,6 +103,26 @@ def _merge_environ(dst, src):
             dst[e] = src[e]
 
 
+def _prefix_environ(environ):
+    compile_flag = ' -I' + config.INSTALL_PATH + '/include'
+    environ['CPPFLAGS'] += compile_flag
+    environ['CFLAGS'] += compile_flag
+    environ['CXXFLAGS'] += compile_flag
+    environ['OBJCFLAGS'] += compile_flag
+    environ['OBJCXXFLAGS'] += compile_flag
+    environ['LDFLAGS'] += ' -L' + config.INSTALL_PATH + '/lib'
+    environ['PATH'] = config.INSTALL_PATH + '/bin:' + environ['PATH']
+
+
+def _prefix_command(command):
+    if command[0].endswith('configure'):
+        return command + ('--prefix=' + config.INSTALL_PATH, )
+    elif command[0].endswith('cmake'):
+        return command + ('-DCMAKE_INSTALL_PREFIX=' + config.INSTALL_PATH, )
+    else:
+        return command
+
+
 def _build(name):
     target = config.TARGETS[name]
     url = target['url']
@@ -134,8 +144,10 @@ def _build(name):
     environ = os.environ.copy()
     _merge_environ(environ, config.ENVIRON)
     _merge_environ(environ, _dict_value(target, 'env', {}))
+    _prefix_environ(environ)
 
     for command in target['cmd']:
+        command = _prefix_command(command)
         subprocess.check_call(command, cwd=work_dir, env=environ)
 
 
@@ -162,10 +174,10 @@ def _main():
     for name in sys.argv[1:]:
         add_deps(name)
 
-    self_path = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(self_path)
+    if not os.path.exists(config.BUILD_PATH):
+        os.mkdir(config.BUILD_PATH)
 
-    _mount_usr_local()
+    os.chdir(config.BUILD_PATH)
 
     for name in to_build:
         _build(name)

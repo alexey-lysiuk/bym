@@ -16,23 +16,60 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# from config import *
-#
-# _CUSTOM_FLAGS = ' -mmacosx-version-min=10.7 -isysroot /Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.7.sdk'
-#
-# ENVIRON['CPPFLAGS'] += _CUSTOM_FLAGS
-# ENVIRON['CPPFLAGS'] += _CUSTOM_FLAGS
-# ENVIRON['CFLAGS'] += _CUSTOM_FLAGS
-# ENVIRON['CXXFLAGS'] += _CUSTOM_FLAGS
-# ENVIRON['OBJCFLAGS'] += _CUSTOM_FLAGS
-# ENVIRON['OBJCXXFLAGS'] += _CUSTOM_FLAGS
-# ENVIRON['LDFLAGS'] += _CUSTOM_FLAGS
-#
-# # The last version of GLib that supports Mac OS X 10.7 Lion is 2.44.1
-# glib = TARGETS['glib']
-# glib['url'] = 'https://download.gnome.org/sources/glib/2.44/glib-2.44.1.tar.xz'
-# glib['chk'] = '8811deacaf8a503d0a9b701777ea079ca6a4277be10e3d730d2112735d5eca07'
+import os
+import subprocess
+
+import config
+
+
+# TODO: comment require sudo etc
+_USR_LOCAL_DISK_IMAGE = False
+
+# TODO: comment
+_EXTRA_FLAGS = ''
+# _EXTRA_FLAGS = ' -mmacosx-version-min=10.7 -isysroot /Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.7.sdk'
+
+# TODO: comment
+_EXTRA_PATH = ''
+# _EXTRA_PATH = ':/Applications/CMake.app/Contents/bin'
+
+
+def _mount_usr_local():
+    basename = 'usr.local'
+    filename = basename + '.sparseimage'
+
+    if not os.path.exists(filename):
+        subprocess.check_call(['hdiutil', 'create', '-size', '2g', '-type', 'SPARSE',
+                               '-fs', 'HFS+', '-volname', basename, filename])
+
+    hdi_info = subprocess.check_output(['hdiutil', 'info'])
+
+    if -1 == hdi_info.find(filename):
+        subprocess.check_call(['sudo', '-k', 'hdiutil', 'attach', '-mountpoint', '/usr/local', filename])
 
 
 def main():
     pass
+
+    if _USR_LOCAL_DISK_IMAGE:
+        _mount_usr_local()
+
+    env = config.ENVIRON
+
+    if len(_EXTRA_FLAGS) > 0:
+        env['CPPFLAGS'] += _EXTRA_FLAGS
+        env['CPPFLAGS'] += _EXTRA_FLAGS
+        env['CFLAGS'] += _EXTRA_FLAGS
+        env['CXXFLAGS'] += _EXTRA_FLAGS
+        env['OBJCFLAGS'] += _EXTRA_FLAGS
+        env['OBJCXXFLAGS'] += _EXTRA_FLAGS
+        env['LDFLAGS'] += _EXTRA_FLAGS
+
+    if len(_EXTRA_PATH) > 0:
+        env['PATH'] += _EXTRA_PATH
+
+    # Other specific hacks
+    # # The last version of GLib that supports Mac OS X 10.7 Lion is 2.44.1
+    # glib = config.TARGETS['glib']
+    # glib['url'] = 'https://download.gnome.org/sources/glib/2.44/glib-2.44.1.tar.xz'
+    # glib['chk'] = '8811deacaf8a503d0a9b701777ea079ca6a4277be10e3d730d2112735d5eca07'
