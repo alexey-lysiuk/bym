@@ -20,6 +20,7 @@
 
 import hashlib
 import os
+import shutil
 import subprocess
 import sys
 
@@ -66,8 +67,12 @@ def _download(url, filename):
         raise
 
 
-def _extract(filename):
-    subprocess.check_call(['tar', '-xf', filename])
+def _extract(filename, work_dir):
+    try:
+        subprocess.check_call(['tar', '-xf', filename])
+    except:
+        shutil.rmtree(work_dir, ignore_errors=True)
+        raise
 
 
 _GUESS_FILENAMES = (
@@ -139,7 +144,7 @@ def _build(name):
     work_dir = _guess_work_dir(filename)
 
     if not os.path.exists(work_dir):
-        _extract(filename)
+        _extract(filename, work_dir)
 
     environ = os.environ.copy()
     _merge_environ(environ, config.ENVIRON)
