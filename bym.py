@@ -180,7 +180,7 @@ def _main():
         add_deps(name)
 
     if not os.path.exists(config.BUILD_PATH):
-        os.mkdir(config.BUILD_PATH)
+        os.makedirs(config.BUILD_PATH)
 
     os.chdir(config.BUILD_PATH)
 
