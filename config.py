@@ -83,7 +83,7 @@ TARGETS = {
     'fluidsynth': {
         'url': 'https://downloads.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz',
         'chk': '50853391d9ebeda9b4db787efb23f98b1e26b7296dd2bb5d0d96b5bccee2171c',
-        'dep': ('pkg-config', 'glib', 'sndfile'),
+        'dep': ('pkg-config', 'cmake', 'glib', 'sndfile'),
         'cmd': (
             (
                 'cmake', '-DCMAKE_BUILD_TYPE=Release', '-DBUILD_SHARED_LIBS=NO', '-DLIB_SUFFIX=',
@@ -131,6 +131,7 @@ TARGETS = {
     'openal': {
         'url': 'http://kcat.strangesoft.net/openal-releases/openal-soft-1.18.1.tar.bz2',
         'chk': '2d51a6529526ef22484f51567e31a5c346a599767991a3dc9d4dcd9d9cec71dd',
+        'dep': ('cmake', ),
         'cmd': (
             ('cmake', '-DLIBTYPE=STATIC', '-DCMAKE_BUILD_TYPE=Release', '-DALSOFT_EMBED_HRTF_DATA=YES', '.'),
             _INSTALL
