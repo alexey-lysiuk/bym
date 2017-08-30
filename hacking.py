@@ -22,37 +22,41 @@ import subprocess
 import config
 
 
-# TODO: comment require sudo etc
+# Mount disk image to /usr/local and use it as install directory a.k.a. prefix
 _USR_LOCAL_DISK_IMAGE = False
 
-# TODO: comment
+# String appended to all ...FLAGS environment variables
 _EXTRA_FLAGS = ''
 # _EXTRA_FLAGS = ' -mmacosx-version-min=10.7 -isysroot /Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.7.sdk'
 
-# TODO: comment
+# String prepended to PATH environment variable
 _EXTRA_PATH = ''
-# _EXTRA_PATH = ':/Applications/CMake.app/Contents/bin'
+# _EXTRA_PATH = '/Applications/CMake.app/Contents/bin:'
 
 
 def _mount_usr_local():
     basename = 'usr.local'
     filename = basename + '.sparseimage'
+    filepath = config.BUILD_PATH + os.sep + filename
+
+    if not os.path.exists(config.BUILD_PATH):
+        os.makedirs(config.BUILD_PATH)
 
     if not os.path.exists(filename):
         subprocess.check_call(['hdiutil', 'create', '-size', '2g', '-type', 'SPARSE',
-                               '-fs', 'HFS+', '-volname', basename, filename])
+                               '-fs', 'HFS+', '-volname', basename, filepath])
 
     hdi_info = subprocess.check_output(['hdiutil', 'info'])
 
     if -1 == hdi_info.find(filename):
-        subprocess.check_call(['sudo', '-k', 'hdiutil', 'attach', '-mountpoint', '/usr/local', filename])
+        subprocess.check_call(['sudo', '-k', 'hdiutil', 'attach', '-mountpoint', '/usr/local', filepath])
 
 
 def main():
-    pass
-
     if _USR_LOCAL_DISK_IMAGE:
         _mount_usr_local()
+
+        config.INSTALL_PATH = '/usr/local'
 
     env = config.ENVIRON
 
@@ -66,7 +70,7 @@ def main():
         env['LDFLAGS'] += _EXTRA_FLAGS
 
     if len(_EXTRA_PATH) > 0:
-        env['PATH'] += _EXTRA_PATH
+        env['PATH'] = _EXTRA_PATH + env['PATH']
 
     # Other specific hacks
     # # The last version of GLib that supports Mac OS X 10.7 Lion is 2.44.1
