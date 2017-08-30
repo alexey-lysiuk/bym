@@ -61,6 +61,12 @@ TARGETS = {
         'cmd': (_CONFIGURE, _INSTALL)
     },
 
+    'cmake': {
+        'url': 'https://cmake.org/files/v3.9/cmake-3.9.1.tar.gz',
+        'chk': 'd768ee83d217f91bb597b3ca2ac663da7a8603c97e1f1a5184bc01e0ad2b12bb',
+        'cmd': (_CONFIGURE, _INSTALL)
+    },
+
     'ffi': {
         'url': 'https://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz',
         'chk': 'd06ebb8e1d9a22d19e38d63fdb83954253f39bedc5d46232a05645685722ca37',
