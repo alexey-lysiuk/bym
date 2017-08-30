@@ -18,6 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import cPickle
 import hashlib
 import os
 import shutil
@@ -119,13 +120,49 @@ def _prefix_environ(environ):
     environ['PATH'] = config.INSTALL_PATH + '/bin:' + environ['PATH']
 
 
+def _is_configure(command):
+    return command[0].endswith('configure')
+
+
+def _is_cmake(command):
+    return command[0].endswith('cmake')
+
+
 def _prefix_command(command):
-    if command[0].endswith('configure'):
+    if _is_configure(command):
         return command + ('--prefix=' + config.INSTALL_PATH, )
-    elif command[0].endswith('cmake'):
+    elif _is_cmake(command):
         return command + ('-DCMAKE_INSTALL_PREFIX=' + config.INSTALL_PATH, )
     else:
         return command
+
+
+def _settings_filepath(work_dir):
+    return work_dir + os.sep + '~bym_cached_settings.txt'
+
+
+def _make_settings(target, environ):
+    stripped_environ = {}
+
+    # Store important environment variables only
+    for var in environ:
+        if var in config.ENVIRON:
+            stripped_environ[var] = environ[var]
+
+    return {
+        'ver': 1,
+        'chk': target['chk'],
+        'cmd': target['cmd'],
+        'env': stripped_environ,
+    }
+
+
+def _read_settings(work_dir):
+    try:
+        with open(_settings_filepath(work_dir), 'rb') as f:
+            return cPickle.load(f)
+    except IOError, cPickle.UnpicklingError:
+        return {}
 
 
 def _build(name):
@@ -151,9 +188,21 @@ def _build(name):
     _merge_environ(environ, _dict_value(target, 'env', {}))
     _prefix_environ(environ)
 
+    current_settings = _make_settings(target, environ)
+    previous_setting = _read_settings(work_dir)
+    up_to_date = current_settings == previous_setting
+
     for command in target['cmd']:
+        # avoid overhead of running configure without changes
+        # in source code, build commands and environment
+        if up_to_date and _is_configure(command):
+            continue
+
         command = _prefix_command(command)
         subprocess.check_call(command, cwd=work_dir, env=environ)
+
+    with open(_settings_filepath(work_dir), 'wb') as f:
+        cPickle.dump(current_settings, f)
 
 
 def _main():
