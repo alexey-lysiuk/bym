@@ -36,6 +36,9 @@ _EXTRA_PATH = ''
 # Number of concurrent make jobs
 _CONCURRENT_MAKE_JOBS = 2
 
+# Use CMake already installed in the system (must be available in $PATH)
+_PREINSTALLED_CMAKE = True
+
 
 def _mount_usr_local():
     basename = 'usr.local'
@@ -72,6 +75,16 @@ def _concurrent_make(count):
         target['cmd'] = updated_commands
 
 
+def _preinstalled_cmake():
+    for name in config.TARGETS:
+        target = config.TARGETS[name]
+
+        if 'dep' not in target:
+            continue
+
+        target['dep'] = [dep for dep in target['dep'] if 'cmake' != dep]
+
+
 def main():
     if _USR_LOCAL_DISK_IMAGE:
         _mount_usr_local()
@@ -94,6 +107,9 @@ def main():
 
     if _CONCURRENT_MAKE_JOBS > 1:
         _concurrent_make(_CONCURRENT_MAKE_JOBS)
+
+    if _PREINSTALLED_CMAKE:
+        _preinstalled_cmake()
 
     # Other specific hacks
     # # The last version of GLib that supports Mac OS X 10.7 Lion is 2.44.1
