@@ -33,6 +33,9 @@ _EXTRA_FLAGS = ''
 _EXTRA_PATH = ''
 # _EXTRA_PATH = '/Applications/CMake.app/Contents/bin:'
 
+# Number of concurrent make jobs
+_CONCURRENT_MAKE_JOBS = 2
+
 
 def _mount_usr_local():
     basename = 'usr.local'
@@ -50,6 +53,23 @@ def _mount_usr_local():
 
     if -1 == hdi_info.find(filename):
         subprocess.check_call(['sudo', '-k', 'hdiutil', 'attach', '-mountpoint', '/usr/local', filepath])
+
+
+def _concurrent_make(count):
+    jobs_arg = '-j' + str(count)
+
+    for name in config.TARGETS:
+        target = config.TARGETS[name]
+        updated_commands = []
+
+        for command in target['cmd']:
+            if command[0] == 'make':
+                updated = ('make', jobs_arg) + command[1:]
+                updated_commands.append(updated)
+            else:
+                updated_commands.append(command)
+
+        target['cmd'] = updated_commands
 
 
 def main():
@@ -71,6 +91,9 @@ def main():
 
     if len(_EXTRA_PATH) > 0:
         env['PATH'] = _EXTRA_PATH + env['PATH']
+
+    if _CONCURRENT_MAKE_JOBS > 1:
+        _concurrent_make(_CONCURRENT_MAKE_JOBS)
 
     # Other specific hacks
     # # The last version of GLib that supports Mac OS X 10.7 Lion is 2.44.1
