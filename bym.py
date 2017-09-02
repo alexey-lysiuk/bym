@@ -68,6 +68,19 @@ def _download(url, filename):
         raise
 
 
+def _calculate_checksum(filename):
+    checksum = hashlib.sha256()
+
+    with open(filename, 'rb') as f:
+        data = True
+
+        while data:
+            data = f.read(4096)
+            checksum.update(data)
+
+    return checksum.hexdigest()
+
+
 def _extract(filename, work_dir):
     try:
         subprocess.check_call(['tar', '-xf', filename])
@@ -139,12 +152,14 @@ def _build(target):
     url = package['url']
     filename = url.rsplit('/', 1)[1]
 
-    if not os.path.exists(filename):
+    if os.path.exists(filename):
+        checksum = _calculate_checksum(filename)
+    else:
         checksum = _download(url, filename)
 
-        if checksum != package['chk']:
-            os.unlink(filename)
-            raise Exception("Checksum for %s doesn't match!" % filename)
+    if checksum != package['chk']:
+        os.unlink(filename)
+        raise Exception("Checksum for %s doesn't match!" % filename)
 
     work_dir = _guess_work_dir(filename)
 
