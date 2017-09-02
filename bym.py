@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-#    Build Your Mac: Hackable build environment for macOS
+#    Build Your Mac: Configurable build environment for macOS
 #    Copyright (C) 2017 Alexey Lysiuk
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -34,8 +34,8 @@ except ImportError:
     # noinspection PyUnresolvedReferences
     from urllib.request import urlopen
 
-import config
-import hacking
+import configuration
+import repository
 
 
 def _dict_value(dictionary, key, default):
@@ -76,7 +76,7 @@ def _extract(filename, work_dir):
         raise
 
 
-_GUESS_FILENAMES = (
+_guess_filenames = (
     'configure',
     'Makefile',
     'autogen.sh',
@@ -93,7 +93,7 @@ def _guess_work_dir(filename):
         parts = name.split('/')
         parts_count = len(parts)
 
-        if parts[-1] in _GUESS_FILENAMES:
+        if parts[-1] in _guess_filenames:
             if parts_count < shortest:
                 result = '/'.join(parts[:-1])
                 shortest = parts_count
@@ -101,59 +101,23 @@ def _guess_work_dir(filename):
     return result
 
 
-def _merge_environ(dst, src):
-    for e in src:
-        if e in dst:
-            dst[e] += ' ' + src[e]
-        else:
-            dst[e] = src[e]
-
-
-def _prefix_environ(environ):
-    compile_flag = ' -I' + config.INSTALL_PATH + '/include'
-    environ['CPPFLAGS'] += compile_flag
-    environ['CFLAGS'] += compile_flag
-    environ['CXXFLAGS'] += compile_flag
-    environ['OBJCFLAGS'] += compile_flag
-    environ['OBJCXXFLAGS'] += compile_flag
-    environ['LDFLAGS'] += ' -L' + config.INSTALL_PATH + '/lib'
-    environ['PATH'] = config.INSTALL_PATH + '/bin:' + environ['PATH']
-
-
-def _is_configure(command):
-    return command[0].endswith('configure')
-
-
-def _is_cmake(command):
-    return command[0].endswith('cmake')
-
-
-def _prefix_command(command):
-    if _is_configure(command):
-        return command + ('--prefix=' + config.INSTALL_PATH, )
-    elif _is_cmake(command):
-        return command + ('-DCMAKE_INSTALL_PREFIX=' + config.INSTALL_PATH, )
-    else:
-        return command
-
-
 def _settings_filepath(work_dir):
     return work_dir + os.sep + '~bym_cached_settings.txt'
 
 
-def _make_settings(target, environ):
-    stripped_environ = {}
+def _make_settings(package, environment):
+    stripped_environment = {}
 
     # Store important environment variables only
-    for var in environ:
-        if var in config.ENVIRON:
-            stripped_environ[var] = environ[var]
+    for var in environment:
+        if var in configuration.environment_variables:
+            stripped_environment[var] = environment[var]
 
     return {
         'ver': 1,
-        'chk': target['chk'],
-        'cmd': target['cmd'],
-        'env': stripped_environ,
+        'chk': package['chk'],
+        'cmd': package['cmd'],
+        'env': stripped_environment,
     }
 
 
@@ -165,16 +129,20 @@ def _read_settings(work_dir):
         return {}
 
 
-def _build(name):
-    target = config.TARGETS[name]
-    url = target['url']
-    splitted = url.rsplit('/', 1)
-    filename = splitted[1]
+def _build(target):
+    print('-' * 80)
+    print('- Processing package: %s' % target)
+    print('-' * 80)
+
+    package = repository.packages[target]
+
+    url = package['url']
+    filename = url.rsplit('/', 1)[1]
 
     if not os.path.exists(filename):
         checksum = _download(url, filename)
 
-        if checksum != target['chk']:
+        if checksum != package['chk']:
             os.unlink(filename)
             raise Exception("Checksum for %s doesn't match!" % filename)
 
@@ -183,58 +151,54 @@ def _build(name):
     if not os.path.exists(work_dir):
         _extract(filename, work_dir)
 
-    environ = os.environ.copy()
-    _merge_environ(environ, config.ENVIRON)
-    _merge_environ(environ, _dict_value(target, 'env', {}))
-    _prefix_environ(environ)
-
-    current_settings = _make_settings(target, environ)
+    current_settings = _make_settings(package, configuration.environment)
     previous_setting = _read_settings(work_dir)
     up_to_date = current_settings == previous_setting
 
-    for command in target['cmd']:
+    for command in package['cmd']:
         # avoid overhead of running configure without changes
         # in source code, build commands and environment
-        if up_to_date and _is_configure(command):
+        if up_to_date and command[0].endswith('configure'):
             continue
 
-        command = _prefix_command(command)
-        subprocess.check_call(command, cwd=work_dir, env=environ)
+        subprocess.check_call(command, cwd=work_dir, env=configuration.environment)
 
     with open(_settings_filepath(work_dir), 'wb') as f:
         cPickle.dump(current_settings, f)
 
 
+def _make_directory(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+
+def _add_dependencies(target, packages):
+    if target in packages:
+        return
+
+    dependencies = _dict_value(repository.packages[target], 'dep', ())
+
+    for dependency in dependencies:
+        _add_dependencies(dependency, packages)
+
+    packages.append(target)
+
+
 def _main():
-    if len(sys.argv) < 2:
-        print('Usage: bym.py [target ...]')
-        sys.exit(1)
+    targets = []
 
-    hacking.main()
+    for target in configuration.targets:
+        _add_dependencies(target, targets)
 
-    to_build = []
+    _make_directory(configuration.build_path)
+    _make_directory(configuration.bin_path)
+    _make_directory(configuration.include_path)
+    _make_directory(configuration.lib_path)
 
-    def add_deps(root):
-        if root in to_build:
-            return
+    os.chdir(configuration.build_path)
 
-        deps = _dict_value(config.TARGETS[root], 'dep', ())
-
-        for dep in deps:
-            add_deps(dep)
-
-        to_build.append(root)
-
-    for name in sys.argv[1:]:
-        add_deps(name)
-
-    if not os.path.exists(config.BUILD_PATH):
-        os.makedirs(config.BUILD_PATH)
-
-    os.chdir(config.BUILD_PATH)
-
-    for name in to_build:
-        _build(name)
+    for target in targets:
+        _build(target)
 
 
 if __name__ == '__main__':
