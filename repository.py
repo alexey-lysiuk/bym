@@ -259,6 +259,16 @@ packages = {
         )
     },
 
+    'smpeg2': {
+        'url': 'https://www.libsdl.org/projects/smpeg/release/smpeg2-2.0.0.tar.gz',
+        'chk': '979a65b211744a44fa641a9b6e4d64e64a12ff703ae776bafe3c4c4cd85494b3',
+        'dep': ('sdl2',),
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'sndfile': {
         'url': 'http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz',
         'chk': '1ff33929f042fa333aed1e8923aa628c3ee9e1eb85512686c55092d1e5a9dfa9',
