@@ -1,0 +1,19 @@
+language: c++
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode8.3
+      env:
+        - OPTS="--make-args=-j2 --cmake-exe=/usr/local/bin/cmake fluidsynth mpg123"
+
+    - os: osx
+      osx_image: xcode8.3
+      env:
+        - OPTS="--make-args=-j2 openal timidity oggz vorbis-tools"
+
+script:
+  - ./bym.py ${OPTS}
+
+notifications:
+  email: false
