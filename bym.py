@@ -36,6 +36,7 @@ except ImportError:
 
 import configuration
 import repository
+import patch
 
 
 def _dict_value(dictionary, key, default):
@@ -165,6 +166,10 @@ def _build(target):
 
     if not os.path.exists(work_dir):
         _extract(filename, work_dir)
+
+        if target in repository.patches:
+            patch_set = patch.fromstring(repository.patches[target])
+            patch_set.apply(root=work_dir)
 
     current_settings = _make_settings(package, configuration.environment)
     previous_setting = _read_settings(work_dir)
