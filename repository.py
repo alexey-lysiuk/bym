@@ -166,6 +166,16 @@ packages = {
         )
     },
 
+    'oggz': {
+        'url': 'https://downloads.xiph.org/releases/liboggz/liboggz-1.1.1.tar.gz',
+        'chk': '6bafadb1e0a9ae4ac83304f38621a5621b8e8e32927889e65a98706d213d415a',
+        'dep': ('ogg',),
+        'cmd': (
+            _configure + ('--disable-dependency-tracking',),
+            _install
+        )
+    },
+
     'openal': {
         'url': 'http://kcat.strangesoft.net/openal-releases/openal-soft-1.18.1.tar.bz2',
         'chk': '2d51a6529526ef22484f51567e31a5c346a599767991a3dc9d4dcd9d9cec71dd',
