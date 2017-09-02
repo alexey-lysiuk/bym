@@ -141,6 +141,15 @@ packages = {
         )
     },
 
+    'libmikmod': {
+        'url': 'https://downloads.sourceforge.net/project/mikmod/libmikmod/3.3.11.1/libmikmod-3.3.11.1.tar.gz',
+        'chk': 'ad9d64dfc8f83684876419ea7cd4ff4a41d8bcd8c23ef37ecb3a200a16b46d19',
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'libtool': {
         'url': 'http://ftp-gnu-org.ip-connect.vn.ua/libtool/libtool-2.4.6.tar.xz',
         'chk': '7c87a8c2c8c0fc9cd5019e402bed4292462d00a718a7cd5f11218153bf28b26f',
