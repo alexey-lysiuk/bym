@@ -23,6 +23,8 @@ import configuration
 
 _cmake_dependency = () if os.path.exists(configuration.cmake_executable) else ('cmake',)
 
+_no_dep_track = ('--disable-dependency-tracking',)
+
 _configure = (
     './configure',
     '--prefix=' + configuration.install_path
@@ -31,8 +33,8 @@ _configure = (
 _configure_static = _configure + (
     '--enable-static',
     '--disable-shared',
-    '--disable-dependency-tracking'
 )
+_configure_static += _no_dep_track
 
 _cmake = (
     configuration.cmake_executable,
@@ -171,7 +173,7 @@ packages = {
         'chk': '6bafadb1e0a9ae4ac83304f38621a5621b8e8e32927889e65a98706d213d415a',
         'dep': ('ogg',),
         'cmd': (
-            _configure + ('--disable-dependency-tracking',),
+            _configure + _no_dep_track,
             _install
         )
     },
@@ -235,7 +237,7 @@ packages = {
         'chk': 'f97fb643f049e9c2e5ef5b034ea9eeb582f0175dce37bc5df843cc85090f6476',
         'dep': ('vorbis', 'flac', 'speex', 'ao'),
         'cmd': (
-            _configure + ('--enable-audio=darwin,vorbis,flac,speex,ao', '--disable-dependency-tracking'),
+            _configure + ('--enable-audio=darwin,vorbis,flac,speex,ao',) + _no_dep_track,
             _install
         )
     },
@@ -255,7 +257,7 @@ packages = {
         'chk': 'a389395baa43f8e5a796c99daf62397e435a7e73531c9f44d9084055a05d22bc',
         'dep': ('vorbis', 'flac', 'ao'),
         'cmd': (
-            _configure + ('--disable-dependency-tracking', '--disable-nls'),
+            _configure + _no_dep_track,
             _install
         )
     },
