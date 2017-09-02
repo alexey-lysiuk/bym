@@ -249,6 +249,16 @@ packages = {
         )
     },
 
+    'sdl2_net': {
+        'url': 'https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz',
+        'chk': '15ce8a7e5a23dafe8177c8df6e6c79b6749a03fff1e8196742d3571657609d21',
+        'dep': ('sdl2',),
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'sndfile': {
         'url': 'http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz',
         'chk': '1ff33929f042fa333aed1e8923aa628c3ee9e1eb85512686c55092d1e5a9dfa9',
