@@ -11,6 +11,11 @@ matrix:
       osx_image: xcode8.3
       env:
         - OPTS="--make-args=-j2 openal timidity oggz opusfile opus-tools vorbis-tools"
+        
+    - os: osx
+      osx_image: xcode8.3
+      env:
+        - OPTS="--make-args=-j2 --extra-flags=-mmacosx-version-min=10.7 sdl2_mixer sdl2_net"
 
 script:
   - ./bym.py ${OPTS}

@@ -267,6 +267,24 @@ packages = {
         )
     },
 
+    'sdl2_mixer': {
+        'url': 'https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.tar.gz',
+        'chk': '5a24f62a610249d744cbd8d28ee399d8905db7222bf3bdbc8a8b4a76e597695f',
+        'dep': ('sdl2', 'vorbis', 'flac', 'libmikmod', 'modplug', 'fluidsynth', 'smpeg2'),
+        'cmd': (
+            _configure_static + (
+                '--enable-music-mod-mikmod',
+                '--disable-music-ogg-shared',
+                '--disable-music-flac-shared',
+                '--disable-music-midi-fluidsynth-shared',
+                '--disable-music-mod-mikmod-shared',
+                '--disable-music-mod-modplug-shared',
+                '--disable-music-mp3-smpeg-shared'
+            ),
+            _install
+        )
+    },
+
     'sdl2_net': {
         'url': 'https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz',
         'chk': '15ce8a7e5a23dafe8177c8df6e6c79b6749a03fff1e8196742d3571657609d21',
