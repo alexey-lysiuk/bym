@@ -159,6 +159,15 @@ packages = {
         )
     },
 
+    'modplug': {
+        'url': 'https://downloads.sourceforge.net/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz',
+        'chk': '77462d12ee99476c8645cb5511363e3906b88b33a6b54362b4dbc0f39aa2daad',
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'mpg123': {
         'url': 'https://www.mpg123.de/download/mpg123-1.25.6.tar.bz2',
         'chk': '0f0458c9b87799bc2c9bf9455279cc4d305e245db43b51a39ef27afe025c5a8e',
