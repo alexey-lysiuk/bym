@@ -168,14 +168,12 @@ def _build(target):
 
     current_settings = _make_settings(package, configuration.environment)
     previous_setting = _read_settings(work_dir)
-    up_to_date = current_settings == previous_setting
+
+    if current_settings == previous_setting:
+        # package is up-to-date
+        return
 
     for command in package['cmd']:
-        # avoid overhead of running configure without changes
-        # in source code, build commands and environment
-        if up_to_date and command[0].endswith('configure'):
-            continue
-
         subprocess.check_call(command, cwd=work_dir, env=configuration.environment)
 
     with open(_settings_filepath(work_dir), 'wb') as f:
