@@ -240,6 +240,15 @@ packages = {
         )
     },
 
+    'sdl2': {
+        'url': 'https://libsdl.org/release/SDL2-2.0.5.tar.gz',
+        'chk': '442038cf55965969f2ff06d976031813de643af9c9edc9e331bd761c242e8785',
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'sndfile': {
         'url': 'http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz',
         'chk': '1ff33929f042fa333aed1e8923aa628c3ee9e1eb85512686c55092d1e5a9dfa9',
