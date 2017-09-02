@@ -193,6 +193,35 @@ packages = {
         )
     },
 
+    'opus': {
+        'url': 'https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz',
+        'chk': 'cfafd339ccd9c5ef8d6ab15d7e1a412c054bf4cb4ecbbbcc78c12ef2def70732',
+        'cmd': (
+            _configure + _no_dep_track,
+            _install
+        )
+    },
+
+    'opusfile': {
+        'url': 'https://archive.mozilla.org/pub/opus/opusfile-0.9.tar.gz',
+        'chk': 'f75fb500e40b122775ac1a71ad80c4477698842a8fe9da4a1b4a1a9f16e4e979',
+        'dep': ('pkg-config', 'opus', 'ogg'),
+        'cmd': (
+            _configure + ('--disable-http',) + _no_dep_track,
+            _install
+        )
+    },
+
+    'opus-tools': {
+       'url': 'https://archive.mozilla.org/pub/opus/opus-tools-0.1.10.tar.gz',
+       'chk': 'a2357532d19471b70666e0e0ec17d514246d8b3cb2eb168f68bb0f6fd372b28c',
+       'dep': ('pkg-config', 'opus', 'ogg', 'flac'),
+       'cmd': (
+           _configure + _no_dep_track,
+           _install
+       )
+    },
+
     'pcre': {
         'url': 'https://ftp.pcre.org/pub/pcre/pcre-8.41.tar.bz2',
         'chk': 'e62c7eac5ae7c0e7286db61ff82912e1c0b7a0c13706616e94a7dd729321b530',
