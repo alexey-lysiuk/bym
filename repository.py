@@ -248,7 +248,17 @@ packages = {
             _configure_static,
             _install
         )
-    }
+    },
+
+    'vorbis-tools': {
+        'url': 'https://downloads.xiph.org/releases/vorbis/vorbis-tools-1.4.0.tar.gz',
+        'chk': 'a389395baa43f8e5a796c99daf62397e435a7e73531c9f44d9084055a05d22bc',
+        'dep': ('vorbis', 'flac', 'ao'),
+        'cmd': (
+            _configure + ('--disable-dependency-tracking', '--disable-nls'),
+            _install
+        )
+    },
 }
 
 
