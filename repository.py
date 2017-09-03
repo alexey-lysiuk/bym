@@ -398,6 +398,15 @@ packages = {
             _install
         )
     },
+
+    'xz': {
+        'src': 'https://downloads.sourceforge.net/project/lzmautils/xz-5.2.3.tar.gz',
+        'chk': '71928b357d0a09a12a4b4c5fafca8c31c19b0e7d3b8ebb19622e96f26dbf28cb',
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
 }
 
 
