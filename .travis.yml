@@ -1,10 +1,12 @@
+language: c++
+
 os: osx
 osx_image: xcode8.3
 
 env:
-  - OPTS="--make-args=-j2 fluidsynth mpg123"
-  - OPTS="--make-args=-j2 openal timidity oggz opusfile opus-tools vorbis-tools"
-  - OPTS="--make-args=-j2 --extra-flags=-mmacosx-version-min=10.7 sdl2_mixer sdl2_net"
+  - OPTS="--make-args=-j2 mpg123 openal timidity oggz opusfile opus-tools vorbis-tools"
+  - OPTS="--make-args=-j2 sdl2_image sdl2_net"
+  - OPTS="--make-args=-j2 sdl2_mixer"
 
 script:
   - ./bym.py ${OPTS}
