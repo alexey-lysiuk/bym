@@ -309,6 +309,25 @@ packages = {
         )
     },
 
+    'sdl2_image': {
+        'src': 'https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.tar.gz',
+        'chk': '3a3eafbceea5125c04be585373bfd8b3a18f259bd7eae3efc4e6d8e60e0d7f64',
+        'dep': ('sdl2', 'jpeg', 'png', 'tiff', 'webp'),
+        'env': {
+            'LDFLAGS': '-framework AudioToolbox -framework Carbon -framework Cocoa '
+                       '-framework CoreAudio -framework CoreVideo -framework ForceFeedback -framework IOKit'
+        },
+        'cmd': (
+            _configure_static + (
+                '--disable-jpg-shared',
+                '--disable-png-shared',
+                '--disable-tif-shared',
+                '--disable-webp-shared',
+            ),
+            _install
+        )
+    },
+
     'sdl2_mixer': {
         'src': 'https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.tar.gz',
         'chk': '5a24f62a610249d744cbd8d28ee399d8905db7222bf3bdbc8a8b4a76e597695f',
