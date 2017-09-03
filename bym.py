@@ -203,7 +203,7 @@ def _add_dependencies(target, packages):
 
 
 def _main():
-    targets = []
+    targets = list(repository.prerequisites)
 
     for target in configuration.targets:
         _add_dependencies(target, targets)

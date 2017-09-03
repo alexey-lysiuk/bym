@@ -55,6 +55,13 @@ _install += configuration.make_arguments
 _install += ('install',)
 
 
+# Implicit dependencies built before requested package(s)
+
+prerequisites = (
+    'pkg-config',
+)
+
+
 # TODO: name aliases: 'libogg' -> 'ogg'
 
 packages = {
@@ -118,7 +125,7 @@ packages = {
     'fluidsynth': {
         'url': 'https://downloads.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz',
         'chk': '50853391d9ebeda9b4db787efb23f98b1e26b7296dd2bb5d0d96b5bccee2171c',
-        'dep': _cmake_dependency + ('pkg-config', 'glib', 'sndfile'),
+        'dep': _cmake_dependency + ('glib', 'sndfile'),
         'cmd': (
             _cmake + (
                 '-DCMAKE_BUILD_TYPE=Release', '-DBUILD_SHARED_LIBS=NO', '-DLIB_SUFFIX=',
@@ -231,7 +238,7 @@ packages = {
     'opusfile': {
         'url': 'https://archive.mozilla.org/pub/opus/opusfile-0.9.tar.gz',
         'chk': 'f75fb500e40b122775ac1a71ad80c4477698842a8fe9da4a1b4a1a9f16e4e979',
-        'dep': ('pkg-config', 'opus', 'ogg'),
+        'dep': ('opus', 'ogg'),
         'cmd': (
             _configure + ('--disable-http',) + _no_dep_track,
             _install
@@ -241,7 +248,7 @@ packages = {
     'opus-tools': {
        'url': 'https://archive.mozilla.org/pub/opus/opus-tools-0.1.10.tar.gz',
        'chk': 'a2357532d19471b70666e0e0ec17d514246d8b3cb2eb168f68bb0f6fd372b28c',
-       'dep': ('pkg-config', 'opus', 'ogg', 'flac'),
+       'dep': ('opus', 'ogg', 'flac'),
        'cmd': (
            _configure + _no_dep_track,
            _install
@@ -316,7 +323,7 @@ packages = {
     'sndfile': {
         'url': 'http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz',
         'chk': '1ff33929f042fa333aed1e8923aa628c3ee9e1eb85512686c55092d1e5a9dfa9',
-        'dep': ('pkg-config', 'ogg', 'vorbis', 'flac'),
+        'dep': ('ogg', 'vorbis', 'flac'),
         'cmd': (
             _configure_static,
             _install
