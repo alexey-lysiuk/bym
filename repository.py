@@ -368,6 +368,16 @@ packages = {
         )
     },
 
+    'tiff': {
+        'src': 'http://download.osgeo.org/libtiff/tiff-4.0.8.tar.gz',
+        'chk': '59d7a5a8ccd92059913f246877db95a2918e6c04fb9d43fd74e5c3390dac2910',
+        'dep': ('jpeg', 'xz'),
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'timidity': {
         'src': 'https://downloads.sourceforge.net/project/timidity/'
                'TiMidity++/TiMidity++-2.14.0/TiMidity++-2.14.0.tar.bz2',
