@@ -54,6 +54,9 @@ _install = (configuration.make_executable,)
 _install += configuration.make_arguments
 _install += ('install',)
 
+_sdl2_frameworks = '-framework AudioToolbox -framework Carbon -framework Cocoa ' \
+                   '-framework CoreAudio -framework CoreVideo -framework ForceFeedback -framework IOKit'
+
 
 # Implicit dependencies built before requested package(s)
 
@@ -314,8 +317,7 @@ packages = {
         'chk': '3a3eafbceea5125c04be585373bfd8b3a18f259bd7eae3efc4e6d8e60e0d7f64',
         'dep': ('sdl2', 'jpeg', 'png', 'tiff', 'webp'),
         'env': {
-            'LDFLAGS': '-framework AudioToolbox -framework Carbon -framework Cocoa '
-                       '-framework CoreAudio -framework CoreVideo -framework ForceFeedback -framework IOKit'
+            'LDFLAGS': _sdl2_frameworks
         },
         'cmd': (
             _configure_static + (
@@ -334,9 +336,7 @@ packages = {
         'dep': ('sdl2', 'vorbis', 'flac', 'libmikmod', 'modplug', 'fluidsynth', 'smpeg2'),
         'env': {
             'LDFLAGS': '-lstdc++ -liconv -logg -lvorbis -lvorbisenc -lFLAC -lsndfile -lintl -lglib-2.0 '
-                       '-framework AudioToolbox -framework Carbon -framework Cocoa '
-                       '-framework CoreAudio -framework CoreMIDI -framework CoreVideo '
-                       '-framework ForceFeedback -framework IOKit'
+                       '-framework CoreMIDI ' + _sdl2_frameworks
         },
         'cmd': (
             _configure_static + (
@@ -356,6 +356,9 @@ packages = {
         'src': 'https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz',
         'chk': '15ce8a7e5a23dafe8177c8df6e6c79b6749a03fff1e8196742d3571657609d21',
         'dep': ('sdl2',),
+        'env': {
+            'LDFLAGS': _sdl2_frameworks
+        },
         'cmd': (
             _configure_static,
             _install
