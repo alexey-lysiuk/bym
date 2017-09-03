@@ -150,7 +150,7 @@ def _build(target):
 
     package = repository.packages[target]
 
-    url = package['url']
+    url = package['src']
     filename = url.rsplit('/', 1)[1]
 
     if os.path.exists(filename):
