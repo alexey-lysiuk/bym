@@ -143,6 +143,16 @@ def _read_settings(work_dir):
         return {}
 
 
+def _merge_environment(merged, source):
+    for var in source:
+        assert 'PATH' != var
+
+        if var in merged:
+            merged[var] += ' ' + source[var]
+        else:
+            merged[var] = source[var]
+
+
 def _build(target):
     print('-' * 80)
     print('- Processing package: %s' % target)
@@ -171,7 +181,10 @@ def _build(target):
             patch_set = patch.fromstring(repository.patches[target])
             patch_set.apply(root=work_dir)
 
-    current_settings = _make_settings(package, configuration.environment)
+    environment = configuration.environment.copy()
+    _merge_environment(environment, _dict_value(package, 'env', {}))
+
+    current_settings = _make_settings(package, environment)
     previous_setting = _read_settings(work_dir)
 
     if current_settings == previous_setting:
@@ -179,7 +192,7 @@ def _build(target):
         return
 
     for command in package['cmd']:
-        subprocess.check_call(command, cwd=work_dir, env=configuration.environment)
+        subprocess.check_call(command, cwd=work_dir, env=environment)
 
     with open(_settings_filepath(work_dir), 'wb') as f:
         cPickle.dump(current_settings, f)
