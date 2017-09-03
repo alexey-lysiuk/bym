@@ -186,9 +186,9 @@ def _build(target):
 
     current_settings = _make_settings(package, environment)
     previous_setting = _read_settings(work_dir)
+    up_to_date = current_settings == previous_setting
 
-    if current_settings == previous_setting:
-        # package is up-to-date
+    if up_to_date and not configuration.force_build:
         return
 
     for command in package['cmd']:

@@ -47,6 +47,9 @@ _parser.add_argument('--cmake-args', default='',
 _parser.add_argument('--extra-flags', default='',
                      help='string appended to all ...FLAGS environment variables')
 
+_parser.add_argument('--force-build', action='store_true',
+                     help='Do all build steps even if package is up-to-date')
+
 _arguments = _parser.parse_args()
 
 
@@ -67,6 +70,8 @@ cmake_executable = _arguments.cmake_exe
 cmake_arguments = tuple(shlex.split(_arguments.cmake_args))
 
 extra_flags = _arguments.extra_flags
+
+force_build = _arguments.force_build
 
 
 # Setup environment variables
