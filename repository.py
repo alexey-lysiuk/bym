@@ -286,6 +286,12 @@ packages = {
         'src': 'https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.tar.gz',
         'chk': '5a24f62a610249d744cbd8d28ee399d8905db7222bf3bdbc8a8b4a76e597695f',
         'dep': ('sdl2', 'vorbis', 'flac', 'libmikmod', 'modplug', 'fluidsynth', 'smpeg2'),
+        'env': {
+            'LDFLAGS': '-lstdc++ -liconv -logg -lvorbis -lvorbisenc -lFLAC -lsndfile -lintl -lglib-2.0 '
+                       '-framework AudioToolbox -framework Carbon -framework Cocoa '
+                       '-framework CoreAudio -framework CoreMIDI -framework CoreVideo '
+                       '-framework ForceFeedback -framework IOKit'
+        },
         'cmd': (
             _configure_static + (
                 '--enable-music-mod-mikmod',
@@ -314,6 +320,10 @@ packages = {
         'src': 'https://www.libsdl.org/projects/smpeg/release/smpeg2-2.0.0.tar.gz',
         'chk': '979a65b211744a44fa641a9b6e4d64e64a12ff703ae776bafe3c4c4cd85494b3',
         'dep': ('sdl2',),
+        'env': {
+            'LDFLAGS': '-framework AudioToolbox -framework Carbon -framework Cocoa '
+                       '-framework CoreAudio -framework CoreVideo -framework ForceFeedback -framework IOKit'
+        },
         'cmd': (
             _configure_static,
             _install
