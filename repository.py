@@ -418,6 +418,19 @@ packages = {
         )
     },
 
+    'webp': {
+        'src': 'http://downloads.webmproject.org/releases/webp/libwebp-0.6.0.tar.gz',
+        'chk': 'c928119229d4f8f35e20113ffb61f281eda267634a8dc2285af4b0ee27cf2b40',
+        'dep': ('png', 'jpeg', 'tiff', 'gif'),
+        'env': {
+            'LDFLAGS': '-lz'
+        },
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'xz': {
         'src': 'https://downloads.sourceforge.net/project/lzmautils/xz-5.2.3.tar.gz',
         'chk': '71928b357d0a09a12a4b4c5fafca8c31c19b0e7d3b8ebb19622e96f26dbf28cb',
