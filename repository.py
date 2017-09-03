@@ -146,6 +146,15 @@ packages = {
         )
     },
 
+    'gif': {
+        'src': 'https://downloads.sourceforge.net/project/giflib/giflib-5.1.4.tar.bz2',
+        'chk': 'df27ec3ff24671f80b29e6ab1c4971059c14ac3db95406884fc26574631ba8d5',
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'glib': {
         'src': 'https://download.gnome.org/sources/glib/2.52/glib-2.52.3.tar.xz',
         'chk': '25ee7635a7c0fcd4ec91cbc3ae07c7f8f5ce621d8183511f414ded09e7e4e128',
