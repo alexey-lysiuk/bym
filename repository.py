@@ -156,6 +156,15 @@ packages = {
         )
     },
 
+    'jpeg': {
+        'src': 'http://www.ijg.org/files/jpegsrc.v9b.tar.gz',
+        'chk': '240fd398da741669bf3c90366f58452ea59041cacc741a489b99f2f6a0bad052',
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'libmikmod': {
         'src': 'https://downloads.sourceforge.net/project/mikmod/libmikmod/3.3.11.1/libmikmod-3.3.11.1.tar.gz',
         'chk': 'ad9d64dfc8f83684876419ea7cd4ff4a41d8bcd8c23ef37ecb3a200a16b46d19',
