@@ -1,21 +1,10 @@
-language: c++
+os: osx
+osx_image: xcode8.3
 
-matrix:
-  include:
-    - os: osx
-      osx_image: xcode8.3
-      env:
-        - OPTS="--make-args=-j2 --cmake-exe=/usr/local/bin/cmake fluidsynth mpg123"
-
-    - os: osx
-      osx_image: xcode8.3
-      env:
-        - OPTS="--make-args=-j2 openal timidity oggz opusfile opus-tools vorbis-tools"
-        
-    - os: osx
-      osx_image: xcode8.3
-      env:
-        - OPTS="--make-args=-j2 --extra-flags=-mmacosx-version-min=10.7 sdl2_mixer sdl2_net"
+env:
+  - OPTS="--make-args=-j2 fluidsynth mpg123"
+  - OPTS="--make-args=-j2 openal timidity oggz opusfile opus-tools vorbis-tools"
+  - OPTS="--make-args=-j2 --extra-flags=-mmacosx-version-min=10.7 sdl2_mixer sdl2_net"
 
 script:
   - ./bym.py ${OPTS}
