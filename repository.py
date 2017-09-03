@@ -273,6 +273,15 @@ packages = {
         )
     },
 
+    'png': {
+        'src': 'https://download.sourceforge.net/libpng/libpng-1.6.32.tar.xz',
+        'chk': 'c918c3113de74a692f0a1526ce881dc26067763eb3915c57ef3a0f7b6886f59b',
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'sdl2': {
         'src': 'https://libsdl.org/release/SDL2-2.0.5.tar.gz',
         'chk': '442038cf55965969f2ff06d976031813de643af9c9edc9e331bd761c242e8785',
