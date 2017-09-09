@@ -276,6 +276,16 @@ packages = {
        )
     },
 
+    'p7zip': {
+        'src': 'https://downloads.sourceforge.net/project/p7zip/p7zip/16.02/p7zip_16.02_src_all.tar.bz2',
+        'chk': '5eb20ac0e2944f6cb9c2d51dd6c4518941c185347d4089ea89087ffdd6e2341f',
+        'cmd': (
+            ('cp', 'makefile.macosx_llvm_64bits', 'makefile.machine'),
+            ('make', 'all3'),  # TODO: add support for extra flags
+            _install + ('DEST_HOME=' + configuration.install_path,)
+        )
+    },
+
     'pcre': {
         'src': 'https://ftp.pcre.org/pub/pcre/pcre-8.41.tar.bz2',
         'chk': 'e62c7eac5ae7c0e7286db61ff82912e1c0b7a0c13706616e94a7dd729321b530',
