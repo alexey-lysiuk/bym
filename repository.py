@@ -385,6 +385,19 @@ packages = {
         )
     },
 
+    'sdl2_ttf': {
+        'src': 'https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz',
+        'chk': '34db5e20bcf64e7071fe9ae25acaa7d72bdc4f11ab3ce59acc768ab62fe39276',
+        'dep': ('sdl2', 'freetype'),
+        'env': {
+            'LDFLAGS': _sdl2_frameworks
+        },
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'smpeg2': {
         'src': 'https://www.libsdl.org/projects/smpeg/release/smpeg2-2.0.0.tar.gz',
         'chk': '979a65b211744a44fa641a9b6e4d64e64a12ff703ae776bafe3c4c4cd85494b3',
