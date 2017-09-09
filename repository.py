@@ -462,30 +462,3 @@ packages = {
         )
     },
 }
-
-
-patches = {
-    # https://sourceforge.net/p/timidity/git/ci/6e189f6073e979ceccaf05c3bb5f495a1b9ed87e/tree/timidity/mfi.c?diff=7eaa3a5e7782cfa741e7f4642156ccd08218deb4
-    'timidity': '''
---- a/timidity/mfi.c
-+++ b/timidity/mfi.c
-@@ -344,7 +344,7 @@
- #define SEND_LASTNOTEINFO(lni, ch)				if (LASTNOTEINFO_HAS_DATA((lni)[ch])) SendLastNoteInfo(lni, ch);
- #define SEND_AND_CLEAR_LASTNOTEINFO(lni, ch)	if (LASTNOTEINFO_HAS_DATA((lni)[ch])) { SendLastNoteInfo(lni, ch); (lni)[ch].on = NO_LAST_NOTE_INFO; }
-
--inline void StoreLastNoteInfo(LastNoteInfo *info, int channel, int time, int duration, int note, int velocity)
-+static inline void StoreLastNoteInfo(LastNoteInfo *info, int channel, int time, int duration, int note, int velocity)
- {
- \tinfo[channel].on = time;
- \tinfo[channel].off = time + duration;
-@@ -352,7 +352,7 @@
- \tinfo[channel].velocity = velocity;
- }
-
--inline void SendLastNoteInfo(const LastNoteInfo *info, int channel)
-+static inline void SendLastNoteInfo(const LastNoteInfo *info, int channel)
- {
- \tNOTE_BUF_EV_DEBUGSTR(channel, info[channel].on, note_name[info[channel].note % 12], info[channel].note / 12, info[channel].velocity, info[channel].off);
- \tMIDIEVENT(info[channel].on, ME_NOTEON, channel, info[channel].note, info[channel].velocity);
-''',
-}
