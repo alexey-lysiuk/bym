@@ -177,8 +177,10 @@ def _build(target):
     if not os.path.exists(work_dir):
         _extract(filename, work_dir)
 
-        if target in repository.patches:
-            patch_set = patch.fromstring(repository.patches[target])
+        patch_path = configuration.patches_path + target + '.diff'
+
+        if os.path.exists(patch_path):
+            patch_set = patch.fromfile(patch_path)
             patch_set.apply(root=work_dir)
 
     environment = configuration.environment.copy()

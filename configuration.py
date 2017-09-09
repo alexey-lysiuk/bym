@@ -21,9 +21,11 @@ import os
 import shlex
 
 
-# Parse command line
-
 _self_path = os.path.dirname(os.path.abspath(__file__))
+
+patches_path = _self_path + os.sep + 'patches' + os.sep
+
+# Parse command line
 
 _parser = argparse.ArgumentParser(description='Build Your Mac: Configurable build environment for macOS')
 _parser.add_argument('packages', metavar='package', nargs='+',
