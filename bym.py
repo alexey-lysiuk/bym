@@ -93,6 +93,7 @@ def _extract(filename, work_dir):
 _guess_filenames = (
     'configure',
     'Makefile',
+    'makefile',
     'autogen.sh',
     'CMakeLists.txt'
 )
