@@ -140,6 +140,16 @@ packages = {
         )
     },
 
+    'freetype': {
+        'src': 'https://download.savannah.gnu.org/releases/freetype/freetype-2.8.tar.bz2',
+        'chk': 'a3c603ed84c3c2495f9c9331fe6bba3bb0ee65e06ec331e0a0fb52158291b40b',
+        'dep': ('png',),
+        'cmd': (
+            _configure_static + ('--without-harfbuzz',),
+            _install
+        )
+    },
+
     'gettext': {
         'src': 'https://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.8.1.tar.xz',
         'chk': '105556dbc5c3fbbc2aa0edb46d22d055748b6f5c7cd7a8d99f8e7eb84e938be4',
