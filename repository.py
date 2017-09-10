@@ -323,6 +323,18 @@ packages = {
         )
     },
 
+    'sdl': {
+        # The latest stable version 1.2.15 contains way too many bugs
+        'src': 'http://hg.libsdl.org/SDL/archive/2c67e7e5a106.tar.bz2',
+        'chk': 'fb48367773b1699fc84b71aafc3df066baff270adcadafd885ee0877d31bebaf',
+        'dep': ('autoconf',),
+        'cmd': (
+            './autogen.sh',
+            _configure_static + ('--without-x',),
+            _install
+        )
+    },
+
     'sdl2': {
         'src': 'https://libsdl.org/release/SDL2-2.0.5.tar.gz',
         'chk': '442038cf55965969f2ff06d976031813de643af9c9edc9e331bd761c242e8785',
