@@ -4,8 +4,7 @@ os: osx
 osx_image: xcode8.3
 
 env:
-  - OPTS="--make-args=-j2 mpg123 openal timidity oggz opusfile opus-tools vorbis-tools"
-  - OPTS="--make-args=-j2 sdl2_image sdl2_net"
+  - OPTS="--make-args=-j2 sdl2_image sdl2_net sdl2_ttf mpg123 openal timidity oggz opusfile opus-tools vorbis-tools"
   - OPTS="--make-args=-j2 sdl2_mixer"
 
 script:
