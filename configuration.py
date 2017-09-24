@@ -19,6 +19,7 @@
 import argparse
 import os
 import shlex
+import subprocess
 
 
 _self_path = os.path.dirname(os.path.abspath(__file__))
@@ -74,6 +75,36 @@ cmake_arguments = tuple(shlex.split(_arguments.cmake_args))
 extra_flags = _arguments.extra_flags
 
 force_build = _arguments.force_build
+
+
+# Detect CMake
+
+def _check_cmake(exe_path):
+    try:
+        subprocess.check_output([exe_path, '--version'])
+    except (OSError, subprocess.CalledProcessError):
+        return False
+
+    return True
+
+
+def have_cmake():
+    global cmake_executable
+
+    if _check_cmake(cmake_executable):
+        return True
+
+    if 'cmake' != cmake_executable:
+        # Do not proceed with CMake.app check if custom executable is specified
+        return False
+
+    cmake_app_exe = '/Applications/CMake.app/Contents/bin/cmake'
+
+    if _check_cmake(cmake_app_exe):
+        cmake_executable = cmake_app_exe
+        return True
+
+    return False
 
 
 # Setup environment variables

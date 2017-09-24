@@ -16,20 +16,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import subprocess
-
 import configuration
 
 
-def _have_cmake():
-    try:
-        subprocess.check_output([configuration.cmake_executable, '--version'])
-    except (OSError, subprocess.CalledProcessError):
-        return False
-
-    return True
-
-_cmake_dependency = () if _have_cmake() else ('cmake',)
+_cmake_dependency = () if configuration.have_cmake() else ('cmake',)
 
 _no_dep_track = ('--disable-dependency-tracking',)
 
