@@ -44,9 +44,6 @@ _install = (configuration.make_executable,)
 _install += configuration.make_arguments
 _install += ('install',)
 
-_sdl2_frameworks = '-framework AudioToolbox -framework Carbon -framework Cocoa ' \
-                   '-framework CoreAudio -framework CoreVideo -framework ForceFeedback -framework IOKit'
-
 
 # Implicit dependencies built before requested package(s)
 
@@ -122,9 +119,7 @@ packages = {
         'cmd': (
             _cmake + (
                 '-DCMAKE_BUILD_TYPE=Release', '-DBUILD_SHARED_LIBS=NO', '-DLIB_SUFFIX=',
-                '-Denable-framework=NO', '-Denable-readline=NO', '.',
-                '-DCMAKE_EXE_LINKER_FLAGS=-logg -lvorbis -lvorbisenc -lFLAC -L' + configuration.lib_path +
-                ' -framework AudioToolbox -framework AudioUnit -framework CoreAudio'
+                '-Denable-framework=NO', '-Denable-readline=NO', '.'
             ),
             _install
         )
@@ -338,9 +333,6 @@ packages = {
         'src': 'https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.tar.gz',
         'chk': '3a3eafbceea5125c04be585373bfd8b3a18f259bd7eae3efc4e6d8e60e0d7f64',
         'dep': ('sdl2', 'jpeg', 'png', 'tiff', 'webp'),
-        'env': {
-            'LDFLAGS': _sdl2_frameworks
-        },
         'cmd': (
             _configure_static + (
                 '--disable-jpg-shared',
@@ -356,10 +348,6 @@ packages = {
         'src': 'https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.tar.gz',
         'chk': '5a24f62a610249d744cbd8d28ee399d8905db7222bf3bdbc8a8b4a76e597695f',
         'dep': ('sdl2', 'vorbis', 'flac', 'libmikmod', 'modplug', 'fluidsynth', 'smpeg2'),
-        'env': {
-            'LDFLAGS': '-lstdc++ -liconv -logg -lvorbis -lvorbisenc -lFLAC -lsndfile -lintl -lglib-2.0 '
-                       '-framework CoreMIDI ' + _sdl2_frameworks
-        },
         'cmd': (
             _configure_static + (
                 '--enable-music-mod-mikmod',
@@ -378,9 +366,6 @@ packages = {
         'src': 'https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz',
         'chk': '15ce8a7e5a23dafe8177c8df6e6c79b6749a03fff1e8196742d3571657609d21',
         'dep': ('sdl2',),
-        'env': {
-            'LDFLAGS': _sdl2_frameworks
-        },
         'cmd': (
             _configure_static,
             _install
@@ -391,9 +376,6 @@ packages = {
         'src': 'https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz',
         'chk': '34db5e20bcf64e7071fe9ae25acaa7d72bdc4f11ab3ce59acc768ab62fe39276',
         'dep': ('sdl2', 'freetype'),
-        'env': {
-            'LDFLAGS': _sdl2_frameworks
-        },
         'cmd': (
             _configure_static,
             _install
@@ -404,10 +386,6 @@ packages = {
         'src': 'https://www.libsdl.org/projects/smpeg/release/smpeg2-2.0.0.tar.gz',
         'chk': '979a65b211744a44fa641a9b6e4d64e64a12ff703ae776bafe3c4c4cd85494b3',
         'dep': ('sdl2',),
-        'env': {
-            'LDFLAGS': '-framework AudioToolbox -framework Carbon -framework Cocoa '
-                       '-framework CoreAudio -framework CoreVideo -framework ForceFeedback -framework IOKit'
-        },
         'cmd': (
             _configure_static,
             _install
