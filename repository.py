@@ -336,8 +336,8 @@ packages = {
     },
 
     'sdl2': {
-        'src': 'https://libsdl.org/release/SDL2-2.0.5.tar.gz',
-        'chk': '442038cf55965969f2ff06d976031813de643af9c9edc9e331bd761c242e8785',
+        'src': 'https://www.libsdl.org/release/SDL2-2.0.6.tar.gz',
+        'chk': '03658b5660d16d7b31263a691e058ed37acdab155d68dabbad79998fb552c5df',
         'cmd': (
             _configure_static,
             _install
