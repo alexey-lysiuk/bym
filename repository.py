@@ -332,6 +332,7 @@ packages = {
     'sdl2': {
         'src': 'https://www.libsdl.org/release/SDL2-2.0.6.tar.gz',
         'chk': '03658b5660d16d7b31263a691e058ed37acdab155d68dabbad79998fb552c5df',
+        'dep': ('samplerate',),
         'cmd': (
             _configure_static + ('--disable-video-x11',),
             _install
