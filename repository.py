@@ -228,8 +228,8 @@ packages = {
     },
 
     'openal': {
-        'src': 'http://kcat.strangesoft.net/openal-releases/openal-soft-1.18.1.tar.bz2',
-        'chk': '2d51a6529526ef22484f51567e31a5c346a599767991a3dc9d4dcd9d9cec71dd',
+        'src': 'http://kcat.strangesoft.net/openal-releases/openal-soft-1.18.2.tar.bz2',
+        'chk': '9f8ac1e27fba15a59758a13f0c7f6540a0605b6c3a691def9d420570506d7e82',
         'dep': _cmake_dependency,
         'cmd': (
             _cmake + (
