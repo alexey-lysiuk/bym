@@ -308,6 +308,15 @@ packages = {
         )
     },
 
+    'samplerate': {
+        'src': 'http://www.mega-nerd.com/SRC/libsamplerate-0.1.9.tar.gz',
+        'chk': '0a7eb168e2f21353fb6d84da152e4512126f7dc48ccb0be80578c565413444c1',
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'sdl': {
         # The latest stable version 1.2.15 contains way too many bugs
         'src': 'http://hg.libsdl.org/SDL/archive/2c67e7e5a106.tar.bz2',
