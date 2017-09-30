@@ -344,6 +344,21 @@ packages = {
         )
     },
 
+    'sdl_mixer': {
+        'src': 'https://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.tar.gz',
+        'chk': '1644308279a975799049e4826af2cfc787cad2abb11aa14562e402521f86992a',
+        'dep': ('sdl', 'vorbis', 'flac', 'libmikmod', 'fluidsynth'),
+        'cmd': (
+            _configure_static + (
+                '--disable-music-ogg-shared',
+                '--disable-music-flac-shared',
+                '--disable-music-fluidsynth-shared',
+                '--disable-music-mod-shared'
+            ),
+            _install
+        )
+    },
+
     'sdl_net': {
         'src': 'https://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.8.tar.gz',
         'chk': '5f4a7a8bb884f793c278ac3f3713be41980c5eedccecff0260411347714facb4',
