@@ -1,0 +1,37 @@
+#
+#    Build Your Mac: Configurable build environment for macOS
+#    Copyright (C) 2017 Alexey Lysiuk
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+import configuration
+import repository
+
+
+# Force macOS 10.7 support for easy deployment
+
+_extra_flags = '-mmacosx-version-min=10.7 -isysroot /Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.7.sdk'
+_environment = configuration.environment
+
+for name in configuration.environment_variables:
+    if not name.endswith('FLAGS'):
+        continue
+
+    _environment[name] += _extra_flags
+
+# The last version of GLib that supports Mac OS X 10.7 Lion is 2.44.1
+glib = repository.packages['glib']
+glib['url'] = 'https://download.gnome.org/sources/glib/2.44/glib-2.44.1.tar.xz'
+glib['chk'] = '8811deacaf8a503d0a9b701777ea079ca6a4277be10e3d730d2112735d5eca07'
