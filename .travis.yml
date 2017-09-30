@@ -1,7 +1,7 @@
 language: c++
 
 os: osx
-osx_image: xcode8.3
+osx_image: xcode9
 
 env:
   - OPTS="--make-args=-j2 sdl_image sdl_net sdl_ttf sdl2_image sdl2_net sdl2_ttf mpg123 openal timidity oggz opusfile opus-tools vorbis-tools"
