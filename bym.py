@@ -126,7 +126,13 @@ def _settings_filepath(work_dir):
     return work_dir + os.sep + '~bym_cached_settings.txt'
 
 
-def _make_settings(package, environment):
+def _patch_filepath(target):
+    return configuration.patches_path + target + '.diff'
+
+
+def _make_settings(target, environment):
+    package = repository.packages[target]
+
     stripped_environment = {}
 
     # Store important environment variables only
@@ -134,12 +140,19 @@ def _make_settings(package, environment):
         if var in configuration.environment_variables:
             stripped_environment[var] = environment[var]
 
-    return {
+    settings = {
         'ver': 1,
         'chk': package['chk'],
         'cmd': package['cmd'],
         'env': stripped_environment,
     }
+
+    patch_path = _patch_filepath(target)
+
+    if os.path.exists(patch_path):
+        settings['patch'] = _calculate_checksum(patch_path)
+
+    return settings
 
 
 def _read_settings(work_dir):
@@ -184,7 +197,7 @@ def _build(target):
     if not os.path.exists(work_dir):
         _extract(filename, work_dir)
 
-        patch_path = configuration.patches_path + target + '.diff'
+        patch_path = _patch_filepath(target)
 
         if os.path.exists(patch_path):
             patch_set = patch.fromfile(patch_path)
@@ -193,7 +206,7 @@ def _build(target):
     environment = configuration.environment.copy()
     _merge_environment(environment, _dict_value(package, 'env', {}))
 
-    current_settings = _make_settings(package, environment)
+    current_settings = _make_settings(target, environment)
     previous_setting = _read_settings(work_dir)
     up_to_date = current_settings == previous_setting
 
