@@ -329,6 +329,21 @@ packages = {
         )
     },
 
+    'sdl_image': {
+        'src': 'https://www.libsdl.org/projects/SDL_image/release/SDL_image-1.2.12.tar.gz',
+        'chk': '0b90722984561004de84847744d566809dbb9daf732a9e503b91a1b5a84e5699',
+        'dep': ('sdl', 'jpeg', 'png', 'tiff', 'webp'),
+        'cmd': (
+            _configure_static + (
+                '--disable-jpg-shared',
+                '--disable-png-shared',
+                '--disable-tif-shared',
+                '--disable-webp-shared',
+            ),
+            _install
+        )
+    },
+
     'sdl_net': {
         'src': 'https://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.8.tar.gz',
         'chk': '5f4a7a8bb884f793c278ac3f3713be41980c5eedccecff0260411347714facb4',
