@@ -441,6 +441,17 @@ packages = {
         )
     },
 
+    'smpeg': {
+        'src': 'https://github.com/alexey-lysiuk/bym/releases/download/sources/smpeg-0.4.5.tar.xz',
+        'chk': '1635cde79660440defa6b6641e1a7465ce8886b535dc123069adc31e65e947be',
+        'dep': ('autoconf', 'automake', 'sdl'),
+        'cmd': (
+            './autogen.sh',
+            _configure_static,
+            _install
+        )
+    },
+
     'smpeg2': {
         'src': 'https://www.libsdl.org/projects/smpeg/release/smpeg2-2.0.0.tar.gz',
         'chk': '979a65b211744a44fa641a9b6e4d64e64a12ff703ae776bafe3c4c4cd85494b3',
