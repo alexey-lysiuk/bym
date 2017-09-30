@@ -1,0 +1,10 @@
+--- a/sdl.pc.in
++++ b/sdl.pc.in
+@@ -10,6 +10,6 @@
+ Version: @SDL_VERSION@
+ Requires:
+ Conflicts:
+-Libs: -L${libdir} @SDL_RLD_FLAGS@ @SDL_LIBS@
++Libs: -L${libdir} @SDL_RLD_FLAGS@ @SDL_LIBS@ -framework AudioToolbox -framework AudioUnit -framework Carbon -framework Cocoa -framework IOKit -framework OpenGL
+ Libs.private: @SDL_STATIC_LIBS@
+ Cflags: -I${includedir}/SDL @SDL_CFLAGS@
