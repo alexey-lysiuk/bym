@@ -369,6 +369,16 @@ packages = {
         )
     },
 
+    'sdl_ttf': {
+        'src': 'https://www.libsdl.org/projects/SDL_ttf/release/SDL_ttf-2.0.11.tar.gz',
+        'chk': '724cd895ecf4da319a3ef164892b72078bd92632a5d812111261cde248ebcdb7',
+        'dep': ('sdl', 'freetype'),
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'sdl2': {
         'src': 'https://www.libsdl.org/release/SDL2-2.0.6.tar.gz',
         'chk': '03658b5660d16d7b31263a691e058ed37acdab155d68dabbad79998fb552c5df',
