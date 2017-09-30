@@ -347,13 +347,14 @@ packages = {
     'sdl_mixer': {
         'src': 'https://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.tar.gz',
         'chk': '1644308279a975799049e4826af2cfc787cad2abb11aa14562e402521f86992a',
-        'dep': ('sdl', 'vorbis', 'flac', 'libmikmod', 'fluidsynth'),
+        'dep': ('sdl', 'vorbis', 'flac', 'libmikmod', 'fluidsynth', 'smpeg'),
         'cmd': (
             _configure_static + (
                 '--disable-music-ogg-shared',
                 '--disable-music-flac-shared',
                 '--disable-music-fluidsynth-shared',
-                '--disable-music-mod-shared'
+                '--disable-music-mod-shared',
+                '--disable-music-mp3-shared'
             ),
             _install
         )
