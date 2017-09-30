@@ -329,6 +329,16 @@ packages = {
         )
     },
 
+    'sdl_net': {
+        'src': 'https://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.8.tar.gz',
+        'chk': '5f4a7a8bb884f793c278ac3f3713be41980c5eedccecff0260411347714facb4',
+        'dep': ('sdl',),
+        'cmd': (
+            _configure_static,
+            _install
+        )
+    },
+
     'sdl2': {
         'src': 'https://www.libsdl.org/release/SDL2-2.0.6.tar.gz',
         'chk': '03658b5660d16d7b31263a691e058ed37acdab155d68dabbad79998fb552c5df',
