@@ -85,7 +85,7 @@ def _calculate_checksum(filename):
 def _extract(filename, work_dir):
     try:
         subprocess.check_call(['tar', '-xf', filename])
-    except:
+    except (IOError, subprocess.CalledProcessError):
         shutil.rmtree(work_dir, ignore_errors=True)
         raise
 
