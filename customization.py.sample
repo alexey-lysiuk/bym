@@ -20,9 +20,12 @@ import configuration
 import repository
 
 
-# Force macOS 10.7 support for easy deployment
+# Force particular macOS version for easy deployment
 
-_extra_flags = '-mmacosx-version-min=10.7 -isysroot /Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.7.sdk'
+_macos_version = '10.7'
+_sysroot_path = '/Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.7.sdk'
+_extra_flags = '-mmacosx-version-min=%s -isysroot %s' % (_macos_version, _sysroot_path)
+
 _environment = configuration.environment
 
 for name in configuration.environment_variables:
@@ -31,7 +34,12 @@ for name in configuration.environment_variables:
 
     _environment[name] += _extra_flags
 
+configuration.cmake_arguments += (
+    '-DCMAKE_OSX_DEPLOYMENT_TARGET=' + _macos_version,
+    '-DCMAKE_OSX_SYSROOT=' + _sysroot_path
+)
+
 # The last version of GLib that supports Mac OS X 10.7 Lion is 2.44.1
 glib = repository.packages['glib']
-glib['url'] = 'https://download.gnome.org/sources/glib/2.44/glib-2.44.1.tar.xz'
+glib['src'] = 'https://download.gnome.org/sources/glib/2.44/glib-2.44.1.tar.xz'
 glib['chk'] = '8811deacaf8a503d0a9b701777ea079ca6a4277be10e3d730d2112735d5eca07'
