@@ -34,11 +34,12 @@ _configure_static = _configure + (
 )
 _configure_static += _no_dep_track
 
-_cmake = (
-    configuration.cmake_executable,
-    '-DCMAKE_INSTALL_PREFIX=' + configuration.install_path
-)
-_cmake += configuration.cmake_arguments
+
+def _cmake(*extra_args):
+    prefix = '-DCMAKE_INSTALL_PREFIX=' + configuration.install_path
+    cmdline = (configuration.cmake_executable, prefix)
+    return cmdline + configuration.cmake_arguments + extra_args
+
 
 _install = (configuration.make_executable,)
 _install += configuration.make_arguments
@@ -117,9 +118,13 @@ packages = {
         'chk': '50853391d9ebeda9b4db787efb23f98b1e26b7296dd2bb5d0d96b5bccee2171c',
         'dep': _cmake_dependency + ('glib', 'sndfile'),
         'cmd': (
-            _cmake + (
-                '-DCMAKE_BUILD_TYPE=Release', '-DBUILD_SHARED_LIBS=NO', '-DLIB_SUFFIX=',
-                '-Denable-framework=NO', '-Denable-readline=NO', '.'
+            _cmake(
+                '-DCMAKE_BUILD_TYPE=Release',
+                '-DBUILD_SHARED_LIBS=NO',
+                '-DLIB_SUFFIX=',
+                '-Denable-framework=NO',
+                '-Denable-readline=NO',
+                '.'
             ),
             _install
         )
@@ -232,7 +237,7 @@ packages = {
         'chk': '9f8ac1e27fba15a59758a13f0c7f6540a0605b6c3a691def9d420570506d7e82',
         'dep': _cmake_dependency,
         'cmd': (
-            _cmake + (
+            _cmake(
                 '-DLIBTYPE=STATIC',
                 '-DCMAKE_BUILD_TYPE=Release',
                 '-DALSOFT_EMBED_HRTF_DATA=YES',
