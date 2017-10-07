@@ -174,10 +174,6 @@ def _merge_environment(merged, source):
 
 
 def _build(target):
-    print('-' * 80)
-    print('- Processing package: %s' % target)
-    print('-' * 80)
-
     package = repository.packages[target]
 
     url = package['src']
