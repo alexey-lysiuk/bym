@@ -4,11 +4,11 @@ os: osx
 osx_image: xcode9
 
 env:
-  - OPTS="--make-args=-j2 sdl_image sdl_net sdl_ttf sdl2_image sdl2_net sdl2_ttf mpg123 openal timidity oggz opusfile opus-tools vorbis-tools"
-  - OPTS="--make-args=-j2 sdl_mixer sdl2_mixer"
+  - TARGETS="sdl_image sdl_net sdl_ttf sdl2_image sdl2_net sdl2_ttf mpg123 openal timidity oggz opusfile opus-tools vorbis-tools"
+  - TARGETS="sdl_mixer sdl2_mixer"
 
 script:
-  - ./bym.py ${OPTS}
+  - for TARGET in $TARGETS; do ./bym.py --make-args=-j2 $TARGET; done
 
 notifications:
   email: false
