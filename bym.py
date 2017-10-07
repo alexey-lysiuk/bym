@@ -201,7 +201,9 @@ def _build(target):
 
         if os.path.exists(patch_path):
             patch_set = patch.fromfile(patch_path)
-            patch_set.apply(root=work_dir)
+
+            if not patch_set.apply(root=work_dir):
+                raise Exception('Failed to apply patch %s' % patch_path)
 
     environment = configuration.environment.copy()
     _merge_environment(environment, _dict_value(package, 'env', {}))
