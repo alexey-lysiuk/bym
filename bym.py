@@ -82,7 +82,7 @@ def _calculate_checksum(filename):
         data = True
 
         while data:
-            data = f.read(4096)
+            data = f.read(64 * 1024)
             checksum.update(data)
 
     return checksum.hexdigest()
