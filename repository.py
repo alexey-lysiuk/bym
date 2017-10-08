@@ -159,8 +159,8 @@ packages = {
     },
 
     'glib': {
-        'src': 'https://download.gnome.org/sources/glib/2.52/glib-2.52.3.tar.xz',
-        'chk': '25ee7635a7c0fcd4ec91cbc3ae07c7f8f5ce621d8183511f414ded09e7e4e128',
+        'src': 'https://download.gnome.org/sources/glib/2.54/glib-2.54.1.tar.xz',
+        'chk': '50c01b1419324f10fbf9b9709ec2164b18586968bdce7540583bf32302cf47a3',
         'dep': ('ffi', 'gettext', 'pcre'),
         'cmd': (
             _configure_static,
