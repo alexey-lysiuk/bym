@@ -59,7 +59,7 @@ def _download(url, filename):
         with open(filename, 'wb') as f:
             while True:
                 data = response.read(step)
-                total += step
+                total += len(data)
 
                 if not data:
                     sys.stdout.write('\n')
