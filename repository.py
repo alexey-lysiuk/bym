@@ -205,8 +205,8 @@ packages = {
     },
 
     'mpg123': {
-        'src': 'https://www.mpg123.de/download/mpg123-1.25.6.tar.bz2',
-        'chk': '0f0458c9b87799bc2c9bf9455279cc4d305e245db43b51a39ef27afe025c5a8e',
+        'src': 'https://www.mpg123.de/download/mpg123-1.25.7.tar.bz2',
+        'chk': '31b15ebcf26111b874732e07c8e60de5053ee555eea15fb70c657a4f9f0344f3',
         'cmd': (
             _configure_static,
             _install
