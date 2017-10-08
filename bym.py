@@ -52,7 +52,7 @@ def _dict_value(dictionary, key, default):
 def _download(url, filename):
     response = urlopen(url)
     checksum = hashlib.sha256()
-    step = 4096
+    step = 64 * 1024
     total = 0
 
     try:
