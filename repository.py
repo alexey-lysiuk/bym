@@ -29,6 +29,7 @@ _configure = (
     './configure',
     '--prefix=' + configuration.install_path
 )
+_configure += configuration.configure_arguments
 
 _configure_static = _configure + (
     '--enable-static',

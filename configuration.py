@@ -42,6 +42,9 @@ _parser.add_argument('--make-exe', default='make',
 _parser.add_argument('--make-args', default='',
                      help='additional arguments for make')
 
+_parser.add_argument('--configure-args', default='',
+                     help='additional arguments for ./configure')
+
 _parser.add_argument('--cmake-exe', default='cmake',
                      help='path to cmake executable')
 _parser.add_argument('--cmake-args', default='',
@@ -68,6 +71,8 @@ lib_path = install_path + '/lib'
 
 make_executable = _arguments.make_exe
 make_arguments = tuple(shlex.split(_arguments.make_args))
+
+configure_arguments = tuple(shlex.split(_arguments.configure_args))
 
 cmake_executable = _arguments.cmake_exe
 cmake_arguments = tuple(shlex.split(_arguments.cmake_args))
