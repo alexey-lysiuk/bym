@@ -1,0 +1,41 @@
+#
+#    Build Your Mac: Configurable build environment for macOS
+#    Copyright (C) 2017 Alexey Lysiuk
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+import configuration
+
+
+def _force_minver_lion():
+    macos_version = '10.7'
+    sysroot_path = '/Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.7.sdk'
+    extra_flags = '-mmacosx-version-min={} -isysroot {}'.format(macos_version, sysroot_path)
+
+    for name in configuration.environment_variables:
+        if not name.endswith('FLAGS'):
+            continue
+
+        configuration.environment[name] += extra_flags
+
+    configuration.cmake_arguments += (
+        '-DCMAKE_OSX_DEPLOYMENT_TARGET=' + macos_version,
+        '-DCMAKE_OSX_SYSROOT=' + sysroot_path
+    )
+
+
+_force_minver_lion()
+
+del _force_minver_lion

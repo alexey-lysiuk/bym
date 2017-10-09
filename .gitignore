@@ -2,4 +2,5 @@
 /build/
 /install/
 *.pyc
-customization.py
+configuration.custom.py
+repository.custom.py

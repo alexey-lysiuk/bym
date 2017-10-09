@@ -16,6 +16,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import os
+
 import configuration
 
 
@@ -551,3 +553,9 @@ packages = {
         )
     },
 }
+
+
+_custom_filename = __name__ + '.custom.py'
+
+if os.path.exists(_custom_filename):
+    execfile(_custom_filename)

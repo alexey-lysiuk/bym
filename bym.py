@@ -38,12 +38,6 @@ import configuration
 import repository
 import patch
 
-try:
-    # noinspection PyUnresolvedReferences
-    import customization
-except ImportError:
-    pass
-
 
 def _dict_value(dictionary, key, default):
     return key in dictionary and dictionary[key] or default

@@ -140,3 +140,9 @@ _append_flags('LDFLAGS', '-L' + lib_path)
 _append_flags('LDFLAGS', extra_flags)
 
 _prepend_path(bin_path)
+
+
+_custom_filename = __name__ + '.custom.py'
+
+if os.path.exists(_custom_filename):
+    execfile(_custom_filename)
