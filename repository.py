@@ -18,10 +18,13 @@
 
 import os
 
+# import command
+from command import *
 import configuration
+import package
 
 
-_cmake_dependency = () if configuration.have_cmake() else ('cmake',)
+_cmake_dependency = () if configuration.have_cmake() else ('cmake',)  # TODO: rename to cmake
 
 _no_dep_track = ('--disable-dependency-tracking',)
 
@@ -53,6 +56,40 @@ _install += ('install',)
 
 prerequisites = (
     'pkg-config',
+)
+
+_packages2 = {}
+
+
+def pkg(name, source, checksum, commands, dependencies=None, environment=None):
+    _packages2[name] = package.Package(name, source, checksum, commands, dependencies, environment)
+
+
+pkg(
+    name='ao',
+    source='http://downloads.xiph.org/releases/ao/libao-1.2.0.tar.gz',
+    checksum='03ad231ad1f9d64b52474392d63c31197b0bc7bd416e58b1c10a329a5ed89caf',
+    commands=ConfigureStaticInstall()
+)
+pkg(
+    name='autoconf',
+    source='https://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz',
+    checksum='64ebcec9f8ac5b2487125a86a7760d2591ac9e1d3dbd59489633f9de62a57684',
+    commands=ConfigureInstall()
+)
+# ...
+pkg(
+    name='fluidsynth',
+    source='https://downloads.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz',
+    checksum='50853391d9ebeda9b4db787efb23f98b1e26b7296dd2bb5d0d96b5bccee2171c',
+    dependencies=_cmake_dependency + ('glib', 'sndfile'),
+    commands=CMakeInstall(
+        '-DCMAKE_BUILD_TYPE=Release',
+        '-DBUILD_SHARED_LIBS=NO',
+        '-DLIB_SUFFIX=',
+        '-Denable-framework=NO',
+        '-Denable-readline=NO'
+    )
 )
 
 
