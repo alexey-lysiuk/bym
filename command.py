@@ -16,11 +16,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# import functools
 import subprocess
 
 import configuration
 
 
+# @functools.total_ordering
 class Command(object):
     def __init__(self, *args):
         self.args = args
@@ -31,6 +33,27 @@ class Command(object):
             self.prev.execute(workdir, environment)
 
         subprocess.check_call(self.args, cwd=workdir, env=environment)
+
+    def __eq__(self, other):
+        return self.as_tuple() == other.as_tuple()
+
+    def __ne__(self, other):
+        return not self == other
+
+    # def __lt__(self, other):
+    #     return self.as_tuple() < other.as_tuple()
+    #
+    # def __hash__(self):
+    #     return hash(self.as_tuple())
+
+    def as_tuple(self):
+        return self.args, self.prev
+
+    def is_configure(self):
+        return isinstance(self, Configure) or (self.prev.is_configure() if self.prev else False)
+
+    def is_cmake(self):
+        return isinstance(self, CMake) or (self.prev.is_cmake() if self.prev else False)
 
 
 class Configure(Command):
@@ -53,7 +76,7 @@ class CMake(Command):
 
 class Make(Command):
     def __init__(self, *args):
-        args = ('make',) + args
+        args = (configuration.make_executable,) + args
         super(Make, self).__init__(*args)
 
 

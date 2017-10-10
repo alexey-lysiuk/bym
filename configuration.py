@@ -24,7 +24,8 @@ import subprocess
 
 _self_path = os.path.dirname(os.path.abspath(__file__))
 
-patches_path = _self_path + os.sep + 'patches' + os.sep
+patch_path = _self_path + os.sep + 'patch' + os.sep
+state_path = _self_path + os.sep + 'state' + os.sep
 
 # Parse command line
 

@@ -24,26 +24,100 @@ import subprocess
 import sys
 import urllib2
 
-# import command
 import configuration
 import patch
 
 
+class BuildState(object):
+    def __init__(self, package):
+        patch_path = package.patch_path()
+
+        self.version = 1
+        self.name = package.name
+        self.checksum = package.checksum
+        self.commands = package.commands
+        self.dependencies = package.dependencies
+        self.environment = _stripped_environment()
+        self.patch_checksum = _calculate_checksum(patch_path) if os.path.exists(patch_path) else None
+
+    def __eq__(self, other):
+        return self.as_tuple() == other.as_tuple()
+        # a = self.as_tuple()
+        # b = other.as_tuple()
+        # return a == b
+
+    def __ne__(self, other):
+        return not self == other
+
+    # def __lt__(self, other):
+    #     return self._as_tuple() < other.as_tuple()
+    #
+    # def __hash__(self):
+    #     return hash(self.as_tuple())
+
+    def as_tuple(self):
+        return (
+            self.version,
+            self.name,
+            self.checksum,
+            self.commands,
+            self.dependencies,
+            self.environment,
+            self.patch_checksum
+        )
+
+    def uptodate(self):
+        try:
+            with self._open('rb') as f:
+                other = cPickle.load(f)
+
+                # compare versions explicitly to avoid potential reference to undefined member
+                return self.version == other.version and self == other
+
+        except IOError, cPickle.UnpicklingError:
+            return False
+
+    def save(self):
+        # TODO: handle errors
+        with self._open('wb') as f:
+            cPickle.dump(self, f)
+
+    def _open(self, mode):
+        return open(configuration.state_path + self.name + '.p', mode)
+
+
 class Package(object):
-    def __init__(self, name, source, checksum, commands, dependencies=None, environment=None):
+    def __init__(self, name, source, checksum, commands, dependencies=None):
         self.name = name
         self.source = source
         self.checksum = checksum
         self.commands = commands
         self.dependencies = dependencies
-        self.environment = environment
 
-        self._patch_path = configuration.patches_path + self.name + '.diff'
-        self._work_path = None
-        self._settings_path = None
         self._filename = None
+        self._work_path = None
 
     def build(self):
+        state = BuildState(self)
+
+        if not configuration.force_build and state.uptodate():
+            return
+
+        self._setup_workdir()
+
+        if isinstance(self.commands, tuple) or isinstance(self.commands, list):
+            for command in self.commands:
+                command.execute(self._work_path, configuration.environment)
+        else:
+            self.commands.execute(self._work_path, configuration.environment)
+
+        state.save()
+
+        self._work_path = None
+        self._filename = None
+
+    def _setup_workdir(self):
+        assert not self._filename
         self._filename = self.source.rsplit('/', 1)[1]
 
         if os.path.exists(self._filename):
@@ -55,36 +129,12 @@ class Package(object):
             os.unlink(self._filename)
             raise Exception("Checksum for %s doesn't match!" % self._filename)
 
+        assert not self._work_path
         self._work_path = self._guess_work_path()
-        self._settings_path = self._work_path + os.sep + '~bym_cached_settings.txt'
 
         if not os.path.exists(self._work_path):
             self._extract()
-
-            if os.path.exists(self._patch_path):
-                patch_set = patch.fromfile(self._patch_path)
-
-                if not patch_set.apply(root=self._work_path):
-                    raise Exception('Failed to apply patch %s' % self._patch_path)
-
-        environment = configuration.environment.copy()
-        _merge_environment(environment, self.environment)
-
-        current_settings = self._make_settings(environment)
-        previous_setting = self._read_settings()
-        up_to_date = current_settings == previous_setting
-
-        if up_to_date and not configuration.force_build:
-            return
-
-        if isinstance(self.commands, tuple) or isinstance(self.commands, list):
-            for command in self.commands:
-                command.execute(self._work_path, environment)
-        else:
-            self.commands.execute(self._work_path, environment)
-
-        with open(self._settings_path, 'wb') as f:
-            cPickle.dump(current_settings, f)
+            self._apply_patch()
 
     def _download(self):
         response = urllib2.urlopen(self.source)
@@ -111,13 +161,6 @@ class Package(object):
             os.unlink(self._filename)
             raise
 
-    def _extract(self):
-        try:
-            subprocess.check_call(['tar', '-xf', self._filename])
-        except (IOError, subprocess.CalledProcessError):
-            shutil.rmtree(self._work_path, ignore_errors=True)
-            raise
-
     def _guess_work_path(self):
         files = subprocess.check_output(['tar', '-tf', self._filename])
         result = ''
@@ -142,35 +185,26 @@ class Package(object):
 
         return result
 
-    def _make_settings(self, environment):
-        stripped_environment = {}
-
-        # Store important environment variables only
-        for var in environment:
-            if var in configuration.environment_variables:
-                stripped_environment[var] = environment[var]
-
-        settings = {
-            'ver': 2,
-            'chk': self.checksum,
-            'cmd': self.commands,
-            'dep': self.dependencies,
-            'env': stripped_environment,
-        }
-
-        patch_path = self._patch_path
-
-        if os.path.exists(patch_path):
-            settings['patch'] = _calculate_checksum(patch_path)
-
-        return settings
-
-    def _read_settings(self):
+    def _extract(self):
         try:
-            with open(self._settings_path, 'rb') as f:
-                return cPickle.load(f)
-        except IOError, cPickle.UnpicklingError:
-            return {}
+            subprocess.check_call(['tar', '-xf', self._filename])
+        except (IOError, subprocess.CalledProcessError):
+            shutil.rmtree(self._work_path, ignore_errors=True)
+            raise
+
+    def _apply_patch(self):
+        patch_path = self.patch_path()
+
+        if not os.path.exists(patch_path):
+            return
+
+        patch_set = patch.fromfile(patch_path)
+
+        if not patch_set.apply(root=self._work_path):
+            raise Exception('Failed to apply patch %s' % patch_path)
+
+    def patch_path(self):
+        return configuration.patch_path + self.name + '.diff'
 
 
 def _calculate_checksum(filename):
@@ -186,9 +220,13 @@ def _calculate_checksum(filename):
     return checksum.hexdigest()
 
 
-def _merge_environment(merged, source):
-    for var in source:
-        if var in merged:
-            merged[var] += ' ' + source[var]
-        else:
-            merged[var] = source[var]
+def _stripped_environment():
+    # Store important environment variables only
+    environment = configuration.environment
+    stripped_environment = {}
+
+    for var in environment:
+        if var in configuration.environment_variables:
+            stripped_environment[var] = environment[var]
+
+    return stripped_environment

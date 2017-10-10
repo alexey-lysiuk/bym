@@ -18,8 +18,7 @@
 
 import os
 
-# import command
-from command import *
+import command
 import configuration
 import package
 
@@ -61,29 +60,41 @@ prerequisites = (
 _packages2 = {}
 
 
-def pkg(name, source, checksum, commands, dependencies=None, environment=None):
-    _packages2[name] = package.Package(name, source, checksum, commands, dependencies, environment)
+def pkg(name, source, checksum, commands, dependencies=None):
+    _packages2[name] = package.Package(name, source, checksum, commands, dependencies)
+
+
+def library(*args):
+    return command.ConfigureStaticInstall(*args)
+
+
+def tool(*args):
+    return command.ConfigureInstall(*args)
+
+
+def cmake(*args):
+    return command.CMakeInstall(*args)
 
 
 pkg(
     name='ao',
     source='http://downloads.xiph.org/releases/ao/libao-1.2.0.tar.gz',
     checksum='03ad231ad1f9d64b52474392d63c31197b0bc7bd416e58b1c10a329a5ed89caf',
-    commands=ConfigureStaticInstall()
+    commands=library()
 )
 pkg(
     name='autoconf',
     source='https://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz',
     checksum='64ebcec9f8ac5b2487125a86a7760d2591ac9e1d3dbd59489633f9de62a57684',
-    commands=ConfigureInstall()
+    commands=tool()
 )
 # ...
 pkg(
     name='fluidsynth',
     source='https://downloads.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz',
     checksum='50853391d9ebeda9b4db787efb23f98b1e26b7296dd2bb5d0d96b5bccee2171c',
-    dependencies=_cmake_dependency + ('glib', 'sndfile'),
-    commands=CMakeInstall(
+    dependencies=('glib', 'sndfile'),
+    commands=cmake(
         '-DCMAKE_BUILD_TYPE=Release',
         '-DBUILD_SHARED_LIBS=NO',
         '-DLIB_SUFFIX=',
@@ -91,6 +102,40 @@ pkg(
         '-Denable-readline=NO'
     )
 )
+# ...
+pkg(
+    name='timidity',
+    source='https://downloads.sourceforge.net/project/timidity/TiMidity++/TiMidity++-2.14.0/TiMidity++-2.14.0.tar.bz2',
+    checksum='f97fb643f049e9c2e5ef5b034ea9eeb582f0175dce37bc5df843cc85090f6476',
+    dependencies=('vorbis', 'flac', 'speex', 'ao'),
+    commands=tool('--enable-audio=darwin,vorbis,flac,speex,ao',),
+)
+
+
+###
+# bs1 = package.BuildState(_packages2['fluidsynth'])
+# upd1 = bs1.uptodate()
+# bs1.save()
+# bs2 = package.BuildState(_packages2['fluidsynth'])
+# upd2 = bs2.uptodate()
+
+# # bs2 = package.BuildState(_packages2['timidity'])
+# import cPickle
+# # with open('~test.p', 'wb') as f:
+# #     cPickle.dump(bs1, f)
+#     # cPickle.dump(bs2, f)
+# with open('~test.p', 'rb') as f:
+#     bs2 = cPickle.load(f)
+# upd = bs1 == bs2
+# nupd = bs1 != bs2
+###
+
+
+# cfg1 = _packages2['fluidsynth'].commands.is_configure()
+# cm1 = _packages2['fluidsynth'].commands.is_cmake()
+#
+# cfg2 = _packages2['timidity'].commands.is_configure()
+# cm2 = _packages2['timidity'].commands.is_cmake()
 
 
 # TODO: name aliases: 'libogg' -> 'ogg'
@@ -573,6 +618,7 @@ packages = {
         'src': 'http://downloads.webmproject.org/releases/webp/libwebp-0.6.0.tar.gz',
         'chk': 'c928119229d4f8f35e20113ffb61f281eda267634a8dc2285af4b0ee27cf2b40',
         'dep': ('png', 'jpeg', 'tiff', 'gif'),
+        # todo: patch png with static zlib!!!
         'env': {
             'LDFLAGS': '-lz'
         },

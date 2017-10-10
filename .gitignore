@@ -1,6 +1,7 @@
 /.idea/
 /build/
 /install/
+/state/
 *.pyc
 configuration.custom.py
 repository.custom.py

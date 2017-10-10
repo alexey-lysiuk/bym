@@ -121,7 +121,7 @@ def _settings_filepath(work_dir):
 
 
 def _patch_filepath(target):
-    return configuration.patches_path + target + '.diff'
+    return configuration.patch_path + target + '.diff'
 
 
 def _make_settings(target, environment):
@@ -235,6 +235,7 @@ def _main():
     for target in configuration.targets:
         _add_dependencies(target, targets)
 
+    _make_directory(configuration.state_path)
     _make_directory(configuration.build_path)
     _make_directory(configuration.bin_path)
     _make_directory(configuration.include_path)
