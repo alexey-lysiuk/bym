@@ -87,7 +87,7 @@ class BuildState(object):
 
 
 class Package(object):
-    def __init__(self, name, source, checksum, commands, dependencies=None):
+    def __init__(self, name, source, checksum, commands, dependencies=()):
         self.name = name
         self.source = source
         self.checksum = checksum

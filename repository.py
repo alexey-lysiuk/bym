@@ -19,36 +19,7 @@
 import os
 
 import command
-import configuration
-import package
-
-
-_cmake_dependency = () if configuration.have_cmake() else ('cmake',)  # TODO: rename to cmake
-
-_no_dep_track = ('--disable-dependency-tracking',)
-
-_configure = (
-    './configure',
-    '--prefix=' + configuration.install_path
-)
-_configure += configuration.configure_arguments
-
-_configure_static = _configure + (
-    '--enable-static',
-    '--disable-shared',
-)
-_configure_static += _no_dep_track
-
-
-def _cmake(*extra_args):
-    prefix = '-DCMAKE_INSTALL_PREFIX=' + configuration.install_path
-    cmdline = (configuration.cmake_executable, prefix)
-    return cmdline + configuration.cmake_arguments + extra_args
-
-
-_install = (configuration.make_executable,)
-_install += configuration.make_arguments
-_install += ('install',)
+from package import Package
 
 
 # Implicit dependencies built before requested package(s)
@@ -57,11 +28,17 @@ prerequisites = (
     'pkg-config',
 )
 
-_packages2 = {}
+
+_packages = {}
 
 
-def pkg(name, source, checksum, commands, dependencies=None):
-    _packages2[name] = package.Package(name, source, checksum, commands, dependencies)
+def package(name):
+    # todo: handle missing package
+    return _packages[name]
+
+
+def pkg(name, source, checksum, commands, dependencies=()):
+    _packages[name] = Package(name, source, checksum, commands, dependencies)
 
 
 def library(*args):
@@ -104,6 +81,21 @@ pkg(
 )
 # ...
 pkg(
+    name='glib',
+    source='https://download.gnome.org/sources/glib/2.54/glib-2.54.1.tar.xz',
+    checksum='50c01b1419324f10fbf9b9709ec2164b18586968bdce7540583bf32302cf47a3',
+    dependencies=('ffi', 'gettext', 'pcre'),
+    commands=library()
+)
+# ...
+pkg(
+    name='pkg-config',
+    source='https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz',
+    checksum='6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591',
+    commands=tool('--with-internal-glib')
+)
+# ...
+pkg(
     name='timidity',
     source='https://downloads.sourceforge.net/project/timidity/TiMidity++/TiMidity++-2.14.0/TiMidity++-2.14.0.tar.bz2',
     checksum='f97fb643f049e9c2e5ef5b034ea9eeb582f0175dce37bc5df843cc85090f6476',
@@ -112,34 +104,8 @@ pkg(
 )
 
 
-###
-# bs1 = package.BuildState(_packages2['fluidsynth'])
-# upd1 = bs1.uptodate()
-# bs1.save()
-# bs2 = package.BuildState(_packages2['fluidsynth'])
-# upd2 = bs2.uptodate()
-
-# # bs2 = package.BuildState(_packages2['timidity'])
-# import cPickle
-# # with open('~test.p', 'wb') as f:
-# #     cPickle.dump(bs1, f)
-#     # cPickle.dump(bs2, f)
-# with open('~test.p', 'rb') as f:
-#     bs2 = cPickle.load(f)
-# upd = bs1 == bs2
-# nupd = bs1 != bs2
-###
-
-
-# cfg1 = _packages2['fluidsynth'].commands.is_configure()
-# cm1 = _packages2['fluidsynth'].commands.is_cmake()
-#
-# cfg2 = _packages2['timidity'].commands.is_configure()
-# cm2 = _packages2['timidity'].commands.is_cmake()
-
-
 # TODO: name aliases: 'libogg' -> 'ogg'
-
+'''
 packages = {
     'ao': {
         'src': 'http://downloads.xiph.org/releases/ao/libao-1.2.0.tar.gz',
@@ -637,7 +603,7 @@ packages = {
         )
     },
 }
-
+'''
 
 _custom_filename = __name__ + '.custom.py'
 

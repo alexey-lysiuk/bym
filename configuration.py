@@ -33,9 +33,9 @@ _parser = argparse.ArgumentParser(description='Build Your Mac: Configurable buil
 _parser.add_argument('packages', metavar='package', nargs='+',
                      help='list of package names to build')
 
-_parser.add_argument('--build-path', default=_self_path + '/build',
+_parser.add_argument('--build-path', default=_self_path + os.sep + 'build',
                      help='directory for source code and intermediate files')
-_parser.add_argument('--install-path', default=_self_path + '/install',
+_parser.add_argument('--install-path', default=_self_path + os.sep + 'install',
                      help='installation directory also knows as prefix')
 
 _parser.add_argument('--make-exe', default='make',

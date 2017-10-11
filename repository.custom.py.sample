@@ -21,9 +21,9 @@ import repository
 
 def _force_old_glib():
     # The last version of GLib that supports Mac OS X 10.7 Lion is 2.44.1
-    glib = repository.packages['glib']
-    glib['src'] = 'https://download.gnome.org/sources/glib/2.44/glib-2.44.1.tar.xz'
-    glib['chk'] = '8811deacaf8a503d0a9b701777ea079ca6a4277be10e3d730d2112735d5eca07'
+    glib = repository.package('glib')
+    glib.source = 'https://download.gnome.org/sources/glib/2.44/glib-2.44.1.tar.xz'
+    glib.checksum = '8811deacaf8a503d0a9b701777ea079ca6a4277be10e3d730d2112735d5eca07'
 
 
 _force_old_glib()

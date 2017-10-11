@@ -70,7 +70,8 @@ class ConfigureStatic(Configure):
 
 class CMake(Command):
     def __init__(self, *args):
-        args = (configuration.cmake_executable,) + configuration.cmake_arguments + args + ('.',)
+        args = (configuration.cmake_executable, '-DCMAKE_INSTALL_PREFIX=' + configuration.install_path) \
+               + configuration.cmake_arguments + args + ('.',)
         super(CMake, self).__init__(*args)
 
 
