@@ -1,0 +1,14 @@
+language: c++
+
+os: osx
+osx_image: xcode9
+
+env:
+  - TARGETS="sdl_image sdl_net sdl_ttf sdl2_image sdl2_net sdl2_ttf mpg123 openal timidity oggz opusfile opus-tools vorbis-tools p7zip xz"
+  - TARGETS="sdl_mixer sdl2_mixer"
+
+script:
+  - for TARGET in $TARGETS; do ./bym.py --make-args=-j2 $TARGET; done
+
+notifications:
+  email: false
