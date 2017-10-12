@@ -16,23 +16,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# import functools
 import subprocess
 
 import configuration
 
 
-# @functools.total_ordering
 class Command(object):
-    def __init__(self, *args):
-        self.args = args
-        self.prev = None
+    def __init__(self, *arguments):
+        self._arguments = arguments
+        self._previous = None
+        self._prerequisites = ()
 
     def execute(self, workdir, environment):
-        if self.prev:
-            self.prev.execute(workdir, environment)
+        if self._previous:
+            self._previous.execute(workdir, environment)
 
-        subprocess.check_call(self.args, cwd=workdir, env=environment)
+        subprocess.check_call(self._arguments, cwd=workdir, env=environment)
 
     def __eq__(self, other):
         return self.as_tuple() == other.as_tuple()
@@ -47,72 +46,75 @@ class Command(object):
     #     return hash(self.as_tuple())
 
     def as_tuple(self):
-        return self.args, self.prev
+        return self._arguments, self._previous
 
-    def is_configure(self):
-        return isinstance(self, Configure) or (self.prev.is_configure() if self.prev else False)
+    # def is_autogen(self):
+    #     return isinstance(self, Autogen) or (self.prev.is_configure() if self.prev else False)
+    # 
+    # def is_configure(self):
+    #     return isinstance(self, Configure) or (self.prev.is_configure() if self.prev else False)
+    # 
+    # def is_cmake(self):
+    #     return isinstance(self, CMake) or (self.prev.is_cmake() if self.prev else False)
 
-    def is_cmake(self):
-        return isinstance(self, CMake) or (self.prev.is_cmake() if self.prev else False)
+    def prerequisites(self):
+        return (self._previous.prerequisites() if self._previous else ()) + self._prerequisites
+
+
+class Autogen(Command):
+    def __init__(self, *arguments):
+        arguments = ('./autogen.sh',) + arguments
+        super(Autogen, self).__init__(*arguments)
+        # self._prerequisites = ('autoconf', 'automake')
+        self._prerequisites = configuration.autogen_prerequisites
 
 
 class Configure(Command):
-    def __init__(self, *args):
-        args = ('./configure', '--prefix=' + configuration.install_path) + configuration.configure_arguments + args
-        super(Configure, self).__init__(*args)
+    def __init__(self, *arguments):
+        arguments = ('./configure', '--prefix=' + configuration.install_path) + configuration.configure_arguments + arguments
+        super(Configure, self).__init__(*arguments)
 
 
 class ConfigureStatic(Configure):
-    def __init__(self, *args):
-        args = ('--enable-static', '--disable-shared') + args
-        super(ConfigureStatic, self).__init__(*args)
+    def __init__(self, *arguments):
+        arguments = ('--enable-static', '--disable-shared') + arguments
+        super(ConfigureStatic, self).__init__(*arguments)
 
 
 class CMake(Command):
-    def __init__(self, *args):
-        args = (configuration.cmake_executable, '-DCMAKE_INSTALL_PREFIX=' + configuration.install_path) \
-               + configuration.cmake_arguments + args + ('.',)
-        super(CMake, self).__init__(*args)
+    def __init__(self, *arguments):
+        arguments = (configuration.cmake_executable, '-DCMAKE_INSTALL_PREFIX=' + configuration.install_path) \
+               + configuration.cmake_arguments + arguments + ('.',)
+        super(CMake, self).__init__(*arguments)
+        # self._prerequisites = ('cmake',)
+        self._prerequisites = configuration.cmake_prerequisites
 
 
 class Make(Command):
-    def __init__(self, *args):
-        args = (configuration.make_executable,) + configuration.make_arguments + args
-        super(Make, self).__init__(*args)
+    def __init__(self, *arguments):
+        arguments = (configuration.make_executable,) + configuration.make_arguments + arguments
+        super(Make, self).__init__(*arguments)
 
 
 class Install(Make):
-    def __init__(self, *args):
-        args += ('install',)
-        super(Install, self).__init__(*args)
+    def __init__(self, *arguments):
+        arguments += ('install',)
+        super(Install, self).__init__(*arguments)
 
 
 class ConfigureInstall(Install):
-    def __init__(self, *args):
+    def __init__(self, *arguments):
         super(ConfigureInstall, self).__init__()
-        self.prev = Configure(*args)
+        self._previous = Configure(*arguments)
 
 
 class ConfigureStaticInstall(Install):
-    def __init__(self, *args):
+    def __init__(self, *arguments):
         super(ConfigureStaticInstall, self).__init__()
-        self.prev = ConfigureStatic(*args)
+        self._previous = ConfigureStatic(*arguments)
 
 
 class CMakeInstall(Install):
-    def __init__(self, *args):
+    def __init__(self, *arguments):
         super(CMakeInstall, self).__init__()
-        self.prev = CMake(*args)
-
-
-# c1 = ConfigureStatic('lol', '123')
-# c2 = CMake('-DSMTH=123')
-# c3 = Install('-j2')
-#
-# c4 = ConfigureInstall('--disable-dependency-tracking')
-# c5 = ConfigureStaticInstall('--disable-dependency-tracking')
-
-# import cPickle
-# s = cPickle.dumps(c5)
-#
-# pass
+        self._previous = CMake(*arguments)

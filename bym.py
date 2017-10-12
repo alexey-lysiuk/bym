@@ -22,6 +22,7 @@ import os
 
 import configuration
 import repository
+from ordered_set import OrderedSet
 
 
 def _make_directory(path):
@@ -36,7 +37,7 @@ def _add_dependencies(target, packages):
 
     dependencies = repository.package(target).dependencies
 
-    if isinstance(dependencies, tuple) or isinstance(dependencies, list):
+    if isinstance(dependencies, (tuple, list)):
         for dependency in dependencies:
             _add_dependencies(dependency, packages)
     else:
@@ -45,12 +46,32 @@ def _add_dependencies(target, packages):
     packages.append(target)
 
 
+def _add_prerequisites(targets):
+    prerequisites = OrderedSet(repository.prerequisites)
+
+    for target in targets:
+        commands = repository.package(target).commands
+
+        if isinstance(commands, (tuple, list)):
+            for cmd in commands:
+                prerequisites.update(cmd.prerequisites())
+        else:
+            # if commands.is_autogen():
+            #     prerequisites.add('autoconf')
+            #     prerequisites.add('automake')
+            prerequisites.update(commands.prerequisites())
+
+    targets[0:0] = list(prerequisites)
+
+
 def _main():
     # Resolve dependencies
-    targets = list(repository.prerequisites)
+    targets = []
 
     for target in configuration.targets:
         _add_dependencies(target, targets)
+
+    _add_prerequisites(targets)
 
     # Prepare build directories
     _make_directory(configuration.state_path)

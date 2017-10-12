@@ -83,7 +83,7 @@ extra_flags = _arguments.extra_flags
 force_build = _arguments.force_build
 
 
-# Detect CMake
+# Prerequisites
 
 def _check_cmake(exe_path):
     try:
@@ -94,7 +94,7 @@ def _check_cmake(exe_path):
     return True
 
 
-def have_cmake():
+def _have_cmake():
     global cmake_executable
 
     if _check_cmake(cmake_executable):
@@ -111,6 +111,10 @@ def have_cmake():
         return True
 
     return False
+
+
+autogen_prerequisites = ('autoconf', 'automake')
+cmake_prerequisites = () if _have_cmake() else ('cmake',)
 
 
 # Setup environment variables
