@@ -1,5 +1,5 @@
---- build/libpng-1.6.32/libpng.pc.in	2017-08-24 22:44:51.000000000 +0300
-+++ build/libpng-1.6.32/libpng.pc_.in	2017-10-12 10:25:36.578122986 +0300
+--- a/libpng.pc.in
++++ b/libpng.pc.in
 @@ -7,6 +7,6 @@
  Description: Loads and saves PNG files
  Version: @PNGLIB_VERSION@
