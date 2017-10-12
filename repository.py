@@ -65,7 +65,31 @@ pkg(
     checksum='64ebcec9f8ac5b2487125a86a7760d2591ac9e1d3dbd59489633f9de62a57684',
     commands=tool()
 )
-# ...
+pkg(
+    name='automake',
+    source='https://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.xz',
+    checksum='af6ba39142220687c500f79b4aa2f181d9b24e4f8d8ec497cea4ba26c64bedaf',
+    commands=tool()
+)
+pkg(
+    name='cmake',
+    source='https://cmake.org/files/v3.9/cmake-3.9.1.tar.gz',
+    checksum='d768ee83d217f91bb597b3ca2ac663da7a8603c97e1f1a5184bc01e0ad2b12bb',
+    commands=tool()
+)
+pkg(
+    name='ffi',
+    source='https://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz',
+    checksum='d06ebb8e1d9a22d19e38d63fdb83954253f39bedc5d46232a05645685722ca37',
+    commands=library()
+)
+pkg(
+    name='flac',
+    source='https://downloads.xiph.org/releases/flac/flac-1.3.2.tar.xz',
+    checksum='91cfc3ed61dc40f47f050a109b08610667d73477af6ef36dcad31c31a4a8d53f',
+    dependencies='ogg',
+    commands=library()
+)
 pkg(
     name='fluidsynth',
     source='https://downloads.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz',
@@ -79,7 +103,24 @@ pkg(
         '-Denable-readline=NO'
     )
 )
-# ...
+pkg(
+    name='freetype',
+    source='https://download.savannah.gnu.org/releases/freetype/freetype-2.8.tar.bz2',
+    checksum='a3c603ed84c3c2495f9c9331fe6bba3bb0ee65e06ec331e0a0fb52158291b40b',
+    commands=library('--without-harfbuzz')
+)
+pkg(
+    name='gettext',
+    source='https://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.8.1.tar.xz',
+    checksum='105556dbc5c3fbbc2aa0edb46d22d055748b6f5c7cd7a8d99f8e7eb84e938be4',
+    commands=library()
+)
+pkg(
+    name='gif',
+    source='https://downloads.sourceforge.net/project/giflib/giflib-5.1.4.tar.bz2',
+    checksum='df27ec3ff24671f80b29e6ab1c4971059c14ac3db95406884fc26574631ba8d5',
+    commands=library()
+)
 pkg(
     name='glib',
     source='https://download.gnome.org/sources/glib/2.54/glib-2.54.1.tar.xz',

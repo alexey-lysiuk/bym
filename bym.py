@@ -36,8 +36,11 @@ def _add_dependencies(target, packages):
 
     dependencies = repository.package(target).dependencies
 
-    for dependency in dependencies:
-        _add_dependencies(dependency, packages)
+    if isinstance(dependencies, tuple) or isinstance(dependencies, list):
+        for dependency in dependencies:
+            _add_dependencies(dependency, packages)
+    else:
+        _add_dependencies(dependencies, packages)
 
     packages.append(target)
 
