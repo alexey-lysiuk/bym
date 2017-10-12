@@ -121,7 +121,7 @@ def _settings_filepath(work_dir):
 
 
 def _patch_filepath(target):
-    return configuration.patches_path + target + '.diff'
+    return configuration.patch_path + target + '.diff'
 
 
 def _make_settings(target, environment):
