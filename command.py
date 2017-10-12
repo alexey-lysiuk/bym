@@ -77,7 +77,7 @@ class CMake(Command):
 
 class Make(Command):
     def __init__(self, *args):
-        args = (configuration.make_executable,) + args
+        args = (configuration.make_executable,) + configuration.make_arguments + args
         super(Make, self).__init__(*args)
 
 

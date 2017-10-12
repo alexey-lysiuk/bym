@@ -19,6 +19,7 @@
 import os
 
 import command
+import configuration
 from package import Package
 
 
@@ -33,7 +34,7 @@ _packages = {}
 
 
 def package(name):
-    # todo: handle missing package
+    # TODO: handle missing package
     return _packages[name]
 
 
@@ -128,7 +129,95 @@ pkg(
     dependencies=('ffi', 'gettext', 'pcre'),
     commands=library()
 )
-# ...
+pkg(
+    name='jpeg',
+    source='http://www.ijg.org/files/jpegsrc.v9b.tar.gz',
+    checksum='240fd398da741669bf3c90366f58452ea59041cacc741a489b99f2f6a0bad052',
+    commands=library()
+)
+pkg(
+    name='libmikmod',
+    source='https://downloads.sourceforge.net/project/mikmod/libmikmod/3.3.11.1/libmikmod-3.3.11.1.tar.gz',
+    checksum='ad9d64dfc8f83684876419ea7cd4ff4a41d8bcd8c23ef37ecb3a200a16b46d19',
+    commands=library()
+)
+pkg(
+    name='libtool',
+    source='http://ftp-gnu-org.ip-connect.vn.ua/libtool/libtool-2.4.6.tar.xz',
+    checksum='7c87a8c2c8c0fc9cd5019e402bed4292462d00a718a7cd5f11218153bf28b26f',
+    commands=tool()
+)
+pkg(
+    name='modplug',
+    source='https://downloads.sourceforge.net/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz',
+    checksum='77462d12ee99476c8645cb5511363e3906b88b33a6b54362b4dbc0f39aa2daad',
+    commands=library()
+)
+pkg(
+    name='mpg123',
+    source='https://www.mpg123.de/download/mpg123-1.25.7.tar.bz2',
+    checksum='31b15ebcf26111b874732e07c8e60de5053ee555eea15fb70c657a4f9f0344f3',
+    commands=library()
+)
+pkg(
+    name='ogg',
+    source='https://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.xz',
+    checksum='3f687ccdd5ac8b52d76328fbbfebc70c459a40ea891dbf3dccb74a210826e79b',
+    commands=library()
+)
+pkg(
+    name='oggz',
+    source='https://downloads.xiph.org/releases/liboggz/liboggz-1.1.1.tar.gz',
+    checksum='6bafadb1e0a9ae4ac83304f38621a5621b8e8e32927889e65a98706d213d415a',
+    dependencies='ogg',
+    commands=tool()
+)
+pkg(
+    name='openal',
+    source='http://kcat.strangesoft.net/openal-releases/openal-soft-1.18.2.tar.bz2',
+    checksum ='9f8ac1e27fba15a59758a13f0c7f6540a0605b6c3a691def9d420570506d7e82',
+    commands=cmake(
+        '-DLIBTYPE=STATIC',
+        '-DCMAKE_BUILD_TYPE=Release',
+        '-DALSOFT_EMBED_HRTF_DATA=YES'
+    )
+)
+pkg(
+    name='opus',
+    source='https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz',
+    checksum='cfafd339ccd9c5ef8d6ab15d7e1a412c054bf4cb4ecbbbcc78c12ef2def70732',
+    commands=library()
+)
+pkg(
+    name='opusfile',
+    source='https://archive.mozilla.org/pub/opus/opusfile-0.9.tar.gz',
+    checksum='f75fb500e40b122775ac1a71ad80c4477698842a8fe9da4a1b4a1a9f16e4e979',
+    dependencies=('opus', 'ogg'),
+    commands=library('--disable-http')
+)
+pkg(
+    name='opus-tools',
+    source='https://archive.mozilla.org/pub/opus/opus-tools-0.1.10.tar.gz',
+    checksum='a2357532d19471b70666e0e0ec17d514246d8b3cb2eb168f68bb0f6fd372b28c',
+    dependencies=('opus', 'ogg', 'flac'),
+    commands=tool()
+)
+pkg(
+    name='p7zip',
+    source='https://downloads.sourceforge.net/project/p7zip/p7zip/16.02/p7zip_16.02_src_all.tar.bz2',
+    checksum='5eb20ac0e2944f6cb9c2d51dd6c4518941c185347d4089ea89087ffdd6e2341f',
+    commands=(
+        command.Command('cp', 'makefile.macosx_llvm_64bits', 'makefile.machine'),
+        command.Make('all3'),
+        command.Install('DEST_HOME=' + configuration.install_path)
+    )
+)
+pkg(
+    name='pcre',
+    source='https://ftp.pcre.org/pub/pcre/pcre-8.41.tar.bz2',
+    checksum='e62c7eac5ae7c0e7286db61ff82912e1c0b7a0c13706616e94a7dd729321b530',
+    commands=library('--enable-unicode-properties')
+)
 pkg(
     name='pkg-config',
     source='https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz',
