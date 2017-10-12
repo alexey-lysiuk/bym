@@ -94,6 +94,12 @@ pkg(
     checksum='6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591',
     commands=tool('--with-internal-glib')
 )
+pkg(
+    name='png',
+    source='https://download.sourceforge.net/libpng/libpng-1.6.32.tar.xz',
+    checksum='c918c3113de74a692f0a1526ce881dc26067763eb3915c57ef3a0f7b6886f59b',
+    commands=library()
+)
 # ...
 pkg(
     name='timidity',
