@@ -25,6 +25,7 @@ import subprocess
 _self_path = os.path.dirname(os.path.abspath(__file__))
 
 patch_path = _self_path + os.sep + 'patch' + os.sep
+state_path = _self_path + os.sep + 'state' + os.sep
 
 # Parse command line
 
@@ -32,9 +33,9 @@ _parser = argparse.ArgumentParser(description='Build Your Mac: Configurable buil
 _parser.add_argument('packages', metavar='package', nargs='+',
                      help='list of package names to build')
 
-_parser.add_argument('--build-path', default=_self_path + '/build',
+_parser.add_argument('--build-path', default=_self_path + os.sep + 'build',
                      help='directory for source code and intermediate files')
-_parser.add_argument('--install-path', default=_self_path + '/install',
+_parser.add_argument('--install-path', default=_self_path + os.sep + 'install',
                      help='installation directory also knows as prefix')
 
 _parser.add_argument('--make-exe', default='make',
@@ -82,7 +83,7 @@ extra_flags = _arguments.extra_flags
 force_build = _arguments.force_build
 
 
-# Detect CMake
+# Prerequisites
 
 def _check_cmake(exe_path):
     try:
@@ -93,7 +94,7 @@ def _check_cmake(exe_path):
     return True
 
 
-def have_cmake():
+def _have_cmake():
     global cmake_executable
 
     if _check_cmake(cmake_executable):
@@ -110,6 +111,18 @@ def have_cmake():
         return True
 
     return False
+
+
+prerequisites = (
+    'pkg-config',
+)
+
+autogen_prerequisites = (
+    'autoconf',
+    'automake'
+)
+
+cmake_prerequisites = () if _have_cmake() else ('cmake',)
 
 
 # Setup environment variables
