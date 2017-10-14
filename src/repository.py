@@ -386,6 +386,16 @@ pkg(
     commands=library()
 )
 pkg(
+    name='ssh2',
+    source='https://libssh2.org/download/libssh2-1.8.0.tar.gz',
+    checksum='39f34e2f6835f4b992cafe8625073a88e5a28ba78f83e8099610a7b3af4676d4',
+    dependencies=('zlib', 'gcrypt'),
+    commands=library(
+        '--with-libgcrypt=' + configuration.install_path,
+        '--disable-examples-build'
+    )
+)
+pkg(
     name='tiff',
     source='http://download.osgeo.org/libtiff/tiff-4.0.8.tar.gz',
     checksum='59d7a5a8ccd92059913f246877db95a2918e6c04fb9d43fd74e5c3390dac2910',
