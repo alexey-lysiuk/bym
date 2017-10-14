@@ -106,6 +106,13 @@ pkg(
     commands=library('--without-harfbuzz')
 )
 pkg(
+    name='gcrypt',
+    source='https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.1.tar.bz2',
+    checksum='7a2875f8b1ae0301732e878c0cca2c9664ff09ef71408f085c50e332656a78b3',
+    dependencies='gpg-error',
+    commands=library()
+)
+pkg(
     name='gettext',
     source='https://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.8.1.tar.xz',
     checksum='105556dbc5c3fbbc2aa0edb46d22d055748b6f5c7cd7a8d99f8e7eb84e938be4',
