@@ -125,6 +125,12 @@ pkg(
     commands=library()
 )
 pkg(
+    name='gpg-error',
+    source='https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.27.tar.bz2',
+    checksum='4f93aac6fecb7da2b92871bb9ee33032be6a87b174f54abf8ddf0911a22d29d2',
+    commands=library()
+)
+pkg(
     name='jpeg',
     source='http://www.ijg.org/files/jpegsrc.v9b.tar.gz',
     checksum='240fd398da741669bf3c90366f58452ea59041cacc741a489b99f2f6a0bad052',
