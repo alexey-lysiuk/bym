@@ -23,7 +23,7 @@ import subprocess
 
 
 _self_path = os.path.dirname(os.path.abspath(__file__)) + os.sep
-_root_path = _self_path + os.pardir + os.sep
+_root_path = os.path.realpath(_self_path + os.pardir) + os.sep
 
 patch_path = _root_path + 'patch' + os.sep
 state_path = _root_path + 'state' + os.sep
