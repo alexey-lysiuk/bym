@@ -34,7 +34,7 @@ class Command(object):
         subprocess.check_call(self._arguments, cwd=workdir, env=environment)
 
     def __eq__(self, other):
-        return self.as_tuple() == other.as_tuple()
+        return self.as_tuple() == other.as_tuple() if isinstance(other, Command) else False
 
     def __ne__(self, other):
         return not self == other
