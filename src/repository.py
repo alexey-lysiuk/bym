@@ -355,6 +355,16 @@ pkg(
     commands=library()
 )
 pkg(
+    name='slang',
+    source='http://www.jedsoft.org/releases/slang/slang-2.3.1a.tar.bz2',
+    checksum='54f0c3007fde918039c058965dffdfd6c5aec0bad0f4227192cc486021f08c36',
+    dependencies=('pcre', 'png'),
+    commands=(
+        command.Configure(),
+        command.Make('install-static')
+    )
+)
+pkg(
     name='smpeg',
     source='https://github.com/alexey-lysiuk/bym/releases/download/sources/smpeg-0.4.5.tar.xz',
     checksum='1635cde79660440defa6b6641e1a7465ce8886b535dc123069adc31e65e947be',
