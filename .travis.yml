@@ -8,7 +8,7 @@ env:
   - TARGETS="sdl_mixer sdl2_mixer"
 
 script:
-  - for TARGET in $TARGETS; do travis_retry ./bym.py --make-args=-j2 $TARGET; done
+  - for TARGET in $TARGETS; do travis_retry ./bym --make-args=-j2 $TARGET; done
 
 notifications:
   email: false
