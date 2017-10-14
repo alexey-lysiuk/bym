@@ -294,6 +294,13 @@ pkg(
     commands=library('--without-x')
 )
 pkg(
+    name='sdl2_gfx',
+    source='http://www.ferzkopp.net/Software/SDL2_gfx/SDL2_gfx-1.0.3.tar.gz',
+    checksum='a4066bd467c96469935a4b1fe472893393e7d74e45f95d59f69726784befd8f8',
+    dependencies='sdl2',
+    commands=library()
+)
+pkg(
     name='sdl2_image',
     source='https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.tar.gz',
     checksum='3a3eafbceea5125c04be585373bfd8b3a18f259bd7eae3efc4e6d8e60e0d7f64',
