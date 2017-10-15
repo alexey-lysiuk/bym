@@ -453,7 +453,7 @@ pkg(
 )
 
 
-_custom_filename = __name__ + '.custom.py'
+_user_filename = __name__ + '.user.py'
 
-if os.path.exists(_custom_filename):
-    execfile(_custom_filename)
+if os.path.exists(_user_filename):
+    execfile(_user_filename)
