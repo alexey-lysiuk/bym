@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Command, Make, Install, Library, Tool
+from command import Command, Make, Install, CMakeInstall, Library, Tool
 import configuration
 import repository
 
@@ -39,6 +39,15 @@ pkg(
     source='https://ftp.pcre.org/pub/pcre/pcre-8.41.tar.bz2',
     checksum='e62c7eac5ae7c0e7286db61ff82912e1c0b7a0c13706616e94a7dd729321b530',
     commands=Library('--enable-unicode-properties')
+)
+pkg(
+    name='physfs',
+    source='https://icculus.org/physfs/downloads/physfs-3.0.0.tar.bz2',
+    checksum='f2617d6855ea97ea42e4a8ebcad404354be99dfd8a274eacea92091b27fd7324',
+    commands=CMakeInstall(
+        '-DCMAKE_BUILD_TYPE=Release',
+        '-DPHYSFS_BUILD_SHARED=NO'
+    )
 )
 pkg(
     name='pkg-config',
