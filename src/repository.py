@@ -156,6 +156,16 @@ pkg(
     commands=tool()
 )
 pkg(
+    name='mc',
+    source='https://www.midnight-commander.org/downloads/mc-4.8.19.tar.xz',
+    checksum='eb9e56bbb5b2893601d100d0e0293983049b302c5ab61bfb544ad0ee2cc1f2df',
+    dependencies=('glib', 'slang', 'ssh2'),
+    commands=command.ConfigureStaticInstall(
+        'LDFLAGS=-framework CoreServices ' + configuration.environment['LDFLAGS'],
+        'ac_cv_func_utimensat=no'
+    )
+)
+pkg(
     name='modplug',
     source='https://downloads.sourceforge.net/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz',
     checksum='77462d12ee99476c8645cb5511363e3906b88b33a6b54362b4dbc0f39aa2daad',
