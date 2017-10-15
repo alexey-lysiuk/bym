@@ -101,3 +101,7 @@ class CMakeInstall(Install):
     def __init__(self, *arguments):
         super(CMakeInstall, self).__init__()
         self._previous = CMake(*arguments)
+
+
+Library = ConfigureStaticInstall
+Tool = ConfigureInstall
