@@ -16,35 +16,28 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-
-import configuration
-from package import Package
+from command import Library, Tool
+import repository
 
 
-_packages = {}
+pkg = repository.add_package
 
 
-def package(name):
-    # TODO: handle missing package
-    return _packages[name]
-
-
-def add_package(name, source, checksum, commands, dependencies=()):
-    _packages[name] = Package(name, source, checksum, commands, dependencies)
-
-
-def _load_packages():
-    self_path = os.path.dirname(os.path.abspath(__file__))
-    filenames = os.listdir(self_path)
-
-    for filename in filenames:
-        if filename.startswith('_pkg_') and filename.endswith('.py'):
-            execfile(self_path + os.sep + filename)
-
-
-_load_packages()
-
-# TODO: name aliases: 'libogg' -> 'ogg'
-
-configuration.load_user_file(__name__)
+pkg(
+    name='ao',
+    source='http://downloads.xiph.org/releases/ao/libao-1.2.0.tar.gz',
+    checksum='03ad231ad1f9d64b52474392d63c31197b0bc7bd416e58b1c10a329a5ed89caf',
+    commands=Library()
+)
+pkg(
+    name='autoconf',
+    source='https://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz',
+    checksum='64ebcec9f8ac5b2487125a86a7760d2591ac9e1d3dbd59489633f9de62a57684',
+    commands=Tool()
+)
+pkg(
+    name='automake',
+    source='https://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.xz',
+    checksum='af6ba39142220687c500f79b4aa2f181d9b24e4f8d8ec497cea4ba26c64bedaf',
+    commands=Tool()
+)

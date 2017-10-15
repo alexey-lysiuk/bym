@@ -161,7 +161,11 @@ _append_flags('LDFLAGS', extra_flags)
 _prepend_path(bin_path)
 
 
-_user_filename = __name__ + '.user.py'
+def load_user_file(filename):
+    user_filename = filename + '.user.py'
 
-if os.path.exists(_user_filename):
-    execfile(_user_filename)
+    if os.path.exists(user_filename):
+        execfile(user_filename)
+
+
+load_user_file(__name__)

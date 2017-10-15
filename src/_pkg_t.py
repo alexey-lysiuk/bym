@@ -16,35 +16,24 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-
-import configuration
-from package import Package
+from command import Library, Tool
+import repository
 
 
-_packages = {}
+pkg = repository.add_package
 
 
-def package(name):
-    # TODO: handle missing package
-    return _packages[name]
-
-
-def add_package(name, source, checksum, commands, dependencies=()):
-    _packages[name] = Package(name, source, checksum, commands, dependencies)
-
-
-def _load_packages():
-    self_path = os.path.dirname(os.path.abspath(__file__))
-    filenames = os.listdir(self_path)
-
-    for filename in filenames:
-        if filename.startswith('_pkg_') and filename.endswith('.py'):
-            execfile(self_path + os.sep + filename)
-
-
-_load_packages()
-
-# TODO: name aliases: 'libogg' -> 'ogg'
-
-configuration.load_user_file(__name__)
+pkg(
+    name='tiff',
+    source='http://download.osgeo.org/libtiff/tiff-4.0.8.tar.gz',
+    checksum='59d7a5a8ccd92059913f246877db95a2918e6c04fb9d43fd74e5c3390dac2910',
+    dependencies=('jpeg', 'xz'),
+    commands=Library()
+)
+pkg(
+    name='timidity',
+    source='https://downloads.sourceforge.net/project/timidity/TiMidity++/TiMidity++-2.14.0/TiMidity++-2.14.0.tar.bz2',
+    checksum='f97fb643f049e9c2e5ef5b034ea9eeb582f0175dce37bc5df843cc85090f6476',
+    dependencies=('vorbis', 'flac', 'speex', 'ao'),
+    commands=Tool('--enable-audio=darwin,vorbis,flac,speex,ao',),
+)

@@ -16,35 +16,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-
-import configuration
-from package import Package
+from command import Library, Tool
+import repository
 
 
-_packages = {}
+pkg = repository.add_package
 
 
-def package(name):
-    # TODO: handle missing package
-    return _packages[name]
-
-
-def add_package(name, source, checksum, commands, dependencies=()):
-    _packages[name] = Package(name, source, checksum, commands, dependencies)
-
-
-def _load_packages():
-    self_path = os.path.dirname(os.path.abspath(__file__))
-    filenames = os.listdir(self_path)
-
-    for filename in filenames:
-        if filename.startswith('_pkg_') and filename.endswith('.py'):
-            execfile(self_path + os.sep + filename)
-
-
-_load_packages()
-
-# TODO: name aliases: 'libogg' -> 'ogg'
-
-configuration.load_user_file(__name__)
+pkg(
+    name='libmikmod',
+    source='https://downloads.sourceforge.net/project/mikmod/libmikmod/3.3.11.1/libmikmod-3.3.11.1.tar.gz',
+    checksum='ad9d64dfc8f83684876419ea7cd4ff4a41d8bcd8c23ef37ecb3a200a16b46d19',
+    commands=Library()
+)
+pkg(
+    name='libTool',
+    source='https://ftp.gnu.org/gnu/libTool/libTool-2.4.6.tar.xz',
+    checksum='7c87a8c2c8c0fc9cd5019e402bed4292462d00a718a7cd5f11218153bf28b26f',
+    commands=Tool()
+)

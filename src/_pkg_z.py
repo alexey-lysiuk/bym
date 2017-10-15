@@ -16,35 +16,16 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-
-import configuration
-from package import Package
+from command import ConfigureInstall
+import repository
 
 
-_packages = {}
+pkg = repository.add_package
 
 
-def package(name):
-    # TODO: handle missing package
-    return _packages[name]
-
-
-def add_package(name, source, checksum, commands, dependencies=()):
-    _packages[name] = Package(name, source, checksum, commands, dependencies)
-
-
-def _load_packages():
-    self_path = os.path.dirname(os.path.abspath(__file__))
-    filenames = os.listdir(self_path)
-
-    for filename in filenames:
-        if filename.startswith('_pkg_') and filename.endswith('.py'):
-            execfile(self_path + os.sep + filename)
-
-
-_load_packages()
-
-# TODO: name aliases: 'libogg' -> 'ogg'
-
-configuration.load_user_file(__name__)
+pkg(
+    name='zlib',
+    source='https://zlib.net/zlib-1.2.11.tar.gz',
+    checksum='c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1',
+    commands=ConfigureInstall('--static')
+)

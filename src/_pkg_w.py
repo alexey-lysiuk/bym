@@ -16,35 +16,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-
-import configuration
-from package import Package
+from command import Library
+import repository
 
 
-_packages = {}
+pkg = repository.add_package
 
 
-def package(name):
-    # TODO: handle missing package
-    return _packages[name]
-
-
-def add_package(name, source, checksum, commands, dependencies=()):
-    _packages[name] = Package(name, source, checksum, commands, dependencies)
-
-
-def _load_packages():
-    self_path = os.path.dirname(os.path.abspath(__file__))
-    filenames = os.listdir(self_path)
-
-    for filename in filenames:
-        if filename.startswith('_pkg_') and filename.endswith('.py'):
-            execfile(self_path + os.sep + filename)
-
-
-_load_packages()
-
-# TODO: name aliases: 'libogg' -> 'ogg'
-
-configuration.load_user_file(__name__)
+pkg(
+    name='webp',
+    source='http://downloads.webmproject.org/releases/webp/libwebp-0.6.0.tar.gz',
+    checksum='c928119229d4f8f35e20113ffb61f281eda267634a8dc2285af4b0ee27cf2b40',
+    dependencies=('png', 'jpeg', 'tiff', 'gif'),
+    commands=Library()
+)
