@@ -24,6 +24,13 @@ pkg = repository.add_package
 
 
 pkg(
+    name='theora',
+    source='https://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.bz2',
+    checksum='b6ae1ee2fa3d42ac489287d3ec34c5885730b1296f0801ae577a35193d3affbc',
+    dependencies='vorbis',
+    commands=Library()
+)
+pkg(
     name='tiff',
     source='http://download.osgeo.org/libtiff/tiff-4.0.8.tar.gz',
     checksum='59d7a5a8ccd92059913f246877db95a2918e6c04fb9d43fd74e5c3390dac2910',
