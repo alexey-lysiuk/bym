@@ -64,6 +64,24 @@ class CreateDirectories(Command):
         os.chdir(prev_workdir)
 
 
+class CreateFile(Command):
+    def execute(self, workdir, environment):
+        if self._previous:
+            self._previous.execute(workdir, environment)
+
+        # TODO: handle OSError, IOError
+
+        prev_workdir = os.getcwd()
+        os.chdir(workdir)
+
+        filename, content = self._arguments
+
+        with open(filename, 'w') as f:
+            f.write(content)
+
+        os.chdir(prev_workdir)
+
+
 class Autogen(Command):
     def __init__(self, *arguments):
         arguments = ('./autogen.sh',) + arguments
