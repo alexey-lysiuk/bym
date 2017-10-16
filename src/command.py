@@ -16,6 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import os
 import subprocess
 
 import configuration
@@ -44,6 +45,23 @@ class Command(object):
 
     def prerequisites(self):
         return (self._previous.prerequisites() if self._previous else ()) + self._prerequisites
+
+
+class CreateDirectories(Command):
+    def execute(self, workdir, environment):
+        if self._previous:
+            self._previous.execute(workdir, environment)
+
+        # TODO: handle OSError, IOError
+
+        prev_workdir = os.getcwd()
+        os.chdir(workdir)
+
+        for dirname in self._arguments:
+            if not os.path.exists(dirname):
+                os.makedirs(dirname)
+
+        os.chdir(prev_workdir)
 
 
 class Autogen(Command):
