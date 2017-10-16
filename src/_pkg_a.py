@@ -16,13 +16,28 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Library, Tool
+from command import Library, Tool, CMakeInstall
 import repository
 
 
 pkg = repository.add_package
 
 
+pkg(
+    name='allegro',
+    source='https://github.com/liballeg/allegro5/releases/download/5.2.3.0/allegro-5.2.3.0.tar.gz',
+    checksum='5a4d40601899492b697ad5cfdf11d8265fe554036a2c912c86a6e6d23001f905',
+    dependencies=('vorbis', 'flac', 'opusfile', 'theora', 'openal', 'webp', 'dumb', 'freetype', 'physfs', 'enet'),
+    commands=CMakeInstall(
+        '-DSHARED=NO',
+        '-DWANT_DOCS=NO',
+        '-DWANT_EXAMPLES=NO',
+        '-DWANT_TESTS=NO',
+        '-DFREETYPE_ZLIB=YES',
+        '-DFREETYPE_BZIP2=YES',
+        '-DFREETYPE_PNG=YES'
+    )
+)
 pkg(
     name='ao',
     source='http://downloads.xiph.org/releases/ao/libao-1.2.0.tar.gz',
