@@ -53,5 +53,6 @@ pkg(
     name='freetype',
     source='https://download.savannah.gnu.org/releases/freetype/freetype-2.8.tar.bz2',
     checksum='a3c603ed84c3c2495f9c9331fe6bba3bb0ee65e06ec331e0a0fb52158291b40b',
+    dependencies='png',
     commands=Library('--without-harfbuzz')
 )
