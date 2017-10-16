@@ -1,0 +1,20 @@
+--- a/builds/unix/freetype2.in
++++ b/builds/unix/freetype2.in
+@@ -9,6 +9,6 @@
+ Version: %ft_version%
+ Requires:
+ Requires.private: %REQUIRES_PRIVATE%
+-Libs: -L${libdir} -lfreetype
++Libs: -L${libdir} -lfreetype %LIBS_PRIVATE%
+ Libs.private: %LIBS_PRIVATE%
+ Cflags: -I${includedir}/freetype2
+--- a/builds/unix/freetype-config.in
++++ b/builds/unix/freetype-config.in
+@@ -132,6 +132,7 @@
+     ;;
+   --libs)
+     echo_libs=yes
++    show_static=yes
+     ;;
+   --libtool)
+     echo_libtool=yes
