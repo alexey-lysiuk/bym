@@ -16,7 +16,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Library
+from command import Command, Library, Make
+import configuration
 import repository
 
 
@@ -48,6 +49,15 @@ pkg(
     checksum='50c01b1419324f10fbf9b9709ec2164b18586968bdce7540583bf32302cf47a3',
     dependencies=('ffi', 'gettext', 'pcre'),
     commands=Library()
+)
+pkg(
+    name='glew',
+    source='https://downloads.sourceforge.net/project/glew/glew/2.1.0/glew-2.1.0.tgz',
+    checksum='04de91e7e6763039bc11940095cd9c7f880baba82196a7765f727ac05a993c95',
+    commands=(
+        Make('GLEW_DEST=' + configuration.install_path, 'glew.lib.static', 'install.include', 'install.pkgconfig'),
+        Command('cp', 'lib/libGLEW.a', configuration.lib_path),
+    )
 )
 pkg(
     name='gpg-error',
