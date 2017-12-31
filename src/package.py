@@ -191,7 +191,7 @@ class Package(object):
 
         patch_set = patch.fromfile(patch_path)
 
-        if not patch_set.apply(root=self._work_path):
+        if not patch_set or not patch_set.apply(root=self._work_path):
             raise Exception('Failed to apply patch %s' % patch_path)
 
     def patch_path(self):
