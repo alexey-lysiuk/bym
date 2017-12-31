@@ -29,3 +29,11 @@ pkg(
     checksum='d768ee83d217f91bb597b3ca2ac663da7a8603c97e1f1a5184bc01e0ad2b12bb',
     commands=Tool()
 )
+
+pkg(
+    name='chocolate-doom',
+    source='https://www.chocolate-doom.org/downloads/3.0.0/chocolate-doom-3.0.0.tar.gz',
+    checksum='73aea623930c7d18a7a778eea391e1ddfbe90ad1ac40a91b380afca4b0e1dab8',
+    dependencies=('png', 'samplerate', 'sdl2_mixer', 'sdl2_net'),
+    commands=Tool()
+)
