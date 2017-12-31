@@ -1,0 +1,10 @@
+--- a/libmodplug.pc.in
++++ b/libmodplug.pc.in
+@@ -7,6 +7,6 @@
+ Description: The ModPlug mod file playing library.
+ Version: @VERSION@
+ Requires: 
+-Libs: -L${libdir} -lmodplug 
++Libs: -L${libdir} -lmodplug -lstdc++
+ Libs.private: -lstdc++ -lm
+ Cflags: -I${includedir}
