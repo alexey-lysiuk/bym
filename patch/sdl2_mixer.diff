@@ -1,0 +1,10 @@
+--- a/SDL2_mixer.pc.in
++++ b/SDL2_mixer.pc.in
+@@ -7,6 +7,6 @@
+ Description: mixer library for Simple DirectMedia Layer
+ Version: @VERSION@
+ Requires: sdl2 >= @SDL_VERSION@
+-Libs: -L${libdir} -lSDL2_mixer
++Libs: -L${libdir} -lSDL2_mixer -lstdc++ -lSDL2 -logg -lvorbis -lvorbisfile -lFLAC -lmikmod -lmodplug -lfluidsynth -lsmpeg2
+ Cflags: -I${includedir}/SDL2
+ 
