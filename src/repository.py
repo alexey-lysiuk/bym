@@ -47,4 +47,9 @@ _load_packages()
 
 # TODO: name aliases: 'libogg' -> 'ogg'
 
-configuration.load_user_file(__name__)
+try:
+    # noinspection PyUnresolvedReferences
+    import repository_user
+except ImportError:
+    pass
+

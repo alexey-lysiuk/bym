@@ -161,11 +161,8 @@ _append_flags('LDFLAGS', extra_flags)
 _prepend_path(bin_path)
 
 
-def load_user_file(filename):
-    user_filename = filename + '.user.py'
-
-    if os.path.exists(user_filename):
-        execfile(user_filename)
-
-
-load_user_file(__name__)
+try:
+    # noinspection PyUnresolvedReferences
+    import configuration_user
+except ImportError:
+    pass
