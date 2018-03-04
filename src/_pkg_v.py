@@ -31,8 +31,8 @@ pkg(
     commands=Library()
 )
 pkg(
-    name='vorbis-Tools',
-    source='https://downloads.xiph.org/releases/vorbis/vorbis-Tools-1.4.0.tar.gz',
+    name='vorbis-tools',
+    source='https://downloads.xiph.org/releases/vorbis/vorbis-tools-1.4.0.tar.gz',
     checksum='a389395baa43f8e5a796c99daf62397e435a7e73531c9f44d9084055a05d22bc',
     dependencies=('vorbis', 'flac', 'ao'),
     commands=Tool()
