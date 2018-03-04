@@ -25,8 +25,8 @@ pkg = repository.add_package
 
 pkg(
     name='ogg',
-    source='https://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.xz',
-    checksum='3f687ccdd5ac8b52d76328fbbfebc70c459a40ea891dbf3dccb74a210826e79b',
+    source='https://downloads.xiph.org/releases/ogg/libogg-1.3.3.tar.xz',
+    checksum='4f3fc6178a533d392064f14776b23c397ed4b9f48f5de297aba73b643f955c08',
     commands=Library()
 )
 pkg(
