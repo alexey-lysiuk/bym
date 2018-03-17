@@ -24,6 +24,12 @@ pkg = repository.add_package
 
 
 pkg(
+    name='libxmp',
+    source='https://downloads.sourceforge.net/project/xmp/libxmp/4.4.1/libxmp-4.4.1.tar.gz',
+    checksum='353535cc84c8cddae8decec4e65fa4c51fc64f22eb0891bc3dae6eaf25f9cccf',
+    commands=Library()
+)
+pkg(
     name='libmikmod',
     source='https://downloads.sourceforge.net/project/mikmod/libmikmod/3.3.11.1/libmikmod-3.3.11.1.tar.gz',
     checksum='ad9d64dfc8f83684876419ea7cd4ff4a41d8bcd8c23ef37ecb3a200a16b46d19',
