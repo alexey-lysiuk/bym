@@ -25,8 +25,8 @@ pkg = repository.add_package
 
 pkg(
     name='webp',
-    source='http://downloads.webmproject.org/releases/webp/libwebp-0.6.0.tar.gz',
-    checksum='c928119229d4f8f35e20113ffb61f281eda267634a8dc2285af4b0ee27cf2b40',
+    source='https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-0.6.1.tar.gz',
+    checksum='06503c782d9f151baa325591c3579c68ed700ffc62d4f5a32feead0ff017d8ab',
     dependencies=('png', 'jpeg', 'tiff', 'gif'),
     commands=Library()
 )
