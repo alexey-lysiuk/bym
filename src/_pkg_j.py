@@ -25,7 +25,7 @@ pkg = repository.add_package
 
 pkg(
     name='jpeg',
-    source='http://www.ijg.org/files/jpegsrc.v9b.tar.gz',
-    checksum='240fd398da741669bf3c90366f58452ea59041cacc741a489b99f2f6a0bad052',
+    source='http://www.ijg.org/files/jpegsrc.v9c.tar.gz',
+    checksum='1f3a3f610f57e88ff3f1f9db530c605f3949ee6e78002552e324d493cf086ad4',
     commands=Library()
 )
