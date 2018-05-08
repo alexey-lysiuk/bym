@@ -29,3 +29,10 @@ pkg(
     checksum='1f3a3f610f57e88ff3f1f9db530c605f3949ee6e78002552e324d493cf086ad4',
     commands=Library()
 )
+pkg(
+    name='jpeg-turbo',
+    source='https://downloads.sourceforge.net/project/libjpeg-turbo/1.5.3/libjpeg-turbo-1.5.3.tar.gz',
+    checksum='b24890e2bb46e12e72a79f7e965f409f4e16466d00e1dd15d93d73ee6b592523',
+    dependencies='nasm',
+    commands=Library()
+)
