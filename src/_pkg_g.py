@@ -45,8 +45,8 @@ pkg(
 )
 pkg(
     name='glib',
-    source='https://download.gnome.org/sources/glib/2.54/glib-2.54.1.tar.xz',
-    checksum='50c01b1419324f10fbf9b9709ec2164b18586968bdce7540583bf32302cf47a3',
+    source='https://download.gnome.org/sources/glib/2.56/glib-2.56.1.tar.xz',
+    checksum='40ef3f44f2c651c7a31aedee44259809b6f03d3d20be44545cd7d177221c0b8d',
     dependencies=('ffi', 'gettext', 'pcre'),
     commands=Library()
 )
