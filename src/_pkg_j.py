@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Library
+from command import Library, CMakeInstall
 import repository
 
 
@@ -31,8 +31,8 @@ pkg(
 )
 pkg(
     name='jpeg-turbo',
-    source='https://downloads.sourceforge.net/project/libjpeg-turbo/1.5.3/libjpeg-turbo-1.5.3.tar.gz',
-    checksum='b24890e2bb46e12e72a79f7e965f409f4e16466d00e1dd15d93d73ee6b592523',
+    source='https://sourceforge.net/projects/libjpeg-turbo/files/2.0.0/libjpeg-turbo-2.0.0.tar.gz',
+    checksum='778876105d0d316203c928fd2a0374c8c01f755d0a00b12a1c8934aeccff8868',
     dependencies='nasm',
-    commands=Library()
+    commands=CMakeInstall('-DENABLE_SHARED=NO')
 )
