@@ -25,7 +25,7 @@ pkg = repository.add_package
 
 pkg(
     name='xz',
-    source='https://downloads.sourceforge.net/project/lzmautils/xz-5.2.3.tar.gz',
-    checksum='71928b357d0a09a12a4b4c5fafca8c31c19b0e7d3b8ebb19622e96f26dbf28cb',
+    source='https://downloads.sourceforge.net/project/lzmautils/xz-5.2.4.tar.gz',
+    checksum='b512f3b726d3b37b6dc4c8570e137b9311e7552e8ccbab4d39d47ce5f4177145',
     commands=Library()
 )
