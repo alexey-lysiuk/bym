@@ -129,6 +129,11 @@ class Package(object):
 
     def _download(self):
         response = urllib2.urlopen(self.source)
+        # request = urllib2.Request(self.source)
+        # request.add_header('User-Agent',
+        #                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0')
+        # opener = urllib2.build_opener()
+        # response = opener.open(request)
         checksum = hashlib.sha256()
         step = 64 * 1024
         total = 0
