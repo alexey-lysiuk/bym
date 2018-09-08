@@ -38,12 +38,11 @@ pkg(
 )
 pkg(
     name='openal',
-    source='http://kcat.strangesoft.net/openal-releases/openal-soft-1.18.2.tar.bz2',
-    checksum='9f8ac1e27fba15a59758a13f0c7f6540a0605b6c3a691def9d420570506d7e82',
+    source='http://kcat.strangesoft.net/openal-releases/openal-soft-1.19.0.tar.bz2',
+    checksum='f1adf3a6e73e2f9270a0fd00887ea23793968fa787f60dcdec41a3b2f42a0ed6',
     commands=CMakeInstall(
         '-DLIBTYPE=STATIC',
         '-DCMAKE_BUILD_TYPE=Release',
-        '-DALSOFT_EMBED_HRTF_DATA=YES'
     )
 )
 pkg(
