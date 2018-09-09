@@ -25,6 +25,12 @@ pkg = repository.add_package
 
 
 pkg(
+    name='mad',
+    source='https://downloads.sourceforge.net/project/mad/libmad/0.15.1b/libmad-0.15.1b.tar.gz',
+    checksum='bbfac3ed6bfbc2823d3775ebb931087371e142bb0e9bb1bee51a76a6e0078690',
+    commands=Library()
+)
+pkg(
     name='mc',
     source='https://www.midnight-commander.org/downloads/mc-4.8.19.tar.xz',
     checksum='eb9e56bbb5b2893601d100d0e0293983049b302c5ab61bfb544ad0ee2cc1f2df',
