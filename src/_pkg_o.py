@@ -38,8 +38,8 @@ pkg(
 )
 pkg(
     name='openal',
-    source='http://kcat.strangesoft.net/openal-releases/openal-soft-1.19.0.tar.bz2',
-    checksum='f1adf3a6e73e2f9270a0fd00887ea23793968fa787f60dcdec41a3b2f42a0ed6',
+    source='http://openal-soft.org/openal-releases/openal-soft-1.19.1.tar.bz2',
+    checksum='5c2f87ff5188b95e0dc4769719a9d89ce435b8322b4478b95dd4b427fe84b2e9',
     commands=CMakeInstall(
         '-DLIBTYPE=STATIC',
         '-DCMAKE_BUILD_TYPE=Release',
