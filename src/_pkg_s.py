@@ -88,8 +88,8 @@ pkg(
 )
 pkg(
     name='sdl2',
-    source='https://www.libsdl.org/release/SDL2-2.0.8.tar.gz',
-    checksum='edc77c57308661d576e843344d8638e025a7818bff73f8fbfab09c3c5fd092ec',
+    source='https://www.libsdl.org/release/SDL2-2.0.9.tar.gz',
+    checksum='255186dc676ecd0c1dbf10ec8a2cc5d6869b5079d8a38194c2aecdff54b324b1',
     commands=Library('--without-x')
 )
 pkg(
