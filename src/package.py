@@ -94,6 +94,8 @@ class Package(object):
         if not configuration.force_build and state.uptodate():
             return
 
+        print('=' * 80 + '\n Building ' + self.name + '\n' + '=' * 80)
+
         self._setup_workdir()
 
         if isinstance(self.commands, tuple) or isinstance(self.commands, list):
