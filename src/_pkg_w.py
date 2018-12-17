@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Library
+from command import Library, CMakeInstall
 import repository
 
 
@@ -29,4 +29,11 @@ pkg(
     checksum='06503c782d9f151baa325591c3579c68ed700ffc62d4f5a32feead0ff017d8ab',
     dependencies=('png', 'jpeg', 'tiff', 'gif'),
     commands=Library()
+)
+pkg(
+    name='wxwidgets',
+    source='https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.2/wxWidgets-3.1.2.tar.bz2',
+    checksum='4cb8d23d70f9261debf7d6cfeca667fc0a7d2b6565adb8f1c484f9b674f1f27a',
+    dependencies=('xz'),
+    commands=CMakeInstall('-DwxBUILD_SHARED=NO', '-DwxUSE_LIBLZMA=YES', '-DwxUSE_LIBSDL=NO')
 )
