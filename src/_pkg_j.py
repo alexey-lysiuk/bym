@@ -31,8 +31,8 @@ pkg(
 )
 pkg(
     name='jpeg-turbo',
-    source='https://sourceforge.net/projects/libjpeg-turbo/files/2.0.0/libjpeg-turbo-2.0.0.tar.gz',
-    checksum='778876105d0d316203c928fd2a0374c8c01f755d0a00b12a1c8934aeccff8868',
+    source='https://sourceforge.net/projects/libjpeg-turbo/files/2.0.1/libjpeg-turbo-2.0.1.tar.gz',
+    checksum='e5f86cec31df1d39596e0cca619ab1b01f99025a27dafdfc97a30f3a12f866ff',
     dependencies='nasm',
     commands=CMakeInstall('-DENABLE_SHARED=NO')
 )
