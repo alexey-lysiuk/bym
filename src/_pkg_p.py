@@ -57,8 +57,8 @@ pkg(
 )
 pkg(
     name='png',
-    source='https://downloads.sourceforge.net/libpng/libpng-1.6.34.tar.xz',
-    checksum='2f1e960d92ce3b3abd03d06dfec9637dfbd22febf107a536b44f7a47c60659f6',
+    source='https://downloads.sourceforge.net/libpng/libpng-1.6.36.tar.xz',
+    checksum='eceb924c1fa6b79172fdfd008d335f0e59172a86a66481e09d4089df872aa319',
     commands=Library()
 )
 
