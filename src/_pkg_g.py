@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Command, Library, Make
+from command import Autogen, Command, Library, Make
 import configuration
 import repository
 
@@ -45,10 +45,13 @@ pkg(
 )
 pkg(
     name='glib',
-    source='https://download.gnome.org/sources/glib/2.56/glib-2.56.1.tar.xz',
-    checksum='40ef3f44f2c651c7a31aedee44259809b6f03d3d20be44545cd7d177221c0b8d',
-    dependencies=('ffi', 'gettext', 'pcre'),
-    commands=Library()
+    source='https://download.gnome.org/sources/glib/2.58/glib-2.58.1.tar.xz',
+    checksum='97d6a9d926b6aa3dfaadad3077cfb43eec74432ab455dff14250c769d526d7d6',
+    dependencies=('autoconf', 'automake', 'ffi', 'gettext', 'libtool', 'pcre'),
+    commands=(
+        Autogen(),
+        Library()
+    )
 )
 pkg(
     name='glew',
