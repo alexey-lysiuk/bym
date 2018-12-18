@@ -5,6 +5,6 @@
  Version: @VERSION@
  Requires: sdl2 >= @SDL_VERSION@
 -Libs: -L${libdir} -lSDL2_mixer
-+Libs: -L${libdir} -lSDL2_mixer -lstdc++ -lSDL2 -logg -lvorbis -lvorbisfile -lFLAC -lmikmod -lmodplug -lfluidsynth -lsmpeg2
++Libs: -L${libdir} -lSDL2_mixer -lSDL2 -logg -lvorbis -lvorbisfile -lFLAC -lmikmod -lmodplug -lfluidsynth -lsmpeg2
  Cflags: -I${includedir}/SDL2
  
