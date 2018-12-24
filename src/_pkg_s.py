@@ -101,8 +101,8 @@ pkg(
 )
 pkg(
     name='sdl2_image',
-    source='https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.3.tar.gz',
-    checksum='3510c25da735ffcd8ce3b65073150ff4f7f9493b866e85b83738083b556d2368',
+    source='https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.4.tar.gz',
+    checksum='e74ec49c2402eb242fbfa16f2f43a19582a74c2eabfbfb873f00d4250038ceac',
     dependencies=('sdl2', 'jpeg', 'png', 'tiff', 'webp'),
     commands=Library(
         '--disable-jpg-shared',
