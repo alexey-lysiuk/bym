@@ -156,6 +156,7 @@ for variable in _compilation_environment_variables:
     _append_flags(variable, extra_flags)
 
 _append_flags('LDFLAGS', '-L' + lib_path)
+_append_flags('LDFLAGS', '-lc++ -lc++abi')
 _append_flags('LDFLAGS', extra_flags)
 
 _prepend_path(bin_path)
