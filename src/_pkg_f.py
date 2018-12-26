@@ -59,3 +59,10 @@ pkg(
         '--without-harfbuzz',
     )
 )
+pkg(
+    name='ftgl',
+    source='https://downloads.sourceforge.net/project/ftgl/FTGL%20Source/2.1.3~rc5/ftgl-2.1.3-rc5.tar.gz',
+    checksum='5458d62122454869572d39f8aa85745fc05d5518001bcefa63bd6cbb8d26565b',
+    dependencies='freetype',
+    commands=Library()
+)
