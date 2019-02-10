@@ -1,0 +1,154 @@
+diff --git a/common/threads.c b/common/threads.c
+index 6cfe383b..e8301297 100644
+--- a/common/threads.c
++++ b/common/threads.c
+@@ -631,6 +631,39 @@ void alcnd_destroy(alcnd_t *cond)
+ }
+ 
+ 
++#ifdef __APPLE__
++
++int alsem_init(alsem_t *sem, unsigned int initial)
++{
++    *sem = dispatch_semaphore_create(initial);
++    return *sem ? althrd_success : althrd_error;
++}
++
++void alsem_destroy(alsem_t *sem)
++{
++    dispatch_release(*sem);
++}
++
++int alsem_post(alsem_t *sem)
++{
++    dispatch_semaphore_signal(*sem);
++    return althrd_success;
++}
++
++int alsem_wait(alsem_t *sem)
++{
++    dispatch_semaphore_wait(*sem, DISPATCH_TIME_FOREVER);
++    return althrd_success;
++}
++
++int alsem_trywait(alsem_t *sem)
++{
++    long value = dispatch_semaphore_wait(*sem, DISPATCH_TIME_NOW);
++    return value == 0 ? althrd_success : althrd_busy;
++}
++
++#else /* !__APPLE__ */
++
+ int alsem_init(alsem_t *sem, unsigned int initial)
+ {
+     if(sem_init(sem, 0, initial) == 0)
+@@ -665,6 +698,8 @@ int alsem_trywait(alsem_t *sem)
+     return althrd_error;
+ }
+ 
++#endif /* __APPLE__ */
++
+ 
+ int altss_create(altss_t *tss_id, altss_dtor_t callback)
+ {
+diff --git a/common/threads.h b/common/threads.h
+index b0bebd8d..2d1b4e7f 100644
+--- a/common/threads.h
++++ b/common/threads.h
+@@ -130,13 +130,21 @@ inline int altss_set(altss_t tss_id, void *val)
+ #include <stdint.h>
+ #include <errno.h>
+ #include <pthread.h>
++#ifdef __APPLE__
++#include <dispatch/dispatch.h>
++#else /* !__APPLE__ */
+ #include <semaphore.h>
++#endif /* __APPLE__ */
+ 
+ 
+ typedef pthread_t althrd_t;
+ typedef pthread_mutex_t almtx_t;
+ typedef pthread_cond_t alcnd_t;
++#ifdef __APPLE__
++typedef dispatch_semaphore_t alsem_t;
++#else /* !__APPLE__ */
+ typedef sem_t alsem_t;
++#endif /* __APPLE__ */
+ typedef pthread_key_t altss_t;
+ typedef pthread_once_t alonce_flag;
+ 
+diff --git a/Alc/mastering.c b/Alc/mastering.c
+index 52ff5b23..b0b94eea 100644
+--- a/Alc/mastering.c
++++ b/Alc/mastering.c
+@@ -466,11 +466,11 @@ Compressor* CompressorInit(const ALsizei NumChans, const ALuint SampleRate,
+             Comp->Hold->Values[0] = -INFINITY;
+             Comp->Hold->Expiries[0] = hold;
+             Comp->Hold->Length = hold;
+-            Comp->Delay = (ALfloat(*)[])(Comp->Hold + 1);
++            Comp->Delay = (ALfloat(*)[BUFFERSIZE])(Comp->Hold + 1);
+         }
+         else
+         {
+-            Comp->Delay = (ALfloat(*)[])(Comp + 1);
++            Comp->Delay = (ALfloat(*)[BUFFERSIZE])(Comp + 1);
+         }
+     }
+ 
+diff --git a/Alc/mastering.c b/Alc/mastering.c
+index b0b94eea..f6ed9242 100644
+--- a/Alc/mastering.c
++++ b/Alc/mastering.c
+@@ -6,6 +6,7 @@
+ #include "alu.h"
+ #include "almalloc.h"
+ #include "static_assert.h"
++#include "math_defs.h"
+ 
+ 
+ /* These structures assume BUFFERSIZE is a power of 2. */
+@@ -463,7 +464,7 @@ Compressor* CompressorInit(const ALsizei NumChans, const ALuint SampleRate,
+         if(hold > 0)
+         {
+             Comp->Hold = (SlidingHold*)(Comp + 1);
+-            Comp->Hold->Values[0] = -INFINITY;
++            Comp->Hold->Values[0] = -HUGE_VALF;
+             Comp->Hold->Expiries[0] = hold;
+             Comp->Hold->Length = hold;
+             Comp->Delay = (ALfloat(*)[BUFFERSIZE])(Comp->Hold + 1);
+diff --git a/Alc/mastering.c b/Alc/mastering.c
+index f6ed9242..6745c1c7 100644
+--- a/Alc/mastering.c
++++ b/Alc/mastering.c
+@@ -9,6 +9,18 @@
+ #include "math_defs.h"
+ 
+ 
++/* Early MSVC lacks round/roundf */
++#if defined(_MSC_VER) && _MSC_VER < 1800
++static double round(double val)
++{
++    if(val < 0.0)
++        return ceil(val-0.5);
++    return floor(val+0.5);
++}
++#define roundf(f) ((float)round((float)(f)))
++#endif
++
++
+ /* These structures assume BUFFERSIZE is a power of 2. */
+ static_assert((BUFFERSIZE & (BUFFERSIZE-1)) == 0, "BUFFERSIZE is not a power of 2");
+ 
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 39b80250..6fea142a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -402,7 +402,7 @@ int main()
+ IF(HAVE___BUILTIN_ASSUME_ALIGNED)
+     SET(ASSUME_ALIGNED_DECL "__builtin_assume_aligned(x, y)")
+ ELSE()
+-    SET(ASSUME_ALIGNED_DECL "x")
++    SET(ASSUME_ALIGNED_DECL "(x)")
+ ENDIF()
+ 
+ SET(SSE_SWITCH "")
