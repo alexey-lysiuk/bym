@@ -37,3 +37,10 @@ pkg(
     dependencies=('vorbis', 'flac', 'ao'),
     commands=Tool()
 )
+pkg(
+    name='vpx',
+    source='https://github.com/webmproject/libvpx/archive/v1.8.0.tar.gz',
+    checksum='86df18c694e1c06cc8f83d2d816e9270747a0ce6abe316e93a4f4095689373f6',
+    dependencies='yasm',
+    commands=Library('--disable-examples', '--disable-unit-tests')
+)
