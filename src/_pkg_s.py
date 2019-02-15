@@ -113,8 +113,8 @@ pkg(
 )
 pkg(
     name='sdl2_mixer',
-    source='https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.2.tar.gz',
-    checksum='4e615e27efca4f439df9af6aa2c6de84150d17cbfd12174b54868c12f19c83bb',
+    source='https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz',
+    checksum='b4cf5a382c061cd75081cf246c2aa2f9df8db04bdda8dcdc6b6cca55bede2419',
     dependencies=('sdl2', 'vorbis', 'flac', 'libmikmod', 'modplug', 'fluidsynth', 'smpeg2'),
     commands=Library(
         '--enable-music-mod-mikmod',
