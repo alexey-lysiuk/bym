@@ -16,7 +16,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Library, Tool
+from command import Library, Tool, Make
+import configuration
 import repository
 
 
@@ -40,4 +41,10 @@ pkg(
     source='https://ftp.gnu.org/gnu/libtool/libtool-2.4.6.tar.xz',
     checksum='7c87a8c2c8c0fc9cd5019e402bed4292462d00a718a7cd5f11218153bf28b26f',
     commands=Tool()
+)
+pkg(
+    name='luajit',
+    source='https://luajit.org/download/LuaJIT-2.0.5.tar.gz',
+    checksum='874b1f8297c697821f561f9b73b57ffd419ed8f4278c82e05b48806d30c1e979',
+    commands=Make('amalg', 'install', 'BUILDMODE=static', 'PREFIX=' + configuration.install_path)
 )
