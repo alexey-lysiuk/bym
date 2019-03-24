@@ -190,8 +190,8 @@ pkg(
 )
 pkg(
     name='ssh2',
-    source='https://libssh2.org/download/libssh2-1.8.0.tar.gz',
-    checksum='39f34e2f6835f4b992cafe8625073a88e5a28ba78f83e8099610a7b3af4676d4',
+    source='https://libssh2.org/download/libssh2-1.8.1.tar.gz',
+    checksum='40b517f35b1bb869d0075b15125c7a015557f53a5a3a6a8bffb89b69fd70f159',
     dependencies=('zlib', 'gcrypt'),
     commands=Library(
         '--with-libgcrypt=' + configuration.install_path,
