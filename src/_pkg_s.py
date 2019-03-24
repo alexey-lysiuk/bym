@@ -182,6 +182,13 @@ pkg(
     commands=Library()
 )
 pkg(
+    name='sqlite',
+    source='https://sqlite.org/2019/sqlite-autoconf-3270200.tar.gz',
+    checksum='50c39e85ea28b5ecfdb3f9e860afe9ba606381e21836b2849efca6a0bfe6ef6e',
+    dependencies='readline',
+    commands=Library()
+)
+pkg(
     name='ssh2',
     source='https://libssh2.org/download/libssh2-1.8.0.tar.gz',
     checksum='39f34e2f6835f4b992cafe8625073a88e5a28ba78f83e8099610a7b3af4676d4',
