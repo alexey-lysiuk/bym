@@ -24,16 +24,15 @@ pkg = repository.add_package
 
 
 pkg(
-    name='cmake',
-    source='https://cmake.org/files/v3.9/cmake-3.9.1.tar.gz',
-    checksum='d768ee83d217f91bb597b3ca2ac663da7a8603c97e1f1a5184bc01e0ad2b12bb',
-    commands=Tool()
-)
-
-pkg(
     name='chocolate-doom',
     source='https://www.chocolate-doom.org/downloads/3.0.0/chocolate-doom-3.0.0.tar.gz',
     checksum='73aea623930c7d18a7a778eea391e1ddfbe90ad1ac40a91b380afca4b0e1dab8',
     dependencies=('png', 'samplerate', 'sdl2_mixer', 'sdl2_net'),
+    commands=Tool()
+)
+pkg(
+    name='cmake',
+    source='https://github.com/Kitware/CMake/releases/download/v3.14.0/cmake-3.14.0.tar.gz',
+    checksum='aa76ba67b3c2af1946701f847073f4652af5cbd9f141f221c97af99127e75502',
     commands=Tool()
 )
