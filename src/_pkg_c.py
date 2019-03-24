@@ -16,13 +16,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Tool
+from command import Command, Tool
+import configuration
 import repository
 
 
 pkg = repository.add_package
 
 
+pkg(
+    name='cargo',
+    source='https://github.com/rust-lang/cargo/archive/0.34.0.tar.gz',
+    checksum='658eb7be37d0e1c1c1b7c6a828ff0dbaed1405b5176ce50d8145d47a0fd258f1',
+    commands=Command(configuration.src_path + 'cargobootstrap.sh', configuration.install_path)
+)
 pkg(
     name='chocolate-doom',
     source='https://www.chocolate-doom.org/downloads/3.0.0/chocolate-doom-3.0.0.tar.gz',
