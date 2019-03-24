@@ -168,6 +168,7 @@ class Package(object):
         shortest = sys.maxint
 
         guess_filenames = (
+            'Configure',
             'configure',
             'Makefile',
             'makefile',
