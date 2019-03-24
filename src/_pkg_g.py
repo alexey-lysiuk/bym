@@ -32,6 +32,13 @@ pkg(
     commands=Library()
 )
 pkg(
+    name='gdbm',
+    source='https://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz',
+    checksum='86e613527e5dba544e73208f42b78b7c022d4fa5a6d5498bf18c8d6f745b91dc',
+    dependencies='readline',
+    commands=Library()
+)
+pkg(
     name='gettext',
     source='https://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.8.1.tar.xz',
     checksum='105556dbc5c3fbbc2aa0edb46d22d055748b6f5c7cd7a8d99f8e7eb84e938be4',
