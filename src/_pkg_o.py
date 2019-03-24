@@ -16,7 +16,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import CMakeInstall, Library, Tool
+from command import CMakeInstall, Command, Library, Install, Tool
+import configuration
 import repository
 
 
@@ -43,6 +44,15 @@ pkg(
     commands=CMakeInstall(
         '-DLIBTYPE=STATIC',
         '-DCMAKE_BUILD_TYPE=Release',
+    )
+)
+pkg(
+    name='openssl',
+    source='https://www.openssl.org/source/openssl-1.1.1b.tar.gz',
+    checksum='5c557b023230413dfb0756f3137a13e6d726838ccd1430888ad15bfb2b43ea4b',
+    commands=(
+        Command('./Configure', 'no-shared', '--prefix=' + configuration.install_path, 'darwin64-x86_64-cc'),
+        Install()
     )
 )
 pkg(
