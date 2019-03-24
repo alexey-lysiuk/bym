@@ -61,4 +61,12 @@ pkg(
     checksum='eceb924c1fa6b79172fdfd008d335f0e59172a86a66481e09d4089df872aa319',
     commands=Library()
 )
-
+pkg(
+    name='python',
+    source='https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz',
+    checksum='f09d83c773b9cc72421abba2c317e4e6e05d919f9bcf34468e192b6a6c8e328d',
+    dependencies=('gdbm', 'gettext', 'openssl', 'sqlite', 'xz'),
+    commands=Tool(
+        'LDFLAGS=-lintl -liconv ' + configuration.environment['LDFLAGS'],
+        '--enable-optimizations')
+)
