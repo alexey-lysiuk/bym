@@ -173,7 +173,8 @@ class Package(object):
             'Makefile',
             'makefile',
             'autogen.sh',
-            'CMakeLists.txt'
+            'CMakeLists.txt',
+            'Cargo.toml'
         )
 
         for name in files.split('\n'):
