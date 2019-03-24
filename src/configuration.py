@@ -163,6 +163,11 @@ _append_flags('CARGO_HOME', install_path + '/share/cargo')
 
 _prepend_path(bin_path)
 
+_cmake_dir = os.path.dirname(cmake_executable)
+
+if len(_cmake_dir) > 0:
+    _prepend_path(_cmake_dir)
+
 
 try:
     # noinspection PyUnresolvedReferences
