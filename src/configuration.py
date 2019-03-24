@@ -22,11 +22,11 @@ import shlex
 import subprocess
 
 
-_self_path = os.path.dirname(os.path.abspath(__file__)) + os.sep
-_root_path = os.path.realpath(_self_path + os.pardir) + os.sep
+src_path = os.path.dirname(os.path.abspath(__file__)) + os.sep
+root_path = os.path.realpath(src_path + os.pardir) + os.sep
 
-patch_path = _root_path + 'patch' + os.sep
-state_path = _root_path + 'state' + os.sep
+patch_path = root_path + 'patch' + os.sep
+state_path = root_path + 'state' + os.sep
 
 # Parse command line
 
@@ -34,9 +34,9 @@ _parser = argparse.ArgumentParser(description='Build Your Mac: Configurable buil
 _parser.add_argument('packages', metavar='package', nargs='+',
                      help='list of package names to build')
 
-_parser.add_argument('--build-path', default=_root_path + 'build',
+_parser.add_argument('--build-path', default=root_path + 'build',
                      help='directory for source code and intermediate files')
-_parser.add_argument('--install-path', default=_root_path + 'install',
+_parser.add_argument('--install-path', default=root_path + 'install',
                      help='installation directory also knows as prefix')
 
 _parser.add_argument('--make-exe', default='make',
