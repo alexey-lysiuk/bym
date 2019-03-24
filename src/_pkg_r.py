@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Library
+from command import Library, Tool
 import repository
 
 
@@ -28,4 +28,11 @@ pkg(
     source='https://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz',
     checksum='e339f51971478d369f8a053a330a190781acb9864cf4c541060f12078948e461',
     commands=Library()
+)
+pkg(
+    name='rust',
+    source='https://static.rust-lang.org/dist/rustc-1.33.0-src.tar.gz',
+    checksum='5a01a8d7e65126f6079042831385e77485fa5c014bf217e9f3e4aff36a485d94',
+    dependencies=('openssl', 'ssh2'),
+    commands=Tool()
 )
