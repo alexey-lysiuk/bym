@@ -2,7 +2,7 @@
 
 #
 #    Build Your Mac: Configurable build environment for macOS
-#    Copyright (C) 2017 Alexey Lysiuk
+#    Copyright (C) 2017-2019 Alexey Lysiuk
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
