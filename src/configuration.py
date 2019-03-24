@@ -159,6 +159,8 @@ _append_flags('LDFLAGS', '-L' + lib_path)
 _append_flags('LDFLAGS', '-lc++ -lc++abi')
 _append_flags('LDFLAGS', extra_flags)
 
+_append_flags('CARGO_HOME', install_path + '/share/cargo')
+
 _prepend_path(bin_path)
 
 
