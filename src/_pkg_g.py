@@ -26,8 +26,8 @@ pkg = repository.add_package
 
 pkg(
     name='gcrypt',
-    source='https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.1.tar.bz2',
-    checksum='7a2875f8b1ae0301732e878c0cca2c9664ff09ef71408f085c50e332656a78b3',
+    source='https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.4.tar.bz2',
+    checksum='f638143a0672628fde0cad745e9b14deb85dffb175709cacc1f4fe24b93f2227',
     dependencies='gpg-error',
     commands=Library()
 )
