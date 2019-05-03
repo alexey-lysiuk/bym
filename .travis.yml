@@ -1,7 +1,7 @@
 language: c++
 
 os: osx
-osx_image: xcode10.1
+osx_image: xcode10.2
 
 env:
   - TARGETS="sdl_gfx sdl_image sdl_net sdl_ttf sdl2_gfx sdl2_image sdl2_net sdl2_ttf mpg123 openal timidity oggz opusfile opus-tools vorbis-tools p7zip xz"
