@@ -36,8 +36,8 @@ pkg(
 )
 pkg(
     name='pcre',
-    source='https://ftp.pcre.org/pub/pcre/pcre-8.41.tar.bz2',
-    checksum='e62c7eac5ae7c0e7286db61ff82912e1c0b7a0c13706616e94a7dd729321b530',
+    source='https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.bz2',
+    checksum='91e762520003013834ac1adb4a938d53b22a216341c061b0cf05603b290faf6b',
     commands=Library('--enable-unicode-properties')
 )
 pkg(
