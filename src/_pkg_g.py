@@ -52,8 +52,8 @@ pkg(
 )
 pkg(
     name='glib',
-    source='https://download.gnome.org/sources/glib/2.58/glib-2.58.1.tar.xz',
-    checksum='97d6a9d926b6aa3dfaadad3077cfb43eec74432ab455dff14250c769d526d7d6',
+    source='https://download.gnome.org/sources/glib/2.60/glib-2.60.1.tar.xz',
+    checksum='89f884f5d5c6126140ec868cef184c42ce72902c13cd08f36e660371779b5560',
     dependencies=('autoconf', 'automake', 'ffi', 'gettext', 'libtool', 'pcre'),
     commands=(
         Autogen(),
