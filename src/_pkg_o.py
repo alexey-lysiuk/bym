@@ -57,8 +57,8 @@ pkg(
 )
 pkg(
     name='opus',
-    source='https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz',
-    checksum='cfafd339ccd9c5ef8d6ab15d7e1a412c054bf4cb4ecbbbcc78c12ef2def70732',
+    source='https://archive.mozilla.org/pub/opus/opus-1.3.1.tar.gz',
+    checksum='65b58e1e25b2a114157014736a3d9dfeaad8d41be1c8179866f144a2fb44ff9d',
     commands=Library()
 )
 pkg(
