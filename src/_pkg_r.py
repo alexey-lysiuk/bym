@@ -24,6 +24,12 @@ pkg = repository.add_package
 
 
 pkg(
+    name='re2c',
+    source='https://github.com/skvadrik/re2c/releases/download/1.1.1/re2c-1.1.1.tar.gz',
+    checksum='856597337ea00b24ce91f549f79e6eece1b92ba5f8b63292cad66c14ac7451cf',
+    commands=Library()
+)
+pkg(
     name='readline',
     source='https://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz',
     checksum='e339f51971478d369f8a053a330a190781acb9864cf4c541060f12078948e461',
