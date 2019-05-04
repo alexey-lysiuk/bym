@@ -174,7 +174,9 @@ class Package(object):
             'makefile',
             'autogen.sh',
             'CMakeLists.txt',
-            'Cargo.toml'
+            'Cargo.toml',
+            # special case for Ninja
+            'configure.py',
         )
 
         for name in files.split('\n'):
