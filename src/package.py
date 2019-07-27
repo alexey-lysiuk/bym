@@ -191,6 +191,8 @@ class Package(object):
         return result
 
     def _extract(self):
+        print("Extracting %s..." % self._filename)
+
         try:
             subprocess.check_call(['tar', '-xf', self._filename])
         except (IOError, subprocess.CalledProcessError):
