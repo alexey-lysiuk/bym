@@ -37,8 +37,8 @@ pkg(
 )
 pkg(
     name='rust',
-    source='https://static.rust-lang.org/dist/rustc-1.33.0-src.tar.gz',
-    checksum='5a01a8d7e65126f6079042831385e77485fa5c014bf217e9f3e4aff36a485d94',
-    dependencies=('openssl', 'ssh2'),
+    source='https://static.rust-lang.org/dist/rustc-1.36.0-src.tar.gz',
+    checksum='04c4e4d7213d036d6aaed392841496d272146312c0290f728b7400fccd15bb1b',
+    dependencies='ssh2',
     commands=Tool()
 )
