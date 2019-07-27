@@ -26,8 +26,8 @@ pkg = repository.add_package
 
 pkg(
     name='cargo',
-    source='https://github.com/rust-lang/cargo/archive/0.34.0.tar.gz',
-    checksum='658eb7be37d0e1c1c1b7c6a828ff0dbaed1405b5176ce50d8145d47a0fd258f1',
+    source='https://github.com/rust-lang/cargo/archive/0.37.0.tar.gz',
+    checksum='377e1090e9ce21206270576193746499a26e8ffbd8b89ccd5f8eb1085ca00e3b',
     commands=Command(configuration.src_path + 'cargobootstrap.sh', configuration.install_path)
 )
 pkg(
