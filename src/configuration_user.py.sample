@@ -20,8 +20,8 @@ import configuration
 
 
 def _force_minver_lion():
-    macos_version = '10.7'
-    sysroot_path = '/Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.7.sdk'
+    macos_version = '10.9'
+    sysroot_path = '/Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.9.sdk'
     extra_flags = '-mmacosx-version-min={} -isysroot {}'.format(macos_version, sysroot_path)
 
     for name in configuration.environment_variables:
@@ -29,6 +29,10 @@ def _force_minver_lion():
             continue
 
         configuration.environment[name] += extra_flags
+
+    # Set deployment target via separate environment variable too
+    # Some tools may use it, e.g. Rust
+    configuration.environment['MACOSX_DEPLOYMENT_TARGET'] = macos_version
 
     configuration.cmake_arguments += (
         '-DCMAKE_OSX_DEPLOYMENT_TARGET=' + macos_version,
