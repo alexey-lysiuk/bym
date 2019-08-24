@@ -63,8 +63,8 @@ pkg(
 )
 pkg(
     name='python',
-    source='https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz',
-    checksum='f09d83c773b9cc72421abba2c317e4e6e05d919f9bcf34468e192b6a6c8e328d',
+    source='https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tar.xz',
+    checksum='fb799134b868199930b75f26678f18932214042639cd52b16da7fd134cd9b13f',
     dependencies=('gdbm', 'gettext', 'openssl', 'sqlite', 'xz'),
     commands=Tool(
         'LDFLAGS=-lintl -liconv ' + configuration.environment['LDFLAGS'],
