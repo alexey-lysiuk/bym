@@ -19,7 +19,7 @@
 import configuration
 
 
-def _force_minver_lion():
+def _force_minver_mavericks():
     macos_version = '10.9'
     sysroot_path = '/Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.9.sdk'
     extra_flags = '-mmacosx-version-min={} -isysroot {}'.format(macos_version, sysroot_path)
@@ -40,6 +40,6 @@ def _force_minver_lion():
     )
 
 
-_force_minver_lion()
+_force_minver_mavericks()
 
-del _force_minver_lion
+del _force_minver_mavericks
