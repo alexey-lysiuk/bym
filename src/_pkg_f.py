@@ -31,8 +31,8 @@ pkg(
 )
 pkg(
     name='flac',
-    source='https://downloads.xiph.org/releases/flac/flac-1.3.2.tar.xz',
-    checksum='91cfc3ed61dc40f47f050a109b08610667d73477af6ef36dcad31c31a4a8d53f',
+    source='https://downloads.xiph.org/releases/flac/flac-1.3.3.tar.xz',
+    checksum='213e82bd716c9de6db2f98bcadbc4c24c7e2efe8c75939a1a84e28539c4e1748',
     dependencies='ogg',
     commands=Library()
 )
