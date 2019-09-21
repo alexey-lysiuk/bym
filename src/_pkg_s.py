@@ -115,15 +115,20 @@ pkg(
     name='sdl2_mixer',
     source='https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz',
     checksum='b4cf5a382c061cd75081cf246c2aa2f9df8db04bdda8dcdc6b6cca55bede2419',
-    dependencies=('sdl2', 'vorbis', 'flac', 'libmikmod', 'modplug', 'fluidsynth', 'smpeg2'),
+    dependencies=('sdl2', 'vorbis', 'flac', 'libmikmod', 'modplug', 'fluidsynth', 'opusfile'),
     commands=Library(
+        # LDFLAGS variable is needed for FluidSynth detection and linking of samples
+        'LDFLAGS=-framework AudioUnit -framework CoreAudio -framework CoreAudio -framework CoreFoundation '
+        '-framework CoreMIDI -framework CoreServices -lintl -liconv -logg -lvorbis -lvorbisenc -lvorbisfile '
+        '-lFLAC -lsndfile -lglib-2.0 ' + configuration.environment['LDFLAGS'],
         '--enable-music-mod-mikmod',
+        '--enable-music-mp3-mpg123',
         '--disable-music-ogg-shared',
         '--disable-music-flac-shared',
         '--disable-music-midi-fluidsynth-shared',
         '--disable-music-mod-mikmod-shared',
         '--disable-music-mod-modplug-shared',
-        '--disable-music-mp3-smpeg-shared'
+        '--disable-music-opus-shared'
     )
 )
 pkg(
