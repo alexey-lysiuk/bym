@@ -63,8 +63,8 @@ pkg(
 )
 pkg(
     name='opusfile',
-    source='https://archive.mozilla.org/pub/opus/opusfile-0.9.tar.gz',
-    checksum='f75fb500e40b122775ac1a71ad80c4477698842a8fe9da4a1b4a1a9f16e4e979',
+    source='https://archive.mozilla.org/pub/opus/opusfile-0.11.tar.gz',
+    checksum='74ce9b6cf4da103133e7b5c95df810ceb7195471e1162ed57af415fabf5603bf',
     dependencies=('opus', 'ogg'),
     commands=Library('--disable-http')
 )
