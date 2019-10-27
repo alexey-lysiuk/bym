@@ -48,7 +48,7 @@ pkg(
 )
 pkg(
     name='mpg123',
-    source='https://downloads.sourceforge.net/project/mpg123/mpg123/1.25.12/mpg123-1.25.12.tar.bz2',
-    checksum='1ffec7c9683dfb86ea9040d6a53d6ea819ecdda215df347f79def08f1fe731d1',
+    source='https://sourceforge.net/projects/mpg123/files/mpg123/1.25.13/mpg123-1.25.13.tar.bz2',
+    checksum='90306848359c793fd43b9906e52201df18775742dc3c81c06ab67a806509890a',
     commands=Library()
 )
