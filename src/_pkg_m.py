@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import ConfigureStaticInstall, Library
+from command import Command, ConfigureStaticInstall, Library
 import configuration
 import repository
 
@@ -39,6 +39,13 @@ pkg(
         'LDFLAGS=-framework CoreServices ' + configuration.environment['LDFLAGS'],
         'ac_cv_func_utimensat=no'
     )
+)
+pkg(
+    name='meson',
+    source='https://github.com/mesonbuild/meson/releases/download/0.52.0/meson-0.52.0.tar.gz',
+    checksum='d60f75f0dedcc4fd249dbc7519d6f3ce6df490033d276ef1cf27453ef4938d32',
+    dependencies=('python', 'ninja'),
+    commands=Command('pip3', 'install', 'meson')
 )
 pkg(
     name='modplug',
