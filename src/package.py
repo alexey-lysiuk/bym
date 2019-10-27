@@ -164,31 +164,7 @@ class Package(object):
 
     def _guess_work_path(self):
         files = subprocess.check_output(['tar', '-tf', self._filename])
-        result = ''
-        shortest = sys.maxint
-
-        guess_filenames = (
-            'Configure',
-            'configure',
-            'Makefile',
-            'makefile',
-            'autogen.sh',
-            'CMakeLists.txt',
-            'Cargo.toml',
-            # special case for Ninja
-            'configure.py',
-        )
-
-        for name in files.split('\n'):
-            parts = name.split('/')
-            parts_count = len(parts)
-
-            if parts[-1] in guess_filenames:
-                if parts_count < shortest:
-                    result = '/'.join(parts[:-1])
-                    shortest = parts_count
-
-        return result
+        return files[:files.find('/')]
 
     def _extract(self):
         print("Extracting %s..." % self._filename)
