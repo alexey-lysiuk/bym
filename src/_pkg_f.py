@@ -38,15 +38,16 @@ pkg(
 )
 pkg(
     name='fluidsynth',
-    source='https://github.com/FluidSynth/fluidsynth/archive/v2.0.9.tar.gz',
-    checksum='bfe82ccf1bf00ff5cfc18e2d9d1e5d95c6bd169a76a2dec14898d1ee0e0fac8a',
+    source='https://github.com/FluidSynth/fluidsynth/archive/v2.1.0.tar.gz',
+    checksum='526addc6d8445035840d3af7282d3ba89567df209d28e183da04a1a877da2da3',
     dependencies=('glib', 'sndfile'),
     commands=CMakeInstall(
         '-DCMAKE_BUILD_TYPE=Release',
         '-DBUILD_SHARED_LIBS=NO',
         '-DLIB_SUFFIX=',
         '-Denable-framework=NO',
-        '-Denable-readline=NO'
+        '-Denable-readline=NO',
+        '-Denable-sdl2=NO'
     )
 )
 pkg(
