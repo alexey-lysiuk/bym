@@ -25,6 +25,12 @@ pkg = repository.add_package
 
 
 pkg(
+    name='lame',
+    source='https://downloads.sourceforge.net/sourceforge/lame/lame-3.100.tar.gz',
+    checksum='ddfe36cab873794038ae2c1210557ad34857a4b6bdc515785d1da9e175b1da1e',
+    commands=Tool()
+)
+pkg(
     name='libxmp',
     source='https://downloads.sourceforge.net/project/xmp/libxmp/4.4.1/libxmp-4.4.1.tar.gz',
     checksum='353535cc84c8cddae8decec4e65fa4c51fc64f22eb0891bc3dae6eaf25f9cccf',
