@@ -32,8 +32,8 @@ pkg(
 )
 pkg(
     name='tiff',
-    source='https://download.osgeo.org/libtiff/tiff-4.0.10.tar.gz',
-    checksum='2c52d11ccaf767457db0c46795d9c7d1a8d8f76f68b0b800a3dfe45786b996e4',
+    source='https://download.osgeo.org/libtiff/tiff-4.1.0.tar.gz',
+    checksum='5d29f32517dadb6dbcd1255ea5bbc93a2b54b94fbf83653b4d65c7d6775b8634',
     dependencies=('jpeg', 'xz'),
     commands=Library()
 )
