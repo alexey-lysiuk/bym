@@ -39,8 +39,8 @@ pkg(
 )
 pkg(
     name='vpx',
-    source='https://github.com/webmproject/libvpx/archive/v1.8.0.tar.gz',
-    checksum='86df18c694e1c06cc8f83d2d816e9270747a0ce6abe316e93a4f4095689373f6',
+    source='https://github.com/webmproject/libvpx/archive/v1.8.2.tar.gz',
+    checksum='8735d9fcd1a781ae6917f28f239a8aa358ce4864ba113ea18af4bb2dc8b474ac',
     dependencies='yasm',
     commands=Library('--disable-examples', '--disable-unit-tests')
 )
