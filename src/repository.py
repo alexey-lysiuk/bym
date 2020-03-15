@@ -40,7 +40,7 @@ def _load_packages():
 
     for filename in filenames:
         if filename.startswith('_pkg_') and filename.endswith('.py'):
-            execfile(self_path + os.sep + filename)
+            exec(open(self_path + os.sep + filename).read())
 
 
 _load_packages()

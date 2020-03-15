@@ -16,13 +16,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import cPickle
+import pickle
 import hashlib
 import os
 import shutil
+import ssl
 import subprocess
 import sys
-import urllib2
+import urllib.error
+import urllib.request
 
 import configuration
 import patch
@@ -60,18 +62,18 @@ class BuildState(object):
     def uptodate(self):
         try:
             with self._open('rb') as f:
-                other = cPickle.load(f)
+                other = pickle.load(f)
 
                 # compare versions explicitly to avoid potential reference to undefined member
                 return self.version == other.version and self == other
 
-        except IOError, cPickle.UnpicklingError:
+        except (IOError, pickle.UnpicklingError):
             return False
 
     def save(self):
         # TODO: handle errors
         with self._open('wb') as f:
-            cPickle.dump(self, f)
+            pickle.dump(self, f)
 
     def _open(self, mode):
         return open(configuration.state_path + self.name + '.p', mode)
@@ -131,12 +133,12 @@ class Package(object):
 
     def _download(self):
         try:
-            response = urllib2.urlopen(self.source)
-        except urllib2.HTTPError, urllib2.URLError:
-            request = urllib2.Request(self.source)
+            response = urllib.request.urlopen(self.source, context=_ssl_context)
+        except (urllib.error.HTTPError, urllib.error.URLError):
+            request = urllib.request.Request(self.source)
             request.add_header('User-Agent',
                                'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0')
-            opener = urllib2.build_opener()
+            opener = urllib.request.build_opener()
             response = opener.open(request)
 
         checksum = hashlib.sha256()
@@ -163,7 +165,7 @@ class Package(object):
             raise
 
     def _guess_work_path(self):
-        files = subprocess.check_output(['tar', '-tf', self._filename])
+        files = subprocess.check_output(['tar', '-tf', self._filename]).decode("utf-8")
         return files[:files.find('/')]
 
     def _extract(self):
@@ -213,3 +215,6 @@ def _stripped_environment():
             stripped_environment[var] = environment[var]
 
     return stripped_environment
+
+
+_ssl_context = ssl.create_default_context(cafile=configuration.src_path + 'cacert.pem')
