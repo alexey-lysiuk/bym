@@ -32,8 +32,8 @@ pkg(
 )
 pkg(
     name='ninja',
-    source='https://github.com/ninja-build/ninja/archive/v1.9.0.tar.gz',
-    checksum='5d7ec75828f8d3fd1a0c2f31b5b0cea780cdfe1031359228c428c1a48bfcd5b9',
+    source='https://github.com/ninja-build/ninja/archive/v1.10.0.tar.gz',
+    checksum='3810318b08489435f8efc19c05525e80a993af5a55baa0dfeae0465a9d45f99f',
     commands=(
         Command('./configure.py', '--bootstrap'),
         Command('cp', 'ninja', configuration.bin_path)
