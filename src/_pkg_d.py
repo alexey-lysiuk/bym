@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import CreateDirectories, CreateFile, Install
+from command import CMakeInstall
 import configuration
 import repository
 
@@ -26,19 +26,11 @@ pkg = repository.add_package
 
 pkg(
     name='dumb',
-    source='https://downloads.sourceforge.net/project/dumb/dumb/0.9.3/dumb-0.9.3.tar.gz',
-    checksum='8d44fbc9e57f3bac9f761c3b12ce102d47d717f0dd846657fb988e0bb5d1ea33',
-    commands=(
-        CreateDirectories(
-            'lib/unix',
-            'obj/unix/debug',
-            'obj/unix/release'
-        ),
-        CreateFile(
-            'make/config.txt',
-            'include make/unix.inc\n'
-            'ALL_TARGETS := core core-headers\n'
-            'PREFIX := %s\n' % configuration.install_path),
-        Install()
+    source='https://github.com/kode54/dumb/archive/2.0.3.tar.gz',
+    checksum='99bfac926aeb8d476562303312d9f47fd05b43803050cd889b44da34a9b2a4f9',
+    commands=CMakeInstall(
+        '-DCMAKE_BUILD_TYPE=Release',
+        '-DBUILD_EXAMPLES=OFF',
+        '-DBUILD_ALLEGRO4=OFF',
     )
 )
