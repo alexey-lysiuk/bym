@@ -42,7 +42,7 @@ pkg(
     name='gettext',
     source='https://ftp.gnu.org/gnu/gettext/gettext-0.20.1.tar.xz',
     checksum='53f02fbbec9e798b0faaf7c73272f83608e835c6288dd58be6c9bb54624a3800',
-    commands=Library()
+    commands=Library('--disable-java', '--disable-csharp')
 )
 pkg(
     name='gif',
