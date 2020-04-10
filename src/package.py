@@ -166,7 +166,13 @@ class Package(object):
 
     def _guess_work_path(self):
         files = subprocess.check_output(['tar', '-tf', self._filename]).decode("utf-8")
-        return files[:files.find('/')]
+        files = files.split('\n')
+
+        for filename in files:
+            if '/' in filename:
+                return filename[:filename.find('/')]
+
+        raise Exception("Failed to guess work path for " + self._filename)
 
     def _extract(self):
         print("Extracting %s..." % self._filename)
