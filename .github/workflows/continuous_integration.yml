@@ -1,0 +1,24 @@
+name: Continuous Integration
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {
+            targets: sdl2_gfx sdl2_image sdl2_net sdl2_ttf mpg123 openal opus-tools vorbis-tools p7zip xz
+          }
+        - {
+            targets: sdl2_mixer
+          }
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      shell: bash
+      run: |
+        for target in ${{ matrix.config.targets }}; do ./bym --make-args=-j3 $target; done
