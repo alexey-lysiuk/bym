@@ -40,9 +40,10 @@ pkg(
     name='fluidsynth',
     source='https://github.com/FluidSynth/fluidsynth/archive/v2.1.1.tar.gz',
     checksum='966d0393591b505d694e51cbf653387007144e9ae0b8705d82ec7d943d31d348',
-    dependencies=('glib', 'sndfile'),
+    dependencies=('glib', 'instpatch', 'sndfile'),
     commands=CMakeInstall(
         '-DCMAKE_BUILD_TYPE=Release',
+        '-DCMAKE_EXE_LINKER_FLAGS=-lffi -lpcre -L' + configuration.lib_path,
         '-DBUILD_SHARED_LIBS=NO',
         '-DLIB_SUFFIX=',
         '-Denable-framework=NO',
