@@ -25,8 +25,8 @@ pkg = repository.add_package
 
 pkg(
     name='ffi',
-    source='https://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz',
-    checksum='d06ebb8e1d9a22d19e38d63fdb83954253f39bedc5d46232a05645685722ca37',
+    source='https://github.com/libffi/libffi/releases/download/v3.3/libffi-3.3.tar.gz',
+    checksum='72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056',
     commands=Library()
 )
 pkg(
