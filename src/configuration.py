@@ -147,6 +147,7 @@ _compilation_environment_variables = (
 )
 
 environment_variables = _compilation_environment_variables + (
+    'CARGO_HOME',
     'LDFLAGS',
     'PATH',
 )
