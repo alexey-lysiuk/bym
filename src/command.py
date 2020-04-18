@@ -139,5 +139,19 @@ class CMakeInstall(Install):
         self._previous = CMake(*arguments)
 
 
+class PythonVenv(Command):
+    def execute(self, workdir, environment):
+        if self._previous:
+            self._previous.execute(workdir, environment)
+
+        python_path = configuration.bin_path + os.sep + 'python3'
+
+        if not os.path.exists(python_path):
+            Command('python3', '-Em', 'venv', configuration.install_path).execute(workdir, environment)
+
+        args = (python_path, '-E') + self._arguments
+        Command(*args).execute(workdir, environment)
+
+
 Library = ConfigureStaticInstall
 Tool = ConfigureInstall
