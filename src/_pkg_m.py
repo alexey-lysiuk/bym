@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Command, ConfigureStaticInstall, Library
+from command import ConfigureStaticInstall, Library, PythonSetupTools
 import configuration
 import repository
 
@@ -42,10 +42,10 @@ pkg(
 )
 pkg(
     name='meson',
-    source='https://github.com/mesonbuild/meson/releases/download/0.52.0/meson-0.52.0.tar.gz',
-    checksum='d60f75f0dedcc4fd249dbc7519d6f3ce6df490033d276ef1cf27453ef4938d32',
-    dependencies=('python', 'ninja'),
-    commands=Command('pip3', 'install', 'meson')
+    source='https://github.com/mesonbuild/meson/releases/download/0.54.0/meson-0.54.0.tar.gz',
+    checksum='dde5726d778112acbd4a67bb3633ab2ee75d33d1e879a6283a7b4a44c3363c27',
+    dependencies='ninja',
+    commands=PythonSetupTools()
 )
 pkg(
     name='modplug',
