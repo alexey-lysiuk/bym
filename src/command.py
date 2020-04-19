@@ -162,7 +162,7 @@ class PythonSetupTools(PythonVenv):
 class Meson(Command):
     def __init__(self, *arguments):
         super(Meson, self).__init__(*arguments)
-        self._prerequisites = ('meson',)
+        self._prerequisites = ('meson', 'ninja')
 
     def execute(self, workdir, environment):
         build_dir = '_bym_build'
