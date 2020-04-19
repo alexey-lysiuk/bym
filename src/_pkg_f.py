@@ -43,7 +43,7 @@ pkg(
     dependencies=('glib', 'instpatch', 'sndfile'),
     commands=CMakeInstall(
         '-DCMAKE_BUILD_TYPE=Release',
-        '-DCMAKE_EXE_LINKER_FLAGS=-lffi -lpcre -L' + configuration.lib_path,
+        '-DCMAKE_EXE_LINKER_FLAGS=-framework Foundation -lffi -lpcre -L' + configuration.lib_path,
         '-DBUILD_SHARED_LIBS=NO',
         '-DLIB_SUFFIX=',
         '-Denable-framework=NO',

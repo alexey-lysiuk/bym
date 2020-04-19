@@ -30,7 +30,8 @@ pkg(
     checksum='e529b15055b7341ab7a75885338d0a9b84859e3f6ca3ed3c363e7f3521329c9c',
     dependencies=('glib', 'sndfile'),
     commands=CMakeInstall(
-        '-DCMAKE_EXE_LINKER_FLAGS=-framework Carbon -framework CoreFoundation -lffi -lpcre -L' + configuration.lib_path,
+        '-DCMAKE_EXE_LINKER_FLAGS=-framework Carbon -framework CoreFoundation -framework Foundation'
+        ' -lffi -lpcre -L' + configuration.lib_path,
         '-DBUILD_SHARED_LIBS=NO',
         '-DLIB_SUFFIX=',
     )
