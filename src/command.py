@@ -159,5 +159,26 @@ class PythonSetupTools(PythonVenv):
         super(PythonVenv, self).__init__(*arguments)
 
 
+class Meson(Command):
+    def __init__(self, *arguments):
+        super(Meson, self).__init__(*arguments)
+        self._prerequisites = ('meson',)
+
+    def execute(self, workdir, environment):
+        build_dir = '_bym_build'
+        CreateDirectories(build_dir).execute(workdir, environment)
+        workdir += os.sep + build_dir
+
+        configure_args = (
+            configuration.bin_path + os.sep + 'meson',
+            '--prefix=' + configuration.install_path,
+            '--buildtype=release',
+            '--default-library=static',
+            '..'
+        )
+        Command(*configure_args).execute(workdir, environment)
+        Command('ninja', 'install').execute(workdir, environment)
+
+
 Library = ConfigureStaticInstall
 Tool = ConfigureInstall
