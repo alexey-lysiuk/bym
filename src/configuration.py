@@ -58,6 +58,9 @@ _parser.add_argument('--extra-flags', default='',
 _parser.add_argument('--force-build', action='store_true',
                      help='Do all build steps even if package is up-to-date')
 
+_parser.add_argument('--download-retries', default=3,
+                     help='Number of source code download retries')
+
 _arguments = _parser.parse_args()
 
 
@@ -82,6 +85,8 @@ cmake_arguments = tuple(shlex.split(_arguments.cmake_args))
 extra_flags = _arguments.extra_flags
 
 force_build = _arguments.force_build
+
+download_retries = _arguments.download_retries
 
 
 # Prerequisites

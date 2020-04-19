@@ -118,11 +118,24 @@ class Package(object):
         if os.path.exists(self._filename):
             checksum = _calculate_checksum(self._filename)
         else:
-            checksum = self._download()
+            retry = 0
 
-        if checksum != self.checksum:
-            os.unlink(self._filename)
-            raise Exception("Checksum for %s doesn't match!" % self._filename)
+            while retry <= configuration.download_retries:
+                try:
+                    checksum = self._download()
+
+                    if checksum != self.checksum:
+                        os.unlink(self._filename)
+                        raise Exception("Checksum for %s doesn't match!" % self._filename)
+                    else:
+                        break
+
+                except Exception as e:
+                    print(e)
+                    retry += 1
+
+            if retry > configuration.download_retries:
+                raise Exception("Download of {self._filename} failed after {configuration.download_retries} retries")
 
         assert not self._work_path
         self._work_path = self._guess_work_path()
