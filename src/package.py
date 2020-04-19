@@ -126,7 +126,7 @@ class Package(object):
 
                     if checksum != self.checksum:
                         os.unlink(self._filename)
-                        raise Exception("Checksum for %s doesn't match!" % self._filename)
+                        raise Exception(f'Checksum of {self._filename} does not match!')
                     else:
                         break
 
@@ -135,7 +135,7 @@ class Package(object):
                     retry += 1
 
             if retry > configuration.download_retries:
-                raise Exception("Download of {self._filename} failed after {configuration.download_retries} retries")
+                raise Exception(f'Download of {self._filename} failed after {configuration.download_retries} retries')
 
         assert not self._work_path
         self._work_path = self._guess_work_path()
@@ -171,7 +171,7 @@ class Package(object):
                     f.write(data)
                     checksum.update(data)
 
-                    sys.stdout.write('\rDownloading %s: %i bytes' % (self._filename, total))
+                    sys.stdout.write(f'\rDownloading {self._filename}: {total} bytes')
                     sys.stdout.flush()
         except IOError:
             os.unlink(self._filename)
@@ -188,7 +188,7 @@ class Package(object):
         raise Exception("Failed to guess work path for " + self._filename)
 
     def _extract(self):
-        print("Extracting %s..." % self._filename)
+        print(f'Extracting {self._filename}...')
 
         try:
             subprocess.check_call(['tar', '-xf', self._filename])
@@ -205,7 +205,7 @@ class Package(object):
         patch_set = patch.fromfile(patch_path)
 
         if not patch_set or not patch_set.apply(root=self._work_path):
-            raise Exception('Failed to apply patch %s' % patch_path)
+            raise Exception('Failed to apply patch ' + patch_path)
 
     def patch_path(self):
         return configuration.patch_path + self.name + '.diff'
