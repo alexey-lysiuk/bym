@@ -153,5 +153,11 @@ class PythonVenv(Command):
         Command(*args).execute(workdir, environment)
 
 
+class PythonSetupTools(PythonVenv):
+    def __init__(self, *arguments):
+        arguments = ('setup.py', '--no-user-cfg', 'install') + arguments
+        super(PythonVenv, self).__init__(*arguments)
+
+
 Library = ConfigureStaticInstall
 Tool = ConfigureInstall
