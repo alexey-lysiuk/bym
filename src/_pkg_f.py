@@ -42,7 +42,6 @@ pkg(
     checksum='9206d83b8d2f7e1ec259ee01e943071de67e419aabe142b51312f8edb39c5503',
     dependencies=('glib', 'instpatch', 'sndfile'),
     commands=CMakeInstall(
-        '-DCMAKE_BUILD_TYPE=Release',
         '-DCMAKE_EXE_LINKER_FLAGS=-framework Foundation -lffi -lpcre -L' + configuration.lib_path,
         '-DBUILD_SHARED_LIBS=NO',
         '-DLIB_SUFFIX=',

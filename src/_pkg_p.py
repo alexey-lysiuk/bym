@@ -44,10 +44,7 @@ pkg(
     name='physfs',
     source='https://icculus.org/physfs/downloads/physfs-3.0.0.tar.bz2',
     checksum='f2617d6855ea97ea42e4a8ebcad404354be99dfd8a274eacea92091b27fd7324',
-    commands=CMakeInstall(
-        '-DCMAKE_BUILD_TYPE=Release',
-        '-DPHYSFS_BUILD_SHARED=NO'
-    )
+    commands=CMakeInstall('-DPHYSFS_BUILD_SHARED=NO')
 )
 pkg(
     name='pkg-config',

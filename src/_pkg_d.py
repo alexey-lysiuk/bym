@@ -29,7 +29,6 @@ pkg(
     source='https://github.com/kode54/dumb/archive/2.0.3.tar.gz',
     checksum='99bfac926aeb8d476562303312d9f47fd05b43803050cd889b44da34a9b2a4f9',
     commands=CMakeInstall(
-        '-DCMAKE_BUILD_TYPE=Release',
         '-DBUILD_EXAMPLES=OFF',
         '-DBUILD_ALLEGRO4=OFF',
     )
