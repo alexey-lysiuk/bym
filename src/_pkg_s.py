@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Autogen, Make, Configure, Library
+from command import Autogen, Make, CMakeInstall, Configure, Library
 import configuration
 import repository
 
@@ -176,10 +176,10 @@ pkg(
 )
 pkg(
     name='sndfile',
-    source='http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz',
-    checksum='1ff33929f042fa333aed1e8923aa628c3ee9e1eb85512686c55092d1e5a9dfa9',
-    dependencies=('ogg', 'vorbis', 'flac'),
-    commands=Library()
+    source='https://github.com/erikd/libsndfile/archive/a1fa15ff44105ea09ebf7bb528bf2eb8f757a310.zip',
+    checksum='feec33cc8a023a18c0db2b648c636e3893cf09dbc7e1d649daa7327e22588a79',
+    dependencies=('ogg', 'vorbis', 'flac', 'opus'),
+    commands=CMakeInstall('-DBUILD_REGTEST=NO')
 )
 pkg(
     name='sodium',
