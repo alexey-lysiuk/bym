@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Command, Library, Make, Meson
+from command import Command, Install, Library, Make, Meson
 import configuration
 import repository
 
@@ -46,9 +46,9 @@ pkg(
 )
 pkg(
     name='gif',
-    source='https://downloads.sourceforge.net/project/giflib/giflib-5.1.4.tar.bz2',
-    checksum='df27ec3ff24671f80b29e6ab1c4971059c14ac3db95406884fc26574631ba8d5',
-    commands=Library()
+    source='https://downloads.sourceforge.net/project/giflib/giflib-5.2.1.tar.gz',
+    checksum='31da5562f44c5f15d63340a09a4fd62b48c45620cd302f77a6d9acf0077879bd',
+    commands=Install('PREFIX=' + configuration.install_path)
 )
 pkg(
     name='glib',
