@@ -196,8 +196,8 @@ pkg(
 )
 pkg(
     name='sqlite',
-    source='https://sqlite.org/2019/sqlite-autoconf-3300100.tar.gz',
-    checksum='8c5a50db089bd2a1b08dbc5b00d2027602ca7ff238ba7658fabca454d4298e60',
+    source='https://sqlite.org/2020/sqlite-autoconf-3310100.tar.gz',
+    checksum='62284efebc05a76f909c580ffa5c008a7d22a1287285d68b7825a2b6b51949ae',
     dependencies='readline',
     commands=Library()
 )
