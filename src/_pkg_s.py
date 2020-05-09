@@ -33,8 +33,8 @@ pkg(
 pkg(
     name='sdl',
     # The latest stable version 1.2.15 has way too many bugs
-    source='http://hg.libsdl.org/SDL/archive/2c67e7e5a106.tar.bz2',
-    checksum='fb48367773b1699fc84b71aafc3df066baff270adcadafd885ee0877d31bebaf',
+    source='https://hg.libsdl.org/SDL/archive/ab7529cb9558.tar.bz2',
+    checksum='5059e831b56fe43a08859d4696a4dcfc1be6a8e826e7a214e114cd7f14cbefd4',
     commands=(
         Autogen(),
         Library('--without-x')
