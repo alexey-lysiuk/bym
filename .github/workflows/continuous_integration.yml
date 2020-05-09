@@ -11,7 +11,7 @@ jobs:
       matrix:
         config:
         - {
-            targets: sdl2_gfx sdl2_image sdl2_net sdl2_ttf vpx jpeg-turbo dumb openal opus-tools vorbis-tools p7zip xz
+            targets: sdl sdl2_gfx sdl2_image sdl2_net sdl2_ttf vpx jpeg-turbo dumb openal opus-tools vorbis-tools p7zip xz
           }
         - {
             targets: sdl2_mixer
