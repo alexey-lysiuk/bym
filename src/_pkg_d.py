@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import CMakeInstall
+from command import Autogen, CMakeInstall, Tool
 import configuration
 import repository
 
@@ -31,5 +31,15 @@ pkg(
     commands=CMakeInstall(
         '-DBUILD_EXAMPLES=OFF',
         '-DBUILD_ALLEGRO4=OFF',
+    )
+)
+pkg(
+    name='dosbox-staging',
+    source='https://github.com/dosbox-staging/dosbox-staging/archive/v0.75.0.tar.gz',
+    checksum='6279690a05b9cc134484b8c7d11e9c1cb53b50bdb9bf32bdf683bd66770b6658',
+    dependencies=('sdl2_net', 'opusfile'),
+    commands=(
+        Autogen(),
+        Tool()
     )
 )
