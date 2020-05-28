@@ -26,8 +26,8 @@ pkg = repository.add_package
 
 pkg(
     name='instpatch',
-    source='https://github.com/swami/libinstpatch/archive/v1.1.4.tar.gz',
-    checksum='e529b15055b7341ab7a75885338d0a9b84859e3f6ca3ed3c363e7f3521329c9c',
+    source='https://github.com/swami/libinstpatch/archive/v1.1.5.tar.gz',
+    checksum='5fd01cd2ba7377e7a72caaf3b565d8fe088b5c8a14e0ea91516f0c87524bcf8a',
     dependencies=('glib', 'sndfile'),
     commands=CMakeInstall(
         '-DCMAKE_EXE_LINKER_FLAGS=-framework Carbon -framework CoreFoundation -framework Foundation'
