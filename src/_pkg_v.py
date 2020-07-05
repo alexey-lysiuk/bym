@@ -25,8 +25,8 @@ pkg = repository.add_package
 
 pkg(
     name='vorbis',
-    source='https://downloads.xiph.org/releases/vorbis/libvorbis-1.3.6.tar.xz',
-    checksum='af00bb5a784e7c9e69f56823de4637c350643deedaf333d0fa86ecdba6fcb415',
+    source='https://downloads.xiph.org/releases/vorbis/libvorbis-1.3.7.tar.xz',
+    checksum='b33cc4934322bcbf6efcbacf49e3ca01aadbea4114ec9589d1b1e9d20f72954b',
     dependencies='ogg',
     commands=Library()
 )
