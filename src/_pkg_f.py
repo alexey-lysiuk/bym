@@ -51,6 +51,12 @@ pkg(
     )
 )
 pkg(
+    name='fmt',
+    source='https://github.com/fmtlib/fmt/archive/6.2.1.tar.gz',
+    checksum='5edf8b0f32135ad5fafb3064de26d063571e95e8ae46829c2f4f4b52696bbff0',
+    commands=CMakeInstall('-DBUILD_SHARED_LIBS=NO', '-DFMT_TEST=NO')
+)
+pkg(
     name='freetype',
     source='https://download.savannah.gnu.org/releases/freetype/freetype-2.10.1.tar.xz',
     checksum='16dbfa488a21fe827dc27eaf708f42f7aa3bb997d745d31a19781628c36ba26f',
