@@ -148,6 +148,20 @@ pkg(
     commands=Library()
 )
 pkg(
+    name='sfml',
+    source='https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip',
+    checksum='bf1e0643acb92369b24572b703473af60bac82caf5af61e77c063b779471bb7f',
+    dependencies=('vorbis', 'flac', 'openal', 'freetype'),
+    commands=CMakeInstall(
+        '-DBUILD_SHARED_LIBS=NO',
+        '-DSFML_USE_SYSTEM_DEPS=YES',
+        '-DSFML_MISC_INSTALL_PREFIX=' + configuration.install_path + '/share/SFML',
+        # Use OpenAL Soft instead of Apple's framework
+        '-DOPENAL_INCLUDE_DIR=' + configuration.include_path + '/AL',
+        '-DOPENAL_LIBRARY=' + configuration.lib_path + '/libopenal.a',
+    )
+)
+pkg(
     name='slang',
     source='http://www.jedsoft.org/releases/slang/slang-2.3.1a.tar.bz2',
     checksum='54f0c3007fde918039c058965dffdfd6c5aec0bad0f4227192cc486021f08c36',
