@@ -1,0 +1,17 @@
+--- a/Makefile.osx
++++ b/Makefile.osx
+@@ -106,11 +106,9 @@
+ 	$(CPP_X86_64) $(CPPFLAGS_X86_64) -c $< -o $@
+ 
+ install:
+-	install -d -m 755 -o root -g wheel $(INCDIR) $(INSTALLDIR)
+-	install -m 644 -o root -g wheel $(HEADER) $(INCDIR)
+-	install -m 644 -o root -g wheel $(SHAREDLIB) $(STATICLIB) $(INSTALLDIR)
+-	ranlib -sf $(INSTALLDIR)/$(STATICLIB)
+-	ln -sf $(SHAREDLIB) $(INSTALLDIR)/$(LIBNAME)
++	install -d -m 755 $(INCDIR) $(INSTALLDIR)
++	install -m 644 $(HEADER) $(INCDIR)
++	install -m 644 $(STATICLIB) $(INSTALLDIR)
+ 
+ clean:
+ 	rm -f core Dist/*.* u2dtmp* $(MODULES_I386) $(MODULES_X86_64) $(STATICLIB) $(STATICLIB)-i386 $(SHAREDLIB) $(SHAREDLIB)-i386 $(SHAREDLIB)-x86_64

@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import CMakeInstall, Library
+from command import CMakeInstall, Library, Make
 import repository
 
 
@@ -55,6 +55,16 @@ pkg(
     source='https://github.com/fmtlib/fmt/archive/6.2.1.tar.gz',
     checksum='5edf8b0f32135ad5fafb3064de26d063571e95e8ae46829c2f4f4b52696bbff0',
     commands=CMakeInstall('-DBUILD_SHARED_LIBS=NO', '-DFMT_TEST=NO')
+)
+pkg(
+    name='freeimage',
+    source='https://downloads.sourceforge.net/project/freeimage/Source%20Distribution/3.18.0/FreeImage3180.zip',
+    checksum='f41379682f9ada94ea7b34fe86bf9ee00935a3147be41b6569c9605a53e438fd',
+    commands=Make(
+        'INCDIR=' + configuration.include_path,
+        'INSTALLDIR=' + configuration.lib_path,
+        'install'
+    )
 )
 pkg(
     name='freetype',
