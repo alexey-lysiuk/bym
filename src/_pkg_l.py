@@ -49,6 +49,12 @@ pkg(
     commands=Tool()
 )
 pkg(
+    name='lua',
+    source='https://www.lua.org/ftp/lua-5.3.5.tar.gz',
+    checksum='0c2eed3f960446e1a3e4b9a1ca2f3ff893b6ce41942cf54d5dd59ab4b3b058ac',
+    commands=Make('INSTALL_TOP=' + configuration.install_path, 'macosx', 'install')
+)
+pkg(
     name='luajit',
     source='https://luajit.org/download/LuaJIT-2.0.5.tar.gz',
     checksum='874b1f8297c697821f561f9b73b57ffd419ed8f4278c82e05b48806d30c1e979',
