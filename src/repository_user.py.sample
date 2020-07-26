@@ -16,16 +16,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import configuration
+from command import Make
 import repository
 
 
-def _force_old_glib():
-    # The last version of GLib that supports Mac OS X 10.7 Lion is 2.44.1
-    glib = repository.package('glib')
-    glib.source = 'https://download.gnome.org/sources/glib/2.44/glib-2.44.1.tar.xz'
-    glib.checksum = '8811deacaf8a503d0a9b701777ea079ca6a4277be10e3d730d2112735d5eca07'
+def _force_freeimage_sysroot():
+    sysroot_path = '/Volumes/Storage/Work/devbuilds/macos_sdk/MacOSX10.9.sdk'
+
+    freeimage = repository.package('freeimage')
+    freeimage.commands = Make(
+        'INCDIR=' + configuration.include_path,
+        'INSTALLDIR=' + configuration.lib_path,
+        'MACOSX_SYSROOT=' + sysroot_path,
+        'MACOSX_DEPLOYMENT_TARGET=10.9',
+    )
 
 
-_force_old_glib()
+_force_freeimage_sysroot()
 
-del _force_old_glib
+del _force_freeimage_sysroot
