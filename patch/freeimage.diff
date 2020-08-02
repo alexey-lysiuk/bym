@@ -1,5 +1,14 @@
 --- a/Makefile.osx
 +++ b/Makefile.osx
+@@ -15,7 +15,7 @@
+ CPP_I386 = $(shell xcrun -find clang++)
+ CPP_X86_64 = $(shell xcrun -find clang++)
+ MACOSX_DEPLOY = -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET)
+-COMPILERFLAGS = -Os -fexceptions -fvisibility=hidden -DNO_LCMS -D__ANSI__
++COMPILERFLAGS = -Os -fexceptions -fvisibility=hidden -DNO_LCMS -DDISABLE_PERF_MEASUREMENT -D__ANSI__
+ COMPILERFLAGS_I386 = -arch i386
+ COMPILERFLAGS_X86_64 = -arch x86_64
+ COMPILERPPFLAGS = -Wno-ctor-dtor-privacy -D__ANSI__ -std=c++11 -stdlib=libc++ -Wc++11-narrowing
 @@ -106,11 +106,9 @@
  	$(CPP_X86_64) $(CPPFLAGS_X86_64) -c $< -o $@
  
