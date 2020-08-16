@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import CMakeInstall
+from command import CMakeInstall, Library
 import configuration
 import repository
 
@@ -24,6 +24,12 @@ import repository
 pkg = repository.add_package
 
 
+pkg(
+    name='iconv',
+    source='https://ftp.gnu.org/gnu/libiconv/libiconv-1.16.tar.gz',
+    checksum='e6a1b1b589654277ee790cce3734f07876ac4ccfaecbee8afa0b649cf529cc04',
+    commands=Library('--enable-extra-encodings')
+)
 pkg(
     name='instpatch',
     source='https://github.com/swami/libinstpatch/archive/v1.1.5.tar.gz',
