@@ -35,6 +35,7 @@ pkg(
     # The latest stable version 1.2.15 has way too many bugs
     source='https://hg.libsdl.org/SDL/archive/ab7529cb9558.tar.bz2',
     checksum='5059e831b56fe43a08859d4696a4dcfc1be6a8e826e7a214e114cd7f14cbefd4',
+    dependencies='iconv',
     commands=(
         Autogen(),
         Library('--without-x')
@@ -90,6 +91,7 @@ pkg(
     name='sdl2',
     source='https://libsdl.org/release/SDL2-2.0.12.tar.gz',
     checksum='349268f695c02efbc9b9148a70b85e58cefbbf704abd3e91be654db7f1e2c863',
+    dependencies='iconv',
     commands=Library('--without-x')
 )
 pkg(
