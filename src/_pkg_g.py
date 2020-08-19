@@ -40,8 +40,8 @@ pkg(
 )
 pkg(
     name='gettext',
-    source='https://ftp.gnu.org/gnu/gettext/gettext-0.20.2.tar.xz',
-    checksum='b22b818e644c37f6e3d1643a1943c32c3a9bff726d601e53047d2682019ceaba',
+    source='https://ftp.gnu.org/gnu/gettext/gettext-0.21.tar.xz',
+    checksum='d20fcbb537e02dcf1383197ba05bd0734ef7bf5db06bdb241eb69b7d16b73192',
     commands=Library('--disable-java', '--disable-csharp')
 )
 pkg(
