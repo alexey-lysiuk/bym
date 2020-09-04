@@ -35,6 +35,19 @@ pkg(
     )
 )
 pkg(
+    name='pbzx',
+    source='https://github.com/NiklasRosenstein/pbzx/archive/v1.0.2.tar.gz',
+    checksum='33db3cf9dc70ae704e1bbfba52c984f4c6dbfd0cc4449fa16408910e22b4fd90',
+    dependencies='xz',
+    commands=Command(
+        'clang',
+        '-I' + configuration.include_path,
+        '-L' + configuration.lib_path, '-llzma', '-lxar',
+        'pbzx.c',
+        '-o', configuration.bin_path + '/pbzx'
+    )
+)
+pkg(
     name='pcre',
     source='https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.bz2',
     checksum='19108658b23b3ec5058edc9f66ac545ea19f9537234be1ec62b714c84399366d',
