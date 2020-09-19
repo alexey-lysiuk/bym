@@ -192,8 +192,8 @@ pkg(
 )
 pkg(
     name='sndfile',
-    source='https://github.com/erikd/libsndfile/releases/download/v1.0.29/libsndfile-1.0.29.tar.bz2',
-    checksum='2ba20d44817c8176f097ab25eff44ef0aeec9e00973def5a7174c5ae0764b22f',
+    source='https://github.com/erikd/libsndfile/releases/download/v1.0.30/libsndfile-1.0.30.tar.bz2',
+    checksum='ec898634766595438142c76cf3bdd46b77305d4a295dd16b29d024122d7a4b3f',
     dependencies=('ogg', 'vorbis', 'flac', 'opus'),
     commands=CMakeInstall('-DBUILD_REGTEST=NO')
 )
