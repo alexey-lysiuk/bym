@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Autogen, Make, CMakeInstall, Configure, Library
+from command import Autogen, Make, CMakeInstall, Configure, Library, Tool
 import configuration
 import repository
 
@@ -171,6 +171,15 @@ pkg(
     commands=(
         Configure(),
         Make('install-static')
+    )
+)
+pkg(
+    name='smartmontools',
+    source='https://downloads.sourceforge.net/project/smartmontools/smartmontools/7.1/smartmontools-7.1.tar.gz',
+    checksum='3f734d2c99deb1e4af62b25d944c6252de70ca64d766c4c7294545a2e659b846',
+    commands=Tool(
+        '--sbindir=' + configuration.bin_path,
+        '--with-nvme-devicescan',
     )
 )
 pkg(
