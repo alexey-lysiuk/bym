@@ -68,8 +68,8 @@ pkg(
 )
 pkg(
     name='freetype',
-    source='https://download.savannah.gnu.org/releases/freetype/freetype-2.10.1.tar.xz',
-    checksum='16dbfa488a21fe827dc27eaf708f42f7aa3bb997d745d31a19781628c36ba26f',
+    source='https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.xz',
+    checksum='86a854d8905b19698bbc8f23b860bc104246ce4854dcea8e3b0fb21284f75784',
     dependencies='png',
     commands=Library(
         '--enable-freetype-config',
