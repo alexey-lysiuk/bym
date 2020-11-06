@@ -45,8 +45,8 @@ pkg(
 )
 pkg(
     name='openssl',
-    source='https://www.openssl.org/source/openssl-1.1.1g.tar.gz',
-    checksum='ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46',
+    source='https://www.openssl.org/source/openssl-1.1.1h.tar.gz',
+    checksum='5c9ca8774bd7b03e5784f26ae9e9e6d749c9da2438545077e6b3d755a06595d9',
     commands=(
         Command('./Configure', 'no-shared', '--prefix=' + configuration.install_path, 'darwin64-x86_64-cc'),
         Install()
