@@ -39,8 +39,8 @@ pkg(
 )
 pkg(
     name='openal',
-    source='https://openal-soft.org/openal-releases/openal-soft-1.20.1.tar.bz2',
-    checksum='b6ceb051325732c23f5c8b6d37dbd89534517e6439a87e970882b447c3025d6d',
+    source='https://openal-soft.org/openal-releases/openal-soft-1.21.0.tar.bz2',
+    checksum='2916b4fc24e23b0271ce0b3468832ad8b6d8441b1830215b28cc4fee6cc89297',
     commands=CMakeInstall('-DLIBTYPE=STATIC')
 )
 pkg(
