@@ -26,8 +26,8 @@ pkg = repository.add_package
 
 pkg(
     name='nasm',
-    source='https://www.nasm.us/pub/nasm/releasebuilds/2.14.02/nasm-2.14.02.tar.xz',
-    checksum='e24ade3e928f7253aa8c14aa44726d1edf3f98643f87c9d72ec1df44b26be8f5',
+    source='https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.xz',
+    checksum='3caf6729c1073bf96629b57cee31eeb54f4f8129b01902c73428836550b30a3f',
     commands=Tool()
 )
 pkg(
