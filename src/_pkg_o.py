@@ -41,7 +41,10 @@ pkg(
     name='openal',
     source='https://openal-soft.org/openal-releases/openal-soft-1.21.0.tar.bz2',
     checksum='2916b4fc24e23b0271ce0b3468832ad8b6d8441b1830215b28cc4fee6cc89297',
-    commands=CMakeInstall('-DLIBTYPE=STATIC')
+    commands=CMakeInstall(
+        '-DLIBTYPE=STATIC',
+        '-DALSOFT_EXAMPLES=NO'
+    )
 )
 pkg(
     name='openssl',
