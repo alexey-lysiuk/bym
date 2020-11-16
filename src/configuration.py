@@ -18,6 +18,7 @@
 
 import argparse
 import os
+import platform
 import shlex
 import subprocess
 
@@ -40,6 +41,9 @@ _parser.add_argument('--cache-path', default=root_path + 'cache',
                      help='directory for downloaded source code packages')
 _parser.add_argument('--install-path', default=root_path + 'install',
                      help='installation directory also knows as prefix')
+
+_parser.add_argument('--arch', action='append', default=[],
+                     help='target architecture, can be specified more than once')
 
 _parser.add_argument('--make-exe', default='make',
                      help='path to make executable')
@@ -76,6 +80,13 @@ install_path = _arguments.install_path
 bin_path = install_path + '/bin'
 include_path = install_path + '/include'
 lib_path = install_path + '/lib'
+
+architectures = _arguments.arch
+
+if not architectures:
+    architectures.append(platform.machine())
+else:
+    architectures = list(set(architectures))
 
 make_executable = _arguments.make_exe
 make_arguments = tuple(shlex.split(_arguments.make_args))
