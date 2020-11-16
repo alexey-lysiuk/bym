@@ -146,7 +146,7 @@ class Package(object):
 
     def _download(self):
         try:
-            response = urllib.request.urlopen(self.source, context=_ssl_context)
+            response = urllib.request.urlopen(self.source)
         except (urllib.error.HTTPError, urllib.error.URLError):
             request = urllib.request.Request(self.source)
             request.add_header('User-Agent',
@@ -235,5 +235,3 @@ def _stripped_environment():
 
     return stripped_environment
 
-
-_ssl_context = ssl.create_default_context(cafile=configuration.src_path + 'cacert.pem')
