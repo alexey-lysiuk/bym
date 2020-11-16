@@ -1,6 +1,7 @@
 /.idea/
 /venv/
 /build/
+/cache/
 /install/
 /state/
 /src/*_user.py

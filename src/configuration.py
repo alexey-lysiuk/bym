@@ -36,6 +36,8 @@ _parser.add_argument('packages', metavar='package', nargs='+',
 
 _parser.add_argument('--build-path', default=root_path + 'build',
                      help='directory for source code and intermediate files')
+_parser.add_argument('--cache-path', default=root_path + 'cache',
+                     help='directory for downloaded source code packages')
 _parser.add_argument('--install-path', default=root_path + 'install',
                      help='installation directory also knows as prefix')
 
@@ -69,6 +71,7 @@ targets = _arguments.packages
 # Setup configuration options
 
 build_path = _arguments.build_path
+cache_path = _arguments.cache_path
 install_path = _arguments.install_path
 bin_path = install_path + '/bin'
 include_path = install_path + '/include'

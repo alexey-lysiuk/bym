@@ -73,6 +73,7 @@ def _main():
 
     # Prepare build directories
     _make_directory(configuration.state_path)
+    _make_directory(configuration.cache_path)
     _make_directory(configuration.build_path)
     _make_directory(configuration.bin_path)
     _make_directory(configuration.include_path)

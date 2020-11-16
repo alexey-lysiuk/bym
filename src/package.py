@@ -113,7 +113,7 @@ class Package(object):
 
     def _setup_workdir(self):
         assert not self._filename
-        self._filename = self.source.rsplit('/', 1)[1]
+        self._filename = configuration.cache_path + os.sep + self.source.rsplit('/', 1)[1]
 
         has_sources = os.path.exists(self._filename) \
             and _calculate_checksum(self._filename) == self.checksum
