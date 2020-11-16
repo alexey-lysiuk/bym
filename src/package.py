@@ -115,9 +115,10 @@ class Package(object):
         assert not self._filename
         self._filename = self.source.rsplit('/', 1)[1]
 
-        if os.path.exists(self._filename):
-            checksum = _calculate_checksum(self._filename)
-        else:
+        has_sources = os.path.exists(self._filename) \
+            and _calculate_checksum(self._filename) == self.checksum
+
+        if not has_sources:
             retry = 0
 
             while retry <= configuration.download_retries:
