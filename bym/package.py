@@ -20,13 +20,12 @@ import pickle
 import hashlib
 import os
 import shutil
-import ssl
 import subprocess
 import sys
 import urllib.error
 import urllib.request
 
-import configuration
+# import configuration
 import patch
 
 

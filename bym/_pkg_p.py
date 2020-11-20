@@ -16,9 +16,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Command, Make, Install, CMakeInstall, Library, Tool
-import configuration
-import repository
+from .command import Command, Make, Install, CMakeInstall, Library, Tool
+from . import configuration
+from . import repository
 
 
 pkg = repository.add_package

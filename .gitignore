@@ -4,6 +4,5 @@
 /cache/
 /install/
 /state/
-/src/*_user.py
 *.pyc
 install.zip

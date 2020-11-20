@@ -19,7 +19,7 @@
 import os
 import subprocess
 
-import configuration
+from . import configuration
 
 
 class Command(object):

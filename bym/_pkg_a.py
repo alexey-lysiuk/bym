@@ -16,8 +16,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from command import Library, Tool, CMakeInstall
-import repository
+from .command import Library, Tool, CMakeInstall
+from . import repository
 
 
 pkg = repository.add_package

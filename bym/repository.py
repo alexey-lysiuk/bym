@@ -18,8 +18,8 @@
 
 import os
 
-import configuration
-from package import Package
+# import configuration
+from .package import Package
 
 
 _packages = {}
