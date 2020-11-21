@@ -48,11 +48,13 @@ pkg(
     name='autoconf',
     source='https://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz',
     checksum='64ebcec9f8ac5b2487125a86a7760d2591ac9e1d3dbd59489633f9de62a57684',
-    commands=Tool()
+    commands=Tool(),
+    build_tool=True
 )
 pkg(
     name='automake',
     source='https://ftp.gnu.org/gnu/automake/automake-1.16.1.tar.xz',
     checksum='5d05bb38a23fd3312b10aea93840feec685bdf4a41146e78882848165d3ae921',
-    commands=Tool()
+    commands=Tool(),
+    build_tool=True
 )

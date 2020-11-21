@@ -29,8 +29,8 @@ def package(name):
     return _packages[name]
 
 
-def add_package(name, source, checksum, commands, dependencies=()):
-    _packages[name] = Package(name, source, checksum, commands, dependencies)
+def add_package(name, source, checksum, commands, dependencies=(), build_tool=False):
+    _packages[name] = Package(name, source, checksum, commands, dependencies, build_tool)
 
 
 def _load_packages():

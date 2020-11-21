@@ -19,6 +19,7 @@
 import pickle
 import hashlib
 import os
+import platform
 import shutil
 import subprocess
 import sys
@@ -79,17 +80,20 @@ class BuildState(object):
 
 
 class Package(object):
-    def __init__(self, name, source, checksum, commands, dependencies=()):
+    def __init__(self, name, source, checksum, commands, dependencies=(), build_tool=False):
         self.name = name
         self.source = source
         self.checksum = checksum
         self.commands = commands
         self.dependencies = dependencies
+        self.build_tool = build_tool
 
         self._filename = None
         self._work_path = None
 
     def build(self):
+        self._build_native()
+
         state = BuildState(self)
 
         if not configuration.force_build and state.uptodate():
@@ -109,6 +113,20 @@ class Package(object):
 
         self._work_path = None
         self._filename = None
+
+    def _build_native(self):
+        if not self.build_tool:
+            return
+
+        if platform.machine() == configuration.architecture:
+            return
+
+        # TODO: Build this package only, remove architecture argument
+        # TODO: This requires command line parsing
+        args = sys.argv
+        args.append('--arch=' + platform.machine())
+
+        subprocess.check_call(args)
 
     def _setup_workdir(self):
         assert not self._filename
