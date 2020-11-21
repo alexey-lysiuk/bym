@@ -27,9 +27,7 @@ from ordered_set import OrderedSet
 
 
 def _make_directory(path):
-    if not os.path.exists(path):
-        # todo: handle errors
-        os.makedirs(path)
+    os.makedirs(path, exist_ok=True)
 
 
 def _add_dependencies(target, packages):
