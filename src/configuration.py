@@ -86,6 +86,7 @@ build_path = _append_arch(_arguments.build_path)
 cache_path = _arguments.cache_path
 install_path = _append_arch(_arguments.install_path)
 bin_path = install_path + os.sep + 'bin'
+native_bin_path = bin_path.replace(architecture, platform.machine())
 include_path = install_path + os.sep + 'include'
 lib_path = install_path + os.sep + 'lib'
 state_path = _append_arch(root_path + 'state') + os.sep
@@ -184,7 +185,7 @@ _append_flags('LDFLAGS', extra_flags)
 
 _append_flags('CARGO_HOME', install_path + '/share/cargo')
 
-_prepend_path(bin_path)
+_prepend_path(native_bin_path)
 
 _cmake_dir = os.path.dirname(cmake_executable)
 
