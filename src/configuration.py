@@ -27,7 +27,6 @@ src_path = os.path.dirname(os.path.abspath(__file__)) + os.sep
 root_path = os.path.realpath(src_path + os.pardir) + os.sep
 
 patch_path = root_path + 'patch' + os.sep
-state_path = root_path + 'state' + os.sep
 
 # Parse command line
 
@@ -73,14 +72,23 @@ _arguments = _parser.parse_args()
 targets = _arguments.packages
 architecture = _arguments.arch
 
+
+def _append_arch(path: str) -> str:
+    if not path.endswith(os.sep):
+        path = path + os.sep
+
+    return path.endswith(architecture) and path or (path + architecture)
+
+
 # Setup configuration options
 
-build_path = _arguments.build_path
+build_path = _append_arch(_arguments.build_path)
 cache_path = _arguments.cache_path
-install_path = _arguments.install_path
-bin_path = install_path + '/bin'
-include_path = install_path + '/include'
-lib_path = install_path + '/lib'
+install_path = _append_arch(_arguments.install_path)
+bin_path = install_path + os.sep + 'bin'
+include_path = install_path + os.sep + 'include'
+lib_path = install_path + os.sep + 'lib'
+state_path = _append_arch(root_path + 'state') + os.sep
 
 
 make_executable = _arguments.make_exe
