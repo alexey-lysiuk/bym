@@ -177,11 +177,18 @@ environment_variables = _compilation_environment_variables + (
 
 for variable in _compilation_environment_variables:
     _append_flags(variable, '-I' + include_path)
+    _append_flags(variable, '-arch ' + architecture)
     _append_flags(variable, extra_flags)
 
-_append_flags('LDFLAGS', '-L' + lib_path)
-_append_flags('LDFLAGS', '-lc++ -lc++abi')
-_append_flags('LDFLAGS', extra_flags)
+_extra_linker_flags = (
+    '-L' + lib_path,
+    '-lc++ -lc++abi',
+    '-arch ' + architecture,
+    extra_flags
+)
+
+for flags in _extra_linker_flags:
+    _append_flags('LDFLAGS', flags)
 
 _append_flags('CARGO_HOME', install_path + '/share/cargo')
 
@@ -192,6 +199,7 @@ _cmake_dir = os.path.dirname(cmake_executable)
 if len(_cmake_dir) > 0:
     _prepend_path(_cmake_dir)
 
+cmake_arguments += ('-DCMAKE_OSX_ARCHITECTURES=' + architecture,)
 
 try:
     # noinspection PyUnresolvedReferences
