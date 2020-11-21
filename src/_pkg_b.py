@@ -17,6 +17,7 @@
 #
 
 from command import Install
+import configuration
 import repository
 
 
